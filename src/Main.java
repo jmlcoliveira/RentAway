@@ -81,14 +81,36 @@ public class Main {
                     break;
 
                 case HELP:
+                    processHelpCommand(in);
                     break;
-
-                case EXIT:
+                case UNKNOWN:
                     break;
 
             }
             command = getCommand(in);
         }
+    }
+
+    /**
+     * Command 2.2
+     * Outputs in the console all available commands except UNKNOWN command
+     *
+     * @param in input where the data will be read from
+     */
+    private static void processHelpCommand(Scanner in) {
+        in.nextLine();
+        for (Command c : Command.values()) {
+            if (!c.name().equals("UNKNOWN"))
+                System.out.printf(Success.HELP_IND, c.name().toLowerCase(), c.getDescription());
+        }
+    }
+
+    /**
+     * Command 2.1
+     * Outputs in the console a goodbye message
+     */
+    private static void processExitCommand() {
+        System.out.println(Success.EXIT);
     }
 
     /**
