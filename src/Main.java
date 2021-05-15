@@ -1,5 +1,6 @@
 import commands.Command;
 import database.*;
+import output.*;
 
 import java.util.Scanner;
 
@@ -89,6 +90,7 @@ public class Main {
             }
             command = getCommand(in);
         }
+        processExitCommand();
     }
 
     /**
