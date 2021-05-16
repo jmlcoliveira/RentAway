@@ -1,6 +1,6 @@
 import commands.Command;
 import database.*;
-import outputMessages.*;
+import outputmessages.*;
 
 import java.util.Scanner;
 

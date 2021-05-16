@@ -1,4 +1,4 @@
-package outputMessages;
+package outputmessages;
 
 public abstract class Success {
 
