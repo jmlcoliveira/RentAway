@@ -10,4 +10,8 @@ public class PrivateRoomClass extends PropertyClass implements PrivateRoom{
     public PrivateRoomClass(String identifier, String location, Host host, int capacity, int price) {
         super(identifier, location, host, capacity, price);
     }
+
+    public PropertyType type() {
+        return PropertyType.PRIVATE_ROOM;
+    }
 }

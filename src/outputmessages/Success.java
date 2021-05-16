@@ -6,9 +6,12 @@ public abstract class Success {
     public static final String HELP_IND = "%s - %s\n";
 
     //Users
-    public static final String USER_ADDED = "User %s was registered as %s";
+    public static final String USER_ADDED = "User %s was registered as %s.\n";
     public static final String USERS_LIST = "All registered users:";
-    public static final String USER_LISTED = "%s: %s from %s with email %s [%s has %d proprieties]";
+    public static final String USER_LISTED_HOST = "%s: %s from %s with email %s [host user has " +
+            "%d proprieties]\n";
+    public static final String USER_LISTED_GUEST ="%s: %s from %s with email %s [guest user has " +
+            "%d bookings]\n";
 
     //Properties
     public static final String PROPERTY_ADDED = "Property %s was added to %s %s";
