@@ -16,4 +16,32 @@ public class GuestClass extends UserClassAbs implements Guest{
     public int numOfBookings() {
         return bookings.size();
     }
+
+    public int getBookingsTotal() {
+        return 0;
+    }
+
+    public int getRequestedBookings() {
+        return 0;
+    }
+
+    public int getConfirmedBookings() {
+        return 0;
+    }
+
+    public int getRejectedBookings() {
+        return 0;
+    }
+
+    public int getCancelledBookings() {
+        return 0;
+    }
+
+    public int getPaidBookings() {
+        return 0;
+    }
+
+    public double getTotalAmountPaid() {
+        return 0;
+    }
 }

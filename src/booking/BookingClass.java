@@ -4,6 +4,7 @@ import property.Property;
 import review.Review;
 import users.Guest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class BookingClass implements Booking{
@@ -12,11 +13,11 @@ public class BookingClass implements Booking{
     private final Property property;
     private Review review;
     private int numberOfGuests;
-    private LocalDateTime arrivalDate, departureDate;
+    private LocalDate arrivalDate, departureDate;
     private BookingState state;
 
     public BookingClass(String identifier, Guest guest, Property property, int numberOfGuests,
-                        LocalDateTime arrivalDate, LocalDateTime departureDate){
+                        LocalDate arrivalDate, LocalDate departureDate){
         this.identifier = identifier;
         this.guest = guest;
         this.property = property;
@@ -28,5 +29,41 @@ public class BookingClass implements Booking{
 
     public String getIdentifier() {
         return identifier;
+    }
+
+    public String getPropertyID() {
+        return property.getIdentifier();
+    }
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public int getNumberOfGuests() {
+        return numberOfGuests;
+    }
+
+    public double getPrice() {
+        return property.getPrice()*(departureDate.compareTo(arrivalDate));
+    }
+
+    public BookingState getState() {
+        return state;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public LocalDate getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public boolean isPaid() {
+        return (state == BookingState.PAID || state == BookingState.REVIEWED);
     }
 }

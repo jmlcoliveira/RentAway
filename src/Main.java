@@ -2,14 +2,11 @@ import commands.Command;
 import database.*;
 import exceptions.*;
 import outputmessages.*;
-import property.Property;
-import property.PropertyType;
-import users.Guest;
-import users.Host;
-import users.User;
-import users.UserType;
+import property.*;
+import users.*;
 import booking.Booking;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -19,6 +16,8 @@ import java.util.Scanner;
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class Main {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Main method where Scanner and Database are initialized
@@ -157,7 +156,45 @@ public class Main {
         }
     }
 
+    /**
+     * 2.14
+     * @param in
+     * @param db
+     */
     private static void processGuest(Scanner in, Database db) {
+        String guestID = in.nextLine().trim();
+        try{
+            Guest g = db.getGuest(guestID);
+            System.out.printf(Success.GUEST_BOOKING_LIST,
+                    guestID,
+                    g.getBookingsTotal(),
+                    g.getRequestedBookings(),
+                    g.getConfirmedBookings(),
+                    g.getRejectedBookings(),
+                    g.getCancelledBookings(),
+                    g.getPaidBookings(),
+                    g.getTotalAmountPaid()
+            );
+
+            Iterator<Booking> it = g.iteratorBookings();
+            while (it.hasNext()){
+                Booking b = it.next();
+                Property p = b.getProperty();
+                System.out.printf(Success.GUEST_BOOKINGS_LISTED,
+                        b.getIdentifier(),
+                        p.getIdentifier(),
+                        p.getLocation(),
+                        p.getType().getTypeValue(),
+                        b.getArrivalDate().format(formatter),
+                        b.getDepartureDate().format(formatter),
+                        b.getNumberOfGuests(),
+                        b.getState().getStateValue(),
+                        b.isPaid() ? b.getPrice() : 0.00
+                        );
+            }
+        } catch (GuestHasNoBookingsException | InvalidUserTypeException | UserDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -190,7 +227,23 @@ public class Main {
 
     }
 
+    /**
+     * 2.12
+     * @param in
+     * @param db
+     */
     private static void processReview(Scanner in, Database db) {
+        String bookingID = in.next().trim();
+        String userID = in.nextLine().trim();
+        String review = in.nextLine();
+        String classification = in.nextLine();
+
+        try{
+            db.addReview(bookingID, userID, review, classification);
+            System.out.printf(Success.REVIEW_REGISTER, bookingID);
+        } catch (UserNotAllowedToReview | BookingAlreadyReviewedException | CannotReviewBookingException | UserDoesNotExistException | BookingDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -223,7 +276,26 @@ public class Main {
 
     }
 
+    /**
+     * 2.10
+     * @param in
+     * @param db
+     */
     private static void processRejections(Scanner in, Database db) {
+        String userID = in.next().trim();
+        in.nextLine();
+        try {
+            Iterator<booking.Booking> it = db.iteratorRejections(userID);
+            System.out.printf(Success.BOOKINGS_REJECTED_LIST, userID);
+            while (it.hasNext()) {
+                booking.Booking b = it.next();
+                User guest = b.getGuest();
+                System.out.printf(Success.BOOKING_REJECTED_LISTED, b.getIdentifier(),
+                        b.getPropertyID(), guest.getIdentifier(), guest.getNationality(), b.getNumberOfGuests());
+            }
+        } catch (UserHasNoBookingsException | InvalidUserTypeException | UserDoesNotExistException | HostHasNotRejectedBookingsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
@@ -248,6 +320,7 @@ public class Main {
 
     /**
      * 2.8
+     *
      * @param in
      * @param db
      */
@@ -256,13 +329,14 @@ public class Main {
         String userID = in.next().trim();
         try {
             db.confirmBooking(bookingID, userID);
-        } catch (BookingNotInRequestedStateException | UserDoesNotExistException | BookingDoesNotExistException | UserNotAllowedToConfirmBookingException e) {
+        } catch (CannotConfirmBookingException | UserDoesNotExistException | BookingDoesNotExistException | UserNotAllowedToConfirmBookingException e) {
             System.out.println(e.getMessage());
         }
     }
 
     /**
      * 2.7
+     *
      * @param in
      * @param db
      */
@@ -275,19 +349,18 @@ public class Main {
         in.next();
 
         try {
-            Booking book = db.addBooking(userID,propertyID,arrival,departure,numGuests);
+            booking.Booking book = db.addBooking(userID, propertyID, arrival, departure, numGuests);
             System.out.printf(Success.BOOKING_REGISTER, book.getIdentifier());
 
-        } catch(UserDoesNotExistException | InvalidUserTypeException |
+        } catch (UserDoesNotExistException | InvalidUserTypeException |
                 NumGuestsExceedsCapacityException | InvalidBookingDatesException e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 
     /**
      * 2.6
+     *
      * @param in
      * @param db
      */
@@ -308,7 +381,6 @@ public class Main {
         } catch (UserDoesNotExistException | InvalidUserTypeException | NoPropertiesRegisteredException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     /**
@@ -335,7 +407,7 @@ public class Main {
         }
     }
 
-    private static void addPrivateRoom(Scanner in, Database db) throws UserDoesNotExistException{
+    private static void addPrivateRoom(Scanner in, Database db) throws UserDoesNotExistException {
         String propertyID = in.next().trim();
         String userID = in.next().trim();
         in.nextLine();
@@ -345,7 +417,7 @@ public class Main {
         in.nextLine();
         int amenities = in.nextInt();
         int count = 0;
-        try{
+        try {
             db.addPrivateRoom(propertyID, userID, location, capacity, price, amenities);
             System.out.printf(Success.PROPERTY_ADDED, propertyID, userID);
             while (count < amenities) {
@@ -353,8 +425,7 @@ public class Main {
                 db.addAmenity(propertyID, amenity);
                 count++;
             }
-        }
-        catch (PropertyAlreadyExistException e){
+        } catch (PropertyAlreadyExistException e) {
             while (count < amenities) {
                 in.nextLine();
                 count++;
@@ -497,7 +568,7 @@ public class Main {
     private static PropertyType getPropertyType(Scanner in) {
         String propertyType = in.nextLine().trim();
         for (PropertyType p : PropertyType.values())
-            if (p.getType().equalsIgnoreCase(propertyType))
+            if (p.getTypeValue().equalsIgnoreCase(propertyType))
                 return p;
         return PropertyType.UNKNOWN;
     }

@@ -1,6 +1,6 @@
 package users;
 
-public interface User {
+public interface User{
 
     String getIdentifier();
 

@@ -1,6 +1,6 @@
 package property;
 
-public interface Property {
+public interface Property extends Comparable<Property> {
 
     PropertyType type();
 
