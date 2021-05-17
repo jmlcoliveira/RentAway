@@ -14,28 +14,28 @@ public abstract class Success {
             "%d bookings]\n";
 
     //Properties
-    public static final String PROPERTY_ADDED = "Property %s was added to %s %s";
-    public static final String PROPERTIES_LIST = "Properties of %s %s";
-    public static final String PROPERTY_LISTED = "%s: %s [%s %d %d]";
+    public static final String PROPERTY_ADDED = "Property %s was added to host %s.\n";
+    public static final String PROPERTIES_LIST = "Properties of host %s:\n";
+    public static final String PROPERTY_LISTED = "%s: %s %d %d [%s %d %d]\n";
 
-    //Bookings
-    public static final String BOOK = "Booking %s-%d was confirmed";
-    public static final String BOOKING_CONFIRM = "Booking %s-%d was confirmed";
-    public static final String BOOKING_REJECT = "Booking %s-%d was rejected";
-    public static final String BOOKING_NO_REJECTIONS = "%s %s has not rejected any bookings.";
-    public static final String BOOKINGS_REJECTED_LIST = "Bookings rejected by %s %s";
-    public static final String BOOKING_REJECTED_LISTED = "%s-%d: %s; %s; %s; %d";
-    public static final String BOOKING_PAID = "Booking %s-%d was paid: %f";
-    public static final String BOOKING_CANCELLED = "Booking %s-%d was cancelled.";
-    public static final String BOOKING_REJECTED = "Booking %s-%d was rejected";
+    //Book
+    public static final String BOOKING_REGISTER = "Booking %s was registered.\n";
+    public static final String BOOKING_CONFIRM = "Booking %s was confirmed.\n";
+    public static final String BOOKING_REJECT = "Booking %s was rejected.\n";
+    public static final String BOOKING_NO_REJECTIONS = "%s %s has not rejected any bookings.\n";
+    public static final String BOOKINGS_REJECTED_LIST = "Bookings rejected by %s %s\n";
+    public static final String BOOKING_REJECTED_LISTED = "%s-%d: %s; %s; %s; %d\n";
+    public static final String BOOKING_PAID = "Booking %s was paid: %f\n";
+    public static final String BOOKING_CANCELLED = "Booking %s was cancelled.\n";
+    public static final String BOOKING_REJECTED = "Booking %s was rejected\n";
 
     //Reviews
-    public static final String REVIEW_REGISTER = "Review for %s-%d was registered.";
+    public static final String REVIEW_REGISTER = "Review for %s was registered.\n";
 
     //Hosts
-    public static final String HOST_NO_PROPERTIES = "Host %s has no registered properties";
-    public static final String HOST_PROPERTIES_LIST = "Properties of host %s: %d; %d, %f; %f";
-    public static final String HOST_PROPERTIES_LISTED = "%s: %d; %d, %f; %f";
+    public static final String HOST_NO_PROPERTIES = "Host %s has no registered properties\n";
+    public static final String HOST_PROPERTIES_LIST = "Properties of host %s: %d; %d, %f; %f\n";
+    public static final String HOST_PROPERTIES_LISTED = "%s: %d; %d, %f; %f\n";
 
     //Guests
 

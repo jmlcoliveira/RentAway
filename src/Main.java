@@ -1,6 +1,14 @@
 import commands.Command;
 import database.*;
+import exceptions.*;
 import outputmessages.*;
+import property.Property;
+import property.PropertyType;
+import users.Guest;
+import users.Host;
+import users.User;
+import users.UserType;
+import booking.Booking;
 
 import java.util.Iterator;
 import java.util.Scanner;
