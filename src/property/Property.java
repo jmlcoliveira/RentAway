@@ -12,7 +12,15 @@ public interface Property {
 
     int getPrice();
 
-    int bookingCount();
+    int getBookingCount();
 
-    int reviewCount();
+    int getPaidBookingCount();
+
+    int getReviewCount();
+
+    double getAverageRating();
+
+    double getTotalPayment();
+
+    PropertyType getType();
 }

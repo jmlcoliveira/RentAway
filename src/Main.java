@@ -109,29 +109,141 @@ public class Main {
     private static void processBest(Scanner in, Database db) {
     }
 
+    /**
+     * 2.16
+     * @param in
+     * @param db
+     */
     private static void processSearch(Scanner in, Database db) {
+        String location = in.nextLine().trim();
+        int numGuests = in.nextInt();
+
+        try {
+            Iterator<Property> it = db.iteratorPropertiesByLocation(location, numGuests);
+            System.out.printf(Success.PROPERTY_IN_LOCATION_LIST, location);
+
+            while(it.hasNext()) {
+                Property next = it.next();
+                System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
+                        next.getAverageRating(), next.getTotalPayment(), next.getCapacity(),
+                        next.getType().getTypeValue());
+            }
+        } catch (NoPropertyInLocationException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
+    /**
+     * 2.15
+     * @param in
+     * @param db
+     */
     private static void processStays(Scanner in, Database db) {
+        String propertyID = in.next().trim();
+
+        try {
+            Iterator<Booking> it = db.iteratorStaysAtProperty(propertyID);
+
+            System.out.printf(Success.PROPERTY_LIST_STAY, propertyID);
+            while(it.hasNext()) {
+                Booking next = it.next();
+                System.out.printf(Success.PROPERTY_LISTED_STAY, next.getIdentifier(),
+                        next.getArrivalDate().format(formatter), next.getDepartureDate().format(formatter),
+                        next.getGuest().getIdentifier(), next.getGuest().getNationality(),
+                        next.getNumberOfGuests(), next.getPrice());
+            }
+        } catch (PropertyHasNoStaysException | PropertyDoesNotExistException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void processGuest(Scanner in, Database db) {
     }
 
+    /**
+     * 2.13
+     * @param in
+     * @param db
+     */
     private static void processHost(Scanner in, Database db) {
+        String hostID = in.next();
+
+        try{
+            Host host = db.getHost(hostID);
+            System.out.printf(Success.HOST_PROPERTIES_LIST, host.getIdentifier(),
+                    host.numOfBookings(), host.totalPropertiesPaid(), host.averageRating(),
+                    host.getTotalPayment());
+
+            Iterator<Property> it = db.iteratorPropertiesByHost(hostID);
+
+            while(it.hasNext()) {
+                Property next = it.next();
+                System.out.printf(Success.HOST_PROPERTIES_LISTED, next.getIdentifier(),
+                        next.getBookingCount(), next.getPaidBookingCount(),
+                        next.getAverageRating(), next.getTotalPayment());
+            }
+
+        } catch (HostHasNoPropertiesException | UserDoesNotExistException |
+                InvalidUserTypeException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private static void processReview(Scanner in, Database db) {
     }
 
+    /**
+     * 2.11
+     *
+     * @param in
+     * @param db
+     */
     private static void processPay(Scanner in, Database db) {
+        String bookingID = in.next().trim();
+        String userID = in.next().trim();
+
+        try {
+            Booking paidBook = db.pay(bookingID, userID);
+            /*int i = a.lastIndexOf('-');
+            a = a.substring(0, i);*/
+            System.out.printf(Success.BOOKING_PAID, paidBook.getIdentifier(), paidBook.getPrice());
+
+            Iterator<Booking> it = db.iteratorBookingByDates(bookingID, userID);
+
+            while(it.hasNext()) {
+                Booking next = it.next();
+
+                System.out.printf(Success.BOOKING_PAID_CANCEL, next.getIdentifier(),
+                        next.getState().getStateValue());
+            }
+        } catch (BookingDoesNotExistException | UserDoesNotExistException | UserNotGuestOfBookingException
+                | CannotConfirmBookingException e) {
+        }
+
     }
 
     private static void processRejections(Scanner in, Database db) {
     }
 
 
+    /**
+     * 2.9
+     *
+     * @param in
+     * @param db
+     */
     private static void processReject(Scanner in, Database db) {
+        String bookingID = in.next().trim();
+        String userID = in.next().trim();
+
+        try {
+            booking.Booking book = db.rejectBooking(bookingID, userID);
+            System.out.printf(Success.BOOKING_REJECT, book.getIdentifier());
+        } catch (BookingDoesNotExistException | UserDoesNotExistException |
+                UserNotAllowedToConfirmBookingException | CannotConfirmBookingException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -185,12 +297,12 @@ public class Main {
         try {
             Iterator<Property> it = db.iteratorProperties(id);
 
-            System.out.printf(Success.PROPERTIES_LIST, id);
+            System.out.printf(Success.PROPERTY_HOST_LIST, id);
             while (it.hasNext()) {
                 Property next = it.next();
-                System.out.printf(Success.PROPERTY_LISTED, next.getIdentifier(),
+                System.out.printf(Success.PROPERTY_HOST_LISTED, next.getIdentifier(),
                         next.getLocation(), next.getCapacity(), next.getPrice(), next.type(),
-                        next.bookingCount(), next.reviewCount());
+                        next.getBookingCount(), next.getReviewCount());
             }
 
         } catch (UserDoesNotExistException | InvalidUserTypeException | NoPropertiesRegisteredException e) {

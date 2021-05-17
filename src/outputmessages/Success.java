@@ -15,8 +15,12 @@ public abstract class Success {
 
     //Properties
     public static final String PROPERTY_ADDED = "Property %s was added to host %s.\n";
-    public static final String PROPERTIES_LIST = "Properties of host %s:\n";
-    public static final String PROPERTY_LISTED = "%s: %s %d %d [%s %d %d]\n";
+    public static final String PROPERTY_HOST_LIST = "Properties of host %s:\n";
+    public static final String PROPERTY_HOST_LISTED = "%s: %s %d %d [%s %d %d]\n";
+    public static final String PROPERTY_LIST_STAY = "Property %s stays:";
+    public static final String PROPERTY_LISTED_STAY = "%s: %s; %s; %s; %s; %d; %.2f\n";
+    public static final String PROPERTY_IN_LOCATION_LIST = "Properties in %s:";
+    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %f; %.2f; %d; %s";
 
     //Book
     public static final String BOOKING_REGISTER = "Booking %s was registered.\n";
@@ -26,8 +30,7 @@ public abstract class Success {
     public static final String BOOKINGS_REJECTED_LIST = "Bookings rejected by %s %s\n";
     public static final String BOOKING_REJECTED_LISTED = "%s-%d: %s; %s; %s; %d\n";
     public static final String BOOKING_PAID = "Booking %s was paid: %f\n";
-    public static final String BOOKING_CANCELLED = "Booking %s was cancelled.\n";
-    public static final String BOOKING_REJECTED = "Booking %s was rejected\n";
+    public static final String BOOKING_PAID_CANCEL = "Booking %s was %s.\n";
 
     //Reviews
     public static final String REVIEW_REGISTER = "Review for %s was registered.\n";
