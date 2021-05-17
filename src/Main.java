@@ -183,7 +183,7 @@ public class Main {
         String id = in.next().trim();
 
         try {
-            Iterator<Property> it = db.propertyIt(id);
+            Iterator<Property> it = db.iteratorProperties(id);
 
             System.out.printf(Success.PROPERTIES_LIST, id);
             while (it.hasNext()) {

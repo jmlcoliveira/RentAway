@@ -1,6 +1,6 @@
 package users;
 
-public abstract class UserClassAbs implements User, Comparable<User>{
+public abstract class UserClassAbs implements User{
     private final String identifier;
     private final String name;
     private final String nationality;
@@ -15,11 +15,6 @@ public abstract class UserClassAbs implements User, Comparable<User>{
 
     public final String getNationality() {
         return nationality;
-    }
-
-    @Override
-    public int compareTo(User o){
-        return getIdentifier().compareTo(o.getIdentifier());
     }
 
     public final String getName() {

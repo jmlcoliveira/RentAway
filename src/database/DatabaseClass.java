@@ -1,38 +1,49 @@
 package database;
 
-import booking.Booking;
+import booking.*;
 import exceptions.*;
-import property.Property;
-import users.GuestClass;
-import users.HostClass;
-import users.User;
+import property.*;
+import users.*;
 
 import java.util.Iterator;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public class DatabaseClass implements Database{
+public class DatabaseClass implements Database {
 
     SortedMap<String, User> users;
 
-    public DatabaseClass(){
+    public DatabaseClass() {
         users = new TreeMap<>();
     }
 
     public Iterator<User> iteratorUsers() throws NoUsersRegisteredException {
+        if (users.isEmpty()) throw new NoUsersRegisteredException();
         return users.values().iterator();
     }
 
-    public Iterator<Property> propertyIt(String id) throws UserDoesNotExistException, InvalidUserTypeException, NoPropertiesRegisteredException {
+    public Iterator<Property> iteratorProperties(String id) throws UserDoesNotExistException, InvalidUserTypeException, NoPropertiesRegisteredException {
+        User user = getUser(id);
+        if(user instanceof Guest) throw new InvalidUserTypeException(id, "guest");
         return null;
     }
 
     public void addGuest(String identifier, String name, String nationality, String email) throws UserAlreadyExistException {
-        users.put(identifier, new GuestClass(identifier, name, nationality, email));
+        try {
+            getUser(identifier);
+            throw new UserAlreadyExistException(identifier);
+        } catch (UserDoesNotExistException e) {
+            users.put(identifier, new GuestClass(identifier, name, nationality, email));
+        }
     }
 
     public void addHost(String identifier, String name, String nationality, String email) throws UserAlreadyExistException {
-        users.put(identifier, new HostClass(identifier, name, nationality, email));
+        try {
+            getUser(identifier);
+            throw new UserAlreadyExistException(identifier);
+        } catch (UserDoesNotExistException e) {
+            users.put(identifier, new HostClass(identifier, name, nationality, email));
+        }
     }
 
     public void addEntirePlace(String propertyID, String userID, String location, int capacity, int price, int numberOfRooms, String placeType) throws UserDoesNotExistException, PropertyAlreadyExistException {
@@ -53,5 +64,11 @@ public class DatabaseClass implements Database{
 
     public Booking addBooking(String userID, String propertyID, String arrival, String departure, int numGuests) throws UserDoesNotExistException, InvalidUserTypeException, NumGuestsExceedsCapacityException, InvalidBookingDatesException {
         return null;
+    }
+
+    private User getUser(String identifier) throws UserDoesNotExistException {
+        User user = users.get(identifier);
+        if (user == null) throw new UserDoesNotExistException(identifier);
+        return user;
     }
 }

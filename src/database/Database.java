@@ -11,7 +11,7 @@ public interface Database {
 
     Iterator<User> iteratorUsers() throws NoUsersRegisteredException;
 
-    Iterator<Property> propertyIt(String id) throws UserDoesNotExistException,
+    Iterator<Property> iteratorProperties(String id) throws UserDoesNotExistException,
             InvalidUserTypeException,
             NoPropertiesRegisteredException;
 
