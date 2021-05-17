@@ -13,7 +13,6 @@ public abstract class UserClassAbs implements User, Comparable<User>{
         this.email = email;
     }
 
-
     public final String getNationality() {
         return nationality;
     }
@@ -22,7 +21,6 @@ public abstract class UserClassAbs implements User, Comparable<User>{
     public int compareTo(User o){
         return getIdentifier().compareTo(o.getIdentifier());
     }
-
 
     public final String getName() {
         return name;
