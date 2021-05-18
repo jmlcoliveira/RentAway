@@ -39,11 +39,13 @@ public class DatabaseClass implements Database {
         users.put(identifier, new HostClass(identifier, name, nationality, email));
     }
 
-    public void addEntirePlace(String propertyID, String userID, String location, int capacity, int price, int numberOfRooms, String placeType) throws UserDoesNotExistException, PropertyAlreadyExistException {
-
+    public void addEntirePlace(String propertyID, String userID, String location, int capacity, int price, int numberOfRooms, String placeType) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
+        User user = getUser((userID));
+        if(user == null) throw new UserDoesNotExistException(userID);
+        if(!(user instanceof Host)) throw new
     }
 
-    public void addPrivateRoom(String propertyID, String userID, String location, int capacity, int price, int amenities) throws UserDoesNotExistException, PropertyAlreadyExistException {
+    public void addPrivateRoom(String propertyID, String userID, String location, int capacity, int price, int amenities) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
 
     }
 
@@ -55,7 +57,7 @@ public class DatabaseClass implements Database {
 
     }
 
-    public Booking addBooking(String userID, String propertyID, String arrival, String departure, int numGuests) throws UserDoesNotExistException, InvalidUserTypeException, NumGuestsExceedsCapacityException, InvalidBookingDatesException {
+    public Booking addBooking(String userID, String propertyID, String arrival, String departure, int numGuests) throws UserDoesNotExistException, InvalidUserTypeException, NumGuestsExceedsCapacityException, InvalidBookingDatesException, PropertyIdDoesNotExistException {
         return null;
     }
 
@@ -77,6 +79,34 @@ public class DatabaseClass implements Database {
 
     public void addReview(String bookingID, String userID, String review, String classification) throws BookingDoesNotExistException, UserDoesNotExistException, UserNotAllowedToReview, CannotReviewBookingException, BookingAlreadyReviewedException {
 
+    }
+
+    public Host getHost(String hostID) throws HostHasNoPropertiesException, UserDoesNotExistException, InvalidUserTypeException {
+        return null;
+    }
+
+    public Guest getGuest(String guestID) throws GuestHasNoBookingsException, UserDoesNotExistException, InvalidUserTypeException {
+        return null;
+    }
+
+    public Iterator<Property> iteratorPropertiesByHost(String hostID) {
+        return null;
+    }
+
+    public Iterator<Booking> iteratorStaysAtProperty(String propertyID) throws PropertyHasNoStaysException, PropertyDoesNotExistException {
+        return null;
+    }
+
+    public Iterator<Property> iteratorPropertiesByGuest(String location, int numGuests) throws NoPropertyInLocationException {
+        return null;
+    }
+
+    public Iterator<Property> iteratorPropertiesByAverage(String location) throws NoPropertyInLocationException {
+        return null;
+    }
+
+    public Guest getGlobalTrotter() throws NoGlobalTrotterException {
+        return null;
     }
 
     private User getUser(String identifier) {

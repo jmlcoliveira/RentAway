@@ -2,10 +2,7 @@ package users;
 
 import exceptions.NoPropertiesRegisteredException;
 import property.Property;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class HostClass extends UserClassAbs implements Host {
     private List<Property> properties;
@@ -19,7 +16,16 @@ public class HostClass extends UserClassAbs implements Host {
         return properties.size();
     }
 
+    public int totalPropertiesPaid() {
+        return 0;
+    }
+
+    public double averageRating() {
+        return 0;
+    }
+
     public Iterator<Property> propertyIt() throws NoPropertiesRegisteredException {
+        if(properties.size() == 0) throw new NoPropertiesRegisteredException(getName());
         return properties.iterator();
     }
 

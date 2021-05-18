@@ -1,20 +1,19 @@
 package users;
 
 import booking.Booking;
+import booking.BookingClass;
+import booking.BookingState;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class GuestClass extends UserClassAbs implements Guest{
-    private List<Booking> bookings;
+public class GuestClass extends UserClassAbs implements Guest {
+    private final List<Booking> bookings;
+    private final Set<String> visitedLocations;
 
     public GuestClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
         bookings = new ArrayList<>();
-    }
-
-    public int numOfBookings() {
-        return bookings.size();
+        visitedLocations = new HashSet<>();
     }
 
     public int getBookingsTotal() {
@@ -22,26 +21,46 @@ public class GuestClass extends UserClassAbs implements Guest{
     }
 
     public int getRequestedBookings() {
-        return 0;
+        return getBookingsCountByState(BookingState.REQUESTED);
     }
 
     public int getConfirmedBookings() {
-        return 0;
+        return getBookingsCountByState(BookingState.CONFIRMED);
     }
 
     public int getRejectedBookings() {
-        return 0;
+        return getBookingsCountByState(BookingState.REJECTED);
     }
 
     public int getCancelledBookings() {
-        return 0;
+        return getBookingsCountByState(BookingState.CANCELLED);
     }
 
     public int getPaidBookings() {
-        return 0;
+        return getBookingsCountByState(BookingState.PAID) + getBookingsCountByState(BookingState.REVIEWED);
     }
 
     public double getTotalAmountPaid() {
-        return 0;
+        double amount = 0.0;
+        for (Booking b : bookings)
+            if (b.isPaid())
+                amount += b.getPrice();
+        return amount;
+    }
+
+    public int getVisitedLocations() {
+        return visitedLocations.size();
+    }
+
+    private int getBookingsCountByState(BookingState bs) {
+        int count = 0;
+        for (Booking b : bookings)
+            if (b.getState() == bs)
+                count++;
+        return count;
+    }
+
+    public Iterator<Booking> iteratorBookings() {
+        return bookings.iterator();
     }
 }

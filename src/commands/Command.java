@@ -11,7 +11,6 @@ public enum Command {
     REJECTIONS("lists all rejected bookings by a host"),
     PAY("lists all rejected bookings by a host"),
     REVIEW("adds a review to a stay"),
-    HOST("list statistical information about a host"),
     GUEST("guest pays for a booking"),
     STAYS("list all stays of a property"),
     SEARCH("lists all properties in a location over a given capacity"),
