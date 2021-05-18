@@ -22,4 +22,12 @@ public class HostClass extends UserClassAbs implements Host {
     public Iterator<Property> propertyIt() throws NoPropertiesRegisteredException {
         return properties.iterator();
     }
+
+    public double getTotalPayment() {
+        double sumPay = 0;
+
+        for (Property property : properties) {
+            sumPay += property.getTotalPayment();
+        }
+    }
 }

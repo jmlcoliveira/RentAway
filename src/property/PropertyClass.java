@@ -1,6 +1,7 @@
 package property;
 
 import booking.Booking;
+import booking.BookingState;
 import review.Review;
 import users.Host;
 import java.util.List;
@@ -56,6 +57,19 @@ public abstract class PropertyClass implements Property {
     @Override
     public int compareTo(Property p){
         return getIdentifier().compareTo(p.getIdentifier());
+    }
+
+    @Override
+    public double getTotalPayment() {
+        double sumPay = 0;
+
+        for(Booking booking : bookingList) {
+            BookingState nextState = booking.getState();
+
+            if(nextState.equals(BookingState.CONFIRMED) || nextState.equals(BookingState.PAID))
+                sumPay += booking.getPrice();
+        }
+        return sumPay;
     }
 }
 

@@ -105,7 +105,31 @@ public class Main {
     private static void processGlobalTrotter(Scanner in, Database db) {
     }
 
+    /**
+     * 2.16
+     *
+     * @param in
+     * @param db
+     */
     private static void processBest(Scanner in, Database db) {
+        String location = in.next();
+
+        try {
+            Iterator<Property> it = db.iteratorPropertiesByAverage(location);
+
+            System.out.println(Success.PROPERTY_BEST_IN_LOCATION_LIST);
+            while (it.hasNext()) {
+                Property next = it.next();
+                System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
+                        next.getAverageRating(), next.getCapacity(), next.getPrice(),
+                        next.getType().getTypeValue());
+            }
+
+        } catch (NoPropertyInLocationException e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
 
     /**
@@ -118,7 +142,7 @@ public class Main {
         int numGuests = in.nextInt();
 
         try {
-            Iterator<Property> it = db.iteratorPropertiesByLocation(location, numGuests);
+            Iterator<Property> it = db.iteratorPropertiesByGuest(location, numGuests);
             System.out.printf(Success.PROPERTY_IN_LOCATION_LIST, location);
 
             while(it.hasNext()) {
@@ -467,7 +491,7 @@ public class Main {
                 if (next instanceof Guest)
                     System.out.printf(Success.USER_LISTED_GUEST, next.getIdentifier(),
                             next.getName(),
-                            next.getNationality(), next.getEmail(), ((Guest) next).numOfBookings());
+                            next.getNationality(), next.getEmail(), ((Guest) next).getBookingsTotal());
 
                 if (next instanceof Host)
                     System.out.printf(Success.USER_LISTED_HOST, next.getIdentifier(),

@@ -30,12 +30,12 @@ public class DatabaseClass implements Database {
     }
 
     public void addGuest(String identifier, String name, String nationality, String email) throws UserAlreadyExistException {
-        if (!(getUser(identifier) == null)) throw new UserAlreadyExistException(identifier);
+        if (getUser(identifier) != null) throw new UserAlreadyExistException(identifier);
             users.put(identifier, new GuestClass(identifier, name, nationality, email));
     }
 
     public void addHost(String identifier, String name, String nationality, String email) throws UserAlreadyExistException {
-        if (!(getUser(identifier) == null)) throw new UserAlreadyExistException(identifier);
+        if (getUser(identifier) != null) throw new UserAlreadyExistException(identifier);
         users.put(identifier, new HostClass(identifier, name, nationality, email));
     }
 
@@ -82,4 +82,6 @@ public class DatabaseClass implements Database {
     private User getUser(String identifier) {
         return users.get(identifier);
     }
+
+    private Property getProperty(String identifier) { return properties.get(identifier); }
 }

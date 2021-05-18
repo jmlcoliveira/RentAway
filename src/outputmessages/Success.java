@@ -21,6 +21,8 @@ public abstract class Success {
     public static final String PROPERTY_LISTED_STAY = "%s: %s; %s; %s; %s; %d; %.2f\n";
     public static final String PROPERTY_IN_LOCATION_LIST = "Properties in %s:";
     public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %f; %.2f; %d; %s";
+    public static final String PROPERTY_BEST_IN_LOCATION_LIST = "The best properties in %s";
+    public static final String PROPERTY_BEST_IN_LOCATION_LISTED = "%s: %.1f; %d; %f.2; %s";
 
     //Book
     public static final String BOOKING_REGISTER = "Booking %s was registered.\n";

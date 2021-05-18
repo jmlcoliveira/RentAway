@@ -61,5 +61,12 @@ public interface Database {
 
     Iterator<Booking> iteratorStaysAtProperty(String propertyID) throws PropertyHasNoStaysException, PropertyDoesNotExistException;
 
-    Iterator<Property> iteratorPropertiesByLocation(String location, int numGuests) throws NoPropertyInLocationException;
+    Iterator<Property> iteratorPropertiesByGuest(String location, int numGuests)
+            throws NoPropertyInLocationException;
+
+    Iterator<Property> iteratorPropertiesByAverage(String location)
+            throws NoPropertyInLocationException;
+
+    Guest getGlobalTrotter()
+            throws NoGlobalTrotterException;
 }
