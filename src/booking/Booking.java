@@ -1,5 +1,6 @@
 package booking;
 
+import exceptions.*;
 import property.Property;
 import users.Guest;
 
@@ -26,4 +27,7 @@ public interface Booking {
     LocalDate getDepartureDate();
 
     boolean isPaid();
+
+    void confirm() throws CannotConfirmBookingException;
+
 }

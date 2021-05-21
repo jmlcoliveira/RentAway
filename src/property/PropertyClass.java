@@ -42,13 +42,11 @@ public abstract class PropertyClass implements Property {
         return location;
     }
 
-    public int bookingCount() {
+    public int getBookingCount() {
         return bookingList.size();
     }
 
-    public int reviewCount() {
-        return reviewList.size();
-    }
+    public int getReviewCount() { return reviewList.size(); }
 
     public PropertyType getType() {
         return TYPE;
@@ -70,6 +68,29 @@ public abstract class PropertyClass implements Property {
                 sumPay += booking.getPrice();
         }
         return sumPay;
+    }
+
+    public void addBooking(Booking b){
+        bookingList.add(b);
+    }
+
+    public boolean hasBooking(){
+
+    }
+
+    public List<Booking> getBookings(){
+        return bookingList;
+    }
+
+
+    @Override
+    public int getPaidBookingCount() {
+        return 0;
+    }
+
+    @Override
+    public double getAverageRating() {
+        return 0;
     }
 }
 

@@ -1,5 +1,6 @@
 package booking;
 
+import exceptions.CannotConfirmBookingException;
 import property.Property;
 import review.Review;
 import users.Guest;
@@ -65,5 +66,18 @@ public class BookingClass implements Booking{
 
     public boolean isPaid() {
         return (state == BookingState.PAID || state == BookingState.REVIEWED);
+    }
+
+    @Override
+    public void confirm() throws CannotConfirmBookingException {
+        if(!this.state.equals(BookingState.REQUESTED))
+            throw new CannotConfirmBookingException(identifier, state.getStateValue());
+        this.state = BookingState.CONFIRMED;
+    }
+
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(!(o instanceof Booking)) return false;
+        return ((Booking)o).getIdentifier().equals(getIdentifier());
     }
 }
