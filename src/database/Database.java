@@ -5,13 +5,14 @@ import exceptions.*;
 import property.Property;
 import users.*;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 
 public interface Database {
 
     Iterator<User> iteratorUsers() throws NoUsersRegisteredException;
 
-    Iterator<Property> iteratorProperties(String id)
+    Iterator<Property> iteratorPropertiesByHost(String id)
             throws UserDoesNotExistException,
             InvalidUserTypeException,
             NoPropertiesRegisteredException;
@@ -42,8 +43,8 @@ public interface Database {
             UserNotAllowedToConfirmBookingException,
             CannotConfirmBookingException;
 
-    booking.Booking addBooking(String userID, String propertyID, String arrival,
-                               String departure, int numGuests)
+    booking.Booking addBooking(String userID, String propertyID, LocalDate arrival,
+                               LocalDate departure, int numGuests)
             throws UserDoesNotExistException,
             InvalidUserTypeException,
             NumGuestsExceedsCapacityException,
@@ -59,7 +60,7 @@ public interface Database {
     Booking rejectBooking(String bookingID, String userID)
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
-            UserNotAllowedToConfirmBookingException,
+            InvalidUserTypeException,
             CannotConfirmBookingException;
 
     Booking pay(String bookingID, String userID)
@@ -77,17 +78,10 @@ public interface Database {
             CannotReviewBookingException,
             BookingAlreadyReviewedException;
 
-    Host getHost(String hostID)
-            throws HostHasNoPropertiesException,
-            UserDoesNotExistException,
-            InvalidUserTypeException;
-
     Guest getGuest(String guestID)
             throws GuestHasNoBookingsException,
             UserDoesNotExistException,
             InvalidUserTypeException;
-
-    Iterator<Property> iteratorPropertiesByHost(String hostID);
 
     Iterator<Booking> iteratorStaysAtProperty(String propertyID)
             throws PropertyHasNoStaysException,

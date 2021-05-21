@@ -16,11 +16,11 @@ public abstract class Success {
     //Properties
     public static final String PROPERTY_ADDED = "Property %s was added to host %s.\n";
     public static final String PROPERTY_HOST_LIST = "Properties of host %s:\n";
-    public static final String PROPERTY_HOST_LISTED = "%s: %s %d %d [%s %d %d]\n";
+    public static final String PROPERTY_HOST_LISTED = "%s: %s %.0f %d [%s %d %d]\n";
     public static final String PROPERTY_LIST_STAY = "Property %s stays:";
     public static final String PROPERTY_LISTED_STAY = "%s: %s; %s; %s; %s; %d; %.2f\n";
     public static final String PROPERTY_IN_LOCATION_LIST = "Properties in %s:";
-    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %f; %.2f; %d; %s";
+    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %f; %.2f; %f; %s";
     public static final String PROPERTY_BEST_IN_LOCATION_LIST = "The best properties in %s";
     public static final String PROPERTY_BEST_IN_LOCATION_LISTED = "%s: %.1f; %d; %f.2; %s";
 

@@ -3,6 +3,7 @@ package users;
 import booking.Booking;
 
 import javax.xml.stream.Location;
+import java.time.LocalDate;
 import java.util.Iterator;
 
 public interface Guest extends User {
@@ -24,4 +25,6 @@ public interface Guest extends User {
     int getVisitedLocations();
 
     Iterator<Booking> iteratorBookings();
+
+    LocalDate getLastDepartureDate();
 }

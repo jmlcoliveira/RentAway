@@ -16,9 +16,9 @@ public class BookingClass implements Booking{
     private LocalDate arrivalDate, departureDate;
     private BookingState state;
 
-    public BookingClass(String identifier, Guest guest, Property property, int numberOfGuests,
+    public BookingClass(String idNumber, Guest guest, Property property, int numberOfGuests,
                         LocalDate arrivalDate, LocalDate departureDate){
-        this.identifier = identifier;
+        this.identifier = property.getIdentifier()+ "-" + idNumber;
         this.guest = guest;
         this.property = property;
         this.numberOfGuests = numberOfGuests;

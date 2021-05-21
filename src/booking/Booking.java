@@ -4,7 +4,6 @@ import property.Property;
 import users.Guest;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public interface Booking {
 

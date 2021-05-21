@@ -1,5 +1,10 @@
 package property;
 
+import booking.Booking;
+
+import java.time.LocalDate;
+import java.util.List;
+
 public interface Property extends Comparable<Property> {
 
     PropertyType type();
@@ -8,7 +13,7 @@ public interface Property extends Comparable<Property> {
 
     String getLocation();
 
-    int getCapacity();
+    int getGuestsCapacity();
 
     int getPrice();
 
@@ -23,4 +28,12 @@ public interface Property extends Comparable<Property> {
     double getTotalPayment();
 
     PropertyType getType();
+
+    void addBooking(Booking b);
+
+    boolean hasBooking();
+
+    List<Booking> getBookings();
+
+    LocalDate getPropertyLastPaidDepartureDate();
 }

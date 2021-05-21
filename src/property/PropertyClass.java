@@ -10,24 +10,24 @@ public abstract class PropertyClass implements Property {
     private final String identifier;
     private final String location;
     private Host host;
-    private int capacity;
+    private int guestsCapacity;
     private int price;
     private List<Booking> bookingList;
     private List<Review> reviewList;
     private final PropertyType TYPE;
 
-    public PropertyClass(String identifier, String location, Host host, int capacity, int price,
+    public PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price,
                          PropertyType type){
         this.identifier = identifier;
         this.location = location;
         this.host = host;
-        this.capacity = capacity;
+        this.guestsCapacity = guestsCapacity;
         this.price = price;
         this.TYPE = type;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public int getGuestsCapacity() {
+        return guestsCapacity;
     }
 
     public String getIdentifier() {

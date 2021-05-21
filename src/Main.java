@@ -6,11 +6,10 @@ import property.*;
 import users.*;
 import booking.Booking;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
 
 /**
  * Main class of the program which read commands from console and communicates with the database.
@@ -94,7 +93,6 @@ public class Main {
                 case UNKNOWN:
                     processUnknown(in);
                     break;
-
             }
             command = getCommand(in);
         }
@@ -103,6 +101,7 @@ public class Main {
 
     /**
      * 2.17
+     *
      * @param in
      * @param db
      */
@@ -110,7 +109,7 @@ public class Main {
         in.nextLine();
         try {
             Guest guest = db.getGlobalTrotter();
-            System.out.printf(Success.GLOBAL_TROTTER_INFO, guest.getIdentifier(), guest.get);
+            System.out.printf(Success.GLOBAL_TROTTER_INFO, guest.getIdentifier(), guest.getVisitedLocations());
         } catch (NoGlobalTrotterException e) {
             System.out.println(e.getMessage());
         }
@@ -132,7 +131,7 @@ public class Main {
             while (it.hasNext()) {
                 Property next = it.next();
                 System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
-                        next.getAverageRating(), next.getCapacity(), next.getPrice(),
+                        next.getAverageRating(), next.getGuestsCapacity(), next.getPrice(),
                         next.getType().getTypeValue());
             }
 
@@ -160,7 +159,7 @@ public class Main {
             while (it.hasNext()) {
                 Property next = it.next();
                 System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
-                        next.getAverageRating(), next.getTotalPayment(), next.getCapacity(),
+                        next.getAverageRating(), next.getTotalPayment(), next.getGuestsCapacity(),
                         next.getType().getTypeValue());
             }
         } catch (NoPropertyInLocationException e) {
@@ -281,6 +280,7 @@ public class Main {
             }
         } catch (BookingDoesNotExistException | UserDoesNotExistException | UserNotGuestOfBookingException
                 | CannotConfirmBookingException e) {
+            System.out.println(e.getMessage());
         }
 
     }
@@ -323,7 +323,7 @@ public class Main {
             booking.Booking book = db.rejectBooking(bookingID, userID);
             System.out.printf(Success.BOOKING_REJECT, book.getIdentifier());
         } catch (BookingDoesNotExistException | UserDoesNotExistException |
-                UserNotAllowedToConfirmBookingException | CannotConfirmBookingException e) {
+                InvalidUserTypeException | CannotConfirmBookingException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -354,12 +354,14 @@ public class Main {
         String userID = in.next().trim();
         String propertyID = in.next().trim();
         String arrival = in.next().trim();
+        LocalDate arrivalDate = LocalDate.parse(arrival, formatter);
         String departure = in.next().trim();
+        LocalDate departureDate = LocalDate.parse(departure, formatter);
         int numGuests = in.nextInt();
         in.next();
 
         try {
-            booking.Booking book = db.addBooking(userID, propertyID, arrival, departure, numGuests);
+            booking.Booking book = db.addBooking(userID, propertyID, arrivalDate, departureDate, numGuests);
             System.out.printf(Success.BOOKING_REGISTER, book.getIdentifier());
 
         } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyIdDoesNotExistException |
@@ -375,16 +377,16 @@ public class Main {
      * @param db
      */
     private static void processProperties(Scanner in, Database db) {
-        String id = in.next().trim();
+        String hostID = in.next().trim();
 
         try {
-            Iterator<Property> it = db.iteratorProperties(id);
+            Iterator<Property> it = db.iteratorPropertiesByHost(hostID);
 
-            System.out.printf(Success.PROPERTY_HOST_LIST, id);
+            System.out.printf(Success.PROPERTY_HOST_LIST, hostID);
             while (it.hasNext()) {
                 Property next = it.next();
                 System.out.printf(Success.PROPERTY_HOST_LISTED, next.getIdentifier(),
-                        next.getLocation(), next.getCapacity(), next.getPrice(), next.type(),
+                        next.getLocation(), next.getGuestsCapacity(), next.getPrice(), next.type(),
                         next.getBookingCount(), next.getReviewCount());
             }
 
