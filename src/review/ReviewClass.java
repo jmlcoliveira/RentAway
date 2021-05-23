@@ -10,4 +10,9 @@ public class ReviewClass implements Review{
         this.comment = comment;
         this.rating = rating;
     }
+
+
+    public int getRating() {
+        return rating.getRating();
+    }
 }

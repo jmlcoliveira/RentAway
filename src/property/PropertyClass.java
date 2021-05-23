@@ -4,20 +4,26 @@ import booking.Booking;
 import booking.BookingState;
 import review.Review;
 import users.Host;
-import java.util.List;
+
+import java.time.LocalDate;
+import java.util.*;
 
 public abstract class PropertyClass implements Property {
     private final String identifier;
     private final String location;
-    private Host host;
-    private int guestsCapacity;
-    private int price;
-    private List<Booking> bookingList;
-    private List<Review> reviewList;
+    private final Host host;
+    private final int guestsCapacity;
+    private final int price;
     private final PropertyType TYPE;
+    private final List<Booking> bookingList;
+    private final List<Review> reviewList;
+    private final SortedSet<Booking> paidBookings;
 
     public PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price,
-                         PropertyType type){
+                         PropertyType type) {
+        bookingList = new LinkedList<>();
+        reviewList = new LinkedList<>();
+        paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
         this.identifier = identifier;
         this.location = location;
         this.host = host;
@@ -46,51 +52,102 @@ public abstract class PropertyClass implements Property {
         return bookingList.size();
     }
 
-    public int getReviewCount() { return reviewList.size(); }
+    public int getReviewCount() {
+        return reviewList.size();
+    }
 
     public PropertyType getType() {
         return TYPE;
     }
 
     @Override
-    public int compareTo(Property p){
-        return getIdentifier().compareTo(p.getIdentifier());
-    }
-
-    @Override
     public double getTotalPayment() {
         double sumPay = 0;
 
-        for(Booking booking : bookingList) {
+        for (Booking booking : bookingList) {
             BookingState nextState = booking.getState();
 
-            if(nextState.equals(BookingState.CONFIRMED) || nextState.equals(BookingState.PAID))
+            if (nextState.equals(BookingState.CONFIRMED) || nextState.equals(BookingState.PAID))
                 sumPay += booking.getPrice();
         }
         return sumPay;
     }
 
-    public void addBooking(Booking b){
-        bookingList.add(b);
+    public LocalDate getPropertyLastPaidDepartureDate() {
+        LocalDate date = paidBookings.last().getDepartureDate();
+        for (Booking b : paidBookings){
+            LocalDate d = b.getDepartureDate();
+            if (d.isAfter(date))
+                date = d;
+        }
+        return date;
     }
 
-    public boolean hasBooking(){
-
+    public void addReview(Review review) {
+        reviewList.add(review);
     }
 
-    public List<Booking> getBookings(){
+    public void addPaidBooking(Booking b) {
+        paidBookings.add(b);
+    }
+
+    public List<Booking> getBookings() {
         return bookingList;
     }
 
+    @Override
+    public Host getHost() {
+        return host;
+    }
 
     @Override
     public int getPaidBookingCount() {
-        return 0;
+        return paidBookings.size();
     }
 
     @Override
     public double getAverageRating() {
-        return 0;
+        double rating = 0.00;
+        for (Review r : reviewList)
+            rating += r.getRating();
+        return rating / reviewList.size();
+    }
+
+    @Override
+    public int compareTo(Property p) {
+        return getIdentifier().compareTo(p.getIdentifier());
+    }
+
+    @Override
+    public Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
+        booking.pay();
+        List<Booking> bookings = new LinkedList<>();
+        bookings.add(booking);
+        addPaidBooking(booking);
+        booking.getGuest().addPaidBooking(booking);
+
+        ListIterator<Booking> it = bookingList.listIterator();
+        while (it.hasPrevious()) {
+            Booking b = it.previous();
+            if (b.rejectOrCancel(booking))
+                bookings.add(b);
+        }
+        return bookings.iterator();
+    }
+
+    public Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException {
+        booking.confirm();
+        List<Booking> temp = new LinkedList<>();
+        temp.add(booking);
+        ListIterator<Booking> it = bookingList.listIterator();
+        while (it.hasPrevious()) {
+            Booking b = it.previous();
+            if (b.dateOverlaps(booking)) {
+                b.cancel();
+                temp.add(b);
+            }
+        }
+        return temp.iterator();
     }
 }
 

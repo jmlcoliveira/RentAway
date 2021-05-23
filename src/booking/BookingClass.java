@@ -1,14 +1,15 @@
 package booking;
 
-import exceptions.CannotConfirmBookingException;
+import commands.Command;
+import exceptions.BookingAlreadyReviewedException;
+import exceptions.CannotExecuteActionInBookingException;
 import property.Property;
 import review.Review;
 import users.Guest;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-public class BookingClass implements Booking{
+public class BookingClass implements Booking {
     private final String identifier;
     private final Guest guest;
     private final Property property;
@@ -18,8 +19,8 @@ public class BookingClass implements Booking{
     private BookingState state;
 
     public BookingClass(String idNumber, Guest guest, Property property, int numberOfGuests,
-                        LocalDate arrivalDate, LocalDate departureDate){
-        this.identifier = property.getIdentifier()+ "-" + idNumber;
+                        LocalDate arrivalDate, LocalDate departureDate) {
+        this.identifier = property.getIdentifier() + "-" + idNumber;
         this.guest = guest;
         this.property = property;
         this.numberOfGuests = numberOfGuests;
@@ -45,7 +46,7 @@ public class BookingClass implements Booking{
     }
 
     public double getPrice() {
-        return property.getPrice()*(departureDate.compareTo(arrivalDate));
+        return property.getPrice() * (departureDate.compareTo(arrivalDate));
     }
 
     public BookingState getState() {
@@ -69,15 +70,53 @@ public class BookingClass implements Booking{
     }
 
     @Override
-    public void confirm() throws CannotConfirmBookingException {
-        if(!this.state.equals(BookingState.REQUESTED))
-            throw new CannotConfirmBookingException(identifier, state.getStateValue());
+    public void review(String comment, String classification) throws BookingAlreadyReviewedException {
+        if (this.review != null) throw new BookingAlreadyReviewedException(this.identifier);
+        review = new ReviewClass(comment, Rating.valueOf(classification));
+        property.addReview(review);
+    }
+
+    @Override
+    public void confirm() throws CannotExecuteActionInBookingException {
+        if (!this.state.equals(BookingState.REQUESTED))
+            throw new CannotExecuteActionInBookingException(
+                    Command.CONFIRM.getCommand(),
+                    identifier,
+                    state.getStateValue());
         this.state = BookingState.CONFIRMED;
     }
 
-    public boolean equals(Object o){
-        if(this == o) return true;
-        if(!(o instanceof Booking)) return false;
-        return ((Booking)o).getIdentifier().equals(getIdentifier());
+    @Override
+    public void pay() throws CannotExecuteActionInBookingException {
+        if (!this.state.equals(BookingState.CONFIRMED))
+            throw new CannotExecuteActionInBookingException(Command.PAY.getCommand(), identifier,
+                    state.getStateValue());
+        this.state = BookingState.PAID;
+    }
+
+    public void reject() {
+        state = BookingState.REJECTED;
+    }
+
+    public void cancel() {
+        state = BookingState.CANCELLED;
+    }
+
+    public boolean dateOverlaps(Booking booking) {
+        LocalDate a = booking.getArrivalDate();
+        LocalDate d = booking.getDepartureDate();
+        if (a.isAfter(arrivalDate) && a.isBefore(departureDate))
+            return true;
+        if (d.isAfter(arrivalDate) && d.isBefore(departureDate))
+            return true;
+        if (a.isEqual(arrivalDate) && d.isEqual(departureDate))
+            return true;
+        return false;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Booking)) return false;
+        return ((Booking) o).getIdentifier().equals(getIdentifier());
     }
 }

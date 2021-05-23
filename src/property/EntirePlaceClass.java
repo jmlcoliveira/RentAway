@@ -2,6 +2,8 @@ package property;
 
 import users.Host;
 
+import java.time.LocalDate;
+
 public class EntirePlaceClass extends PropertyClass implements EntirePlace{
     private int numOfRooms;
     private PlaceType type;

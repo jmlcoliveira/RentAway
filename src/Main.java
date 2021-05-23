@@ -204,12 +204,6 @@ public class Main {
             Guest g = db.getGuest(guestID);
             System.out.printf(Success.GUEST_BOOKING_LIST,
                     guestID,
-                    g.getBookingsTotal(),
-                    g.getRequestedBookings(),
-                    g.getConfirmedBookings(),
-                    g.getRejectedBookings(),
-                    g.getCancelledBookings(),
-                    g.getPaidBookings(),
                     g.getTotalAmountPaid()
             );
 
@@ -249,7 +243,7 @@ public class Main {
         try {
             db.addReview(bookingID, userID, review, classification);
             System.out.printf(Success.REVIEW_REGISTER, bookingID);
-        } catch (UserNotAllowedToReview | BookingAlreadyReviewedException | CannotReviewBookingException | UserDoesNotExistException | BookingDoesNotExistException e) {
+        } catch (UserNotAllowedToReviewException | BookingAlreadyReviewedException | CannotExecuteActionInBookingException | UserDoesNotExistException | BookingDoesNotExistException | InvalidUserTypeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -275,11 +269,11 @@ public class Main {
             while (it.hasNext()) {
                 Booking next = it.next();
 
-                System.out.printf(Success.BOOKING_PAID_CANCEL, next.getIdentifier(),
+                System.out.printf(Success.BOOKING_WAS, next.getIdentifier(),
                         next.getState().getStateValue());
             }
         } catch (BookingDoesNotExistException | UserDoesNotExistException | UserNotGuestOfBookingException
-                | CannotConfirmBookingException e) {
+                | CannotExecuteActionInBookingException e) {
             System.out.println(e.getMessage());
         }
 
@@ -320,10 +314,10 @@ public class Main {
         String userID = in.next().trim();
 
         try {
-            booking.Booking book = db.rejectBooking(bookingID, userID);
-            System.out.printf(Success.BOOKING_REJECT, book.getIdentifier());
+            Booking book = db.rejectBooking(bookingID, userID);
+            System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState().getStateValue());
         } catch (BookingDoesNotExistException | UserDoesNotExistException |
-                InvalidUserTypeException | CannotConfirmBookingException e) {
+                InvalidUserTypeException | CannotExecuteActionInBookingException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -338,8 +332,12 @@ public class Main {
         String bookingID = in.next().trim();
         String userID = in.next().trim();
         try {
-            db.confirmBooking(bookingID, userID);
-        } catch (CannotConfirmBookingException | UserDoesNotExistException | BookingDoesNotExistException | UserNotAllowedToConfirmBookingException e) {
+            Iterator<Booking> it = db.confirmBooking(bookingID, userID);
+            while (it.hasNext()){
+                Booking b = it.next();
+                System.out.printf(Success.BOOKING_WAS, b.getIdentifier(), b.getState().getStateValue());
+            }
+        } catch (CannotExecuteActionInBookingException | UserDoesNotExistException | BookingDoesNotExistException | UserNotAllowedToConfirmBookingException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -362,7 +360,7 @@ public class Main {
 
         try {
             booking.Booking book = db.addBooking(userID, propertyID, arrivalDate, departureDate, numGuests);
-            System.out.printf(Success.BOOKING_REGISTER, book.getIdentifier());
+            System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState().getStateValue());
 
         } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyIdDoesNotExistException |
                 NumGuestsExceedsCapacityException | InvalidBookingDatesException e) {
@@ -470,6 +468,7 @@ public class Main {
      */
     private static void processUsers(Scanner in, Database db) {
         try {
+            in.nextLine();
             Iterator<User> it = db.iteratorUsers();
 
             System.out.println(Success.USERS_LIST);

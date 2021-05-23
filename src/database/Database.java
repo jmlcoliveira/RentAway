@@ -37,11 +37,11 @@ public interface Database {
 
     void addAmenity(String propertyID, String amenity);
 
-    void confirmBooking(String bookingID, String userID)
+    Iterator<Booking> confirmBooking(String bookingID, String userID)
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
             UserNotAllowedToConfirmBookingException,
-            CannotConfirmBookingException;
+            CannotExecuteActionInBookingException;
 
     booking.Booking addBooking(String userID, String propertyID, LocalDate arrival,
                                LocalDate departure, int numGuests)
@@ -61,21 +61,21 @@ public interface Database {
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
             InvalidUserTypeException,
-            CannotConfirmBookingException;
+            CannotExecuteActionInBookingException;
 
     Booking pay(String bookingID, String userID)
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
             UserNotGuestOfBookingException,
-            CannotConfirmBookingException;
+            CannotExecuteActionInBookingException;
 
-    Iterator<booking.Booking> iteratorBookingByDates(String bookingID, String userID);
 
     void addReview(String bookingID, String userID, String review, String classification)
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
-            UserNotAllowedToReview,
-            CannotReviewBookingException,
+            InvalidUserTypeException,
+            UserNotAllowedToReviewException,
+            CannotExecuteActionInBookingException,
             BookingAlreadyReviewedException;
 
     Guest getGuest(String guestID)

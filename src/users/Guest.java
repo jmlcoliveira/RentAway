@@ -10,19 +10,11 @@ public interface Guest extends User {
 
     int getBookingsTotal();
 
-    int getRequestedBookings();
-
-    int getConfirmedBookings();
-
-    int getRejectedBookings();
-
-    int getCancelledBookings();
-
-    int getPaidBookings();
-
     double getTotalAmountPaid();
 
     int getVisitedLocations();
+
+    void addPaidBooking(Booking booking);
 
     Iterator<Booking> iteratorBookings();
 

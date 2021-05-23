@@ -28,6 +28,15 @@ public interface Booking {
 
     boolean isPaid();
 
-    void confirm() throws CannotConfirmBookingException;
+    void confirm() throws CannotExecuteActionInBookingException;
 
+    void pay() throws CannotExecuteActionInBookingException;
+
+    void reject();
+
+    void cancel();
+
+    boolean rejectOrCancel(Booking b);
+
+    boolean dateOverlaps(Booking booking);
 }
