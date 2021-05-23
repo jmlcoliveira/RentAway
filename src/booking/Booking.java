@@ -8,6 +8,8 @@ import java.time.LocalDate;
 
 public interface Booking {
 
+    void review(String comment, String classification) throws BookingAlreadyReviewedException;
+
     String getIdentifier();
 
     String getPropertyID();

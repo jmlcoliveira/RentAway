@@ -259,12 +259,11 @@ public class Main {
         String userID = in.next().trim();
 
         try {
-            Booking paidBook = db.pay(bookingID, userID);
-            /*int i = a.lastIndexOf('-');
-            a = a.substring(0, i);*/
-            System.out.printf(Success.BOOKING_PAID, paidBook.getIdentifier(), paidBook.getPrice());
+            Iterator<Booking> it = db.pay(bookingID, userID);
 
-            Iterator<Booking> it = db.iteratorBookingByDates(bookingID, userID);
+            Booking paidBooking = it.next();
+            System.out.printf(Success.BOOKING_PAID, paidBooking.getIdentifier(),
+                    paidBooking.getPrice());
 
             while (it.hasNext()) {
                 Booking next = it.next();

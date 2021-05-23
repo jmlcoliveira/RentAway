@@ -63,7 +63,7 @@ public interface Database {
             InvalidUserTypeException,
             CannotExecuteActionInBookingException;
 
-    Booking pay(String bookingID, String userID)
+    Iterator<Booking> pay(String bookingID, String userID)
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
             UserNotGuestOfBookingException,

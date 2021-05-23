@@ -43,4 +43,30 @@ public class GuestClass extends UserClassAbs implements Guest {
     public Iterator<Booking> iteratorBookings() {
         return bookings.iterator();
     }
+
+    public LocalDate getLastDepartureDate() {
+        LocalDate date = paidBookings.last().getDepartureDate();
+        for (Booking b : paidBookings){
+            LocalDate d = b.getDepartureDate();
+            if (d.isAfter(date))
+                date = d;
+        }
+        return date;
+    }
+
+    @Override
+    public Iterator<Booking> pay(Booking booking) {
+        ListIterator<Booking> it = bookings.listIterator();
+        while (it.hasPrevious()) {
+            Booking b = it.previous();
+            if (b.rejectOrCancel(booking))
+                bookings.add(b);
+        }
+        return bookings.iterator();
+    }
+
+    @Override
+    public boolean hasBooking(Booking booking) {
+        return bookings.contains(booking);
+    }
 }

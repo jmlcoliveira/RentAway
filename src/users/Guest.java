@@ -19,4 +19,8 @@ public interface Guest extends User {
     Iterator<Booking> iteratorBookings();
 
     LocalDate getLastDepartureDate();
+
+    boolean hasBooking(Booking booking);
+
+    Iterator<Booking> pay(Booking booking);
 }

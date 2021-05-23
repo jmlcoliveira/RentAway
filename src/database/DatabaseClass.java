@@ -86,18 +86,16 @@ public class DatabaseClass implements Database {
         privateRoom.addAmenity(amenity);
     }
 
-    public void confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, UserNotAllowedToConfirmBookingException, CannotConfirmBookingException {
-        String propertyID = getPropertyID(bookingID);
-        Booking temp = new BookingClass(bookingID, null, null, 0, null, null);
-        List<Booking> bookings = getProperty(propertyID).getBookings();
-        if (!bookings.contains(temp)) throw new BookingDoesNotExistException(bookingID);
-
+    public Iterator<Booking> confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, UserNotAllowedToConfirmBookingException, CannotExecuteActionInBookingException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
 
-        if (!(user instanceof Host)) throw new UserNotAllowedToConfirmBookingException(userID);
+        Booking booking = getBooking(bookingID);
+        if (booking == null) throw new BookingDoesNotExistException(bookingID);
 
-        bookings.get(bookings.indexOf(temp)).confirm();
+        if (!(user instanceof Host)) throw new UserNotAllowedToConfirmBookingException(userID);
+        Property property = properties.get(getPropertyID(bookingID));
+        return property.confirmBooking(booking);
     }
 
     public Booking addBooking(String userID, String propertyID, LocalDate arrival, LocalDate departure, int numGuests) throws UserDoesNotExistException, InvalidUserTypeException, NumGuestsExceedsCapacityException, InvalidBookingDatesException, PropertyIdDoesNotExistException {
@@ -170,13 +168,32 @@ public class DatabaseClass implements Database {
         return b;
     }
 
-    public Booking pay(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, UserNotGuestOfBookingException, CannotConfirmBookingException {
-        return null;
+    public Iterator<Booking> pay(String bookingID, String userID) throws BookingDoesNotExistException,
+            UserDoesNotExistException, UserNotGuestOfBookingException, CannotExecuteActionInBookingException {
+        User user = getUser(userID);
+        if (user == null) throw new UserDoesNotExistException(userID);
+        Booking booking = getBooking(bookingID);
+        if (booking == null) throw new BookingDoesNotExistException(bookingID);
+        if (!(user instanceof Guest)) throw new UserNotGuestOfBookingException(userID);
+        Guest guest = (Guest) user;
+        if (!(guest.hasBooking(booking))) throw new UserNotGuestOfBookingException(userID);
+
+        String propertyID = getPropertyID(bookingID);
+        Property property = getProperty(propertyID);
+
+        Iterator<Booking> propertyBookingIt = property.pay(booking);
+        Iterator<Booking> guestBookingIt = guest.pay(booking);
+
+        List<Booking> bookings = new LinkedList<>();
+
+        while (propertyBookingIt.hasNext())
+            bookings.add(propertyBookingIt.next());
+        while (guestBookingIt.hasNext())
+            bookings.add(guestBookingIt.next());
+
+        return bookings.iterator();
     }
 
-    public Iterator<Booking> iteratorBookingByDates(String bookingID, String userID) {
-        return null;
-    }
 
     public void addReview(String bookingID, String userID, String review, String classification) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, UserNotAllowedToReviewException, CannotExecuteActionInBookingException, BookingAlreadyReviewedException {
         User user = getUser(userID);
@@ -211,15 +228,53 @@ public class DatabaseClass implements Database {
     }
 
     public Iterator<Property> iteratorPropertiesByGuest(String location, int numGuests) throws NoPropertyInLocationException {
-        return null;
+        Iterator<Property> it = propertiesByLocation.get(location).iterator();
+        if (!it.hasNext()) throw new NoPropertyInLocationException(location);
+
+        List<Property> properties = new LinkedList<>();
+        while (it.hasNext()) {
+            Property next = it.next();
+            if (next.getGuestsCapacity() >= numGuests)
+                properties.add(next);
+        }
+
+        Collections.sort(properties, new ComparatorSearch());
+        return properties.iterator();
     }
 
     public Iterator<Property> iteratorPropertiesByAverage(String location) throws NoPropertyInLocationException {
-        return null;
+        List<Property> properties = propertiesByLocation.get(location);
+        if (properties.isEmpty()) throw new NoPropertyInLocationException(location);
+
+        Collections.sort(properties, new ComparatorBest());
+        return properties.iterator();
     }
 
     public Guest getGlobalTrotter() throws NoGlobalTrotterException {
-        return null;
+        if (guests.size() == 0) throw new NoGlobalTrotterException();
+        Iterator<Guest> it = guests.values().iterator();
+
+        Guest globalTrotter = null;
+        while (it.hasNext()) {
+            Guest next = it.next();
+            if (globalTrotter == null && next.getVisitedLocations() > 0) {
+                globalTrotter = next;
+                continue;
+            }
+            if (globalTrotter != null) {
+                if (next.getVisitedLocations() > globalTrotter.getVisitedLocations())
+                    globalTrotter = next;
+                else if (next.getVisitedLocations() == globalTrotter.getVisitedLocations()) {
+                    if (next.getBookingsTotal() > globalTrotter.getBookingsTotal())
+                        globalTrotter = next;
+                    else if (next.getBookingsTotal() == globalTrotter.getBookingsTotal())
+                        if (next.getIdentifier().compareTo(globalTrotter.getIdentifier()) > 0)
+                            globalTrotter = next;
+                }
+            }
+        }
+        if (globalTrotter == null) throw new NoGlobalTrotterException();
+        return globalTrotter;
     }
 
     private User getUser(String identifier) {
@@ -228,5 +283,18 @@ public class DatabaseClass implements Database {
 
     private Property getProperty(String identifier) {
         return properties.get(identifier);
+    }
+
+    private String getPropertyID(String bookingID) {
+        int i = bookingID.lastIndexOf('-');
+        return bookingID.substring(0, i);
+    }
+
+    private Booking getBooking(String bookingID) {
+        String propertyID = getPropertyID(bookingID);
+        Property p = properties.get(propertyID);
+        Booking temp = new BookingClass(bookingID, null, p, 0, null, null);
+        List<Booking> bookings = p.getBookings();
+        return bookings.get(bookings.indexOf(temp));
     }
 }

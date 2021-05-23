@@ -4,7 +4,7 @@ import commands.Command;
 import exceptions.BookingAlreadyReviewedException;
 import exceptions.CannotExecuteActionInBookingException;
 import property.Property;
-import review.Review;
+import review.*;
 import users.Guest;
 
 import java.time.LocalDate;
@@ -118,5 +118,20 @@ public class BookingClass implements Booking {
         if (this == o) return true;
         if (!(o instanceof Booking)) return false;
         return ((Booking) o).getIdentifier().equals(getIdentifier());
+    }
+
+    @Override
+    public boolean rejectOrCancel(Booking b) {
+        if (this.departureDate.isBefore(b.getArrivalDate())) {
+            if (this.state.equals(BookingState.REQUESTED)) {
+                this.state = BookingState.REJECTED;
+                return true;
+            }
+            if (this.state.equals(BookingState.CONFIRMED)) {
+                this.state = BookingState.CANCELLED;
+                return true;
+            }
+        }
+        return false;
     }
 }

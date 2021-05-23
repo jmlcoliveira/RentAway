@@ -40,4 +40,10 @@ public interface Property extends Comparable<Property> {
     Host getHost();
 
     LocalDate getPropertyLastPaidDepartureDate();
+
+    Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException;
+
+    Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException;
+
+    void addReview(Review review);
 }
