@@ -42,8 +42,8 @@ public abstract class PropertyClass implements Property {
         return identifier;
     }
 
-    public int getPrice() {
-        return price;
+    public double getPrice() {
+        return price*1.00;
     }
 
     public String getLocation() {

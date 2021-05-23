@@ -20,7 +20,7 @@ public abstract class Success {
     public static final String PROPERTY_LIST_STAY = "Property %s stays:";
     public static final String PROPERTY_LISTED_STAY = "%s: %s; %s; %s; %s; %d; %.2f\n";
     public static final String PROPERTY_IN_LOCATION_LIST = "Properties in %s:";
-    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %f; %.2f; %f; %s";
+    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %f; %.2f; %d; %s";
     public static final String PROPERTY_BEST_IN_LOCATION_LIST = "The best properties in %s";
     public static final String PROPERTY_BEST_IN_LOCATION_LISTED = "%s: %.1f; %d; %f.2; %s";
 
@@ -30,7 +30,6 @@ public abstract class Success {
     public static final String BOOKINGS_REJECTED_LIST = "Bookings rejected by host %s:\n";
     public static final String BOOKING_REJECTED_LISTED = "%s: %s; %s; %s; %d\n";
     public static final String BOOKING_PAID = "Booking %s was paid: %f\n";
-    public static final String BOOKING_PAID_CANCEL = "Booking %s was %s.\n";
 
     //Reviews
     public static final String REVIEW_REGISTER = "Review for %s was registered.\n";

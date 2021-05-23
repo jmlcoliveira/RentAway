@@ -19,7 +19,7 @@ public interface Property extends Comparable<Property> {
 
     int getGuestsCapacity();
 
-    int getPrice();
+    double getPrice();
 
     int getBookingCount();
 
