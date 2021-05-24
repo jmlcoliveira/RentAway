@@ -14,5 +14,11 @@ public interface Host extends User {
 
     int getRejectedBookings();
 
+    void addBooking(Booking booking);
+
+    void addRejectedBooking(Booking booking);
+
+    void addProperty(Property property);
+
     Iterator<Booking> iteratorRejectedBookings();
 }

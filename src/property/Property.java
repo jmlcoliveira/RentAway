@@ -33,6 +33,8 @@ public interface Property extends Comparable<Property> {
 
     void addPaidBooking(Booking b);
 
+    void addBooking(Booking booking);
+
     PropertyType getType();
 
     List<Booking> getBookings();

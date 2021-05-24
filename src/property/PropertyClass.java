@@ -76,6 +76,7 @@ public abstract class PropertyClass implements Property {
     }
 
     public LocalDate getPropertyLastPaidDepartureDate() {
+        if(paidBookings.size() == 0) return null;
         LocalDate date = paidBookings.last().getDepartureDate();
         for (Booking b : paidBookings){
             LocalDate d = b.getDepartureDate();
@@ -91,6 +92,10 @@ public abstract class PropertyClass implements Property {
 
     public void addPaidBooking(Booking b) {
         paidBookings.add(b);
+    }
+
+    public void addBooking(Booking booking) {
+        bookingList.add(booking);
     }
 
     public List<Booking> getBookings() {
@@ -123,9 +128,8 @@ public abstract class PropertyClass implements Property {
     @Override
     public Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
         booking.pay();
-        List<Booking> bookings = new LinkedList<>();
-        bookings.add(booking);
         addPaidBooking(booking);
+        List<Booking> bookings = new LinkedList<>();
         booking.getGuest().addPaidBooking(booking);
 
         ListIterator<Booking> it = bookingList.listIterator();

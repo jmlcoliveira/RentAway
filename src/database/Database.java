@@ -23,7 +23,7 @@ public interface Database {
     void addHost(String identifier, String name, String nationality, String email)
             throws UserAlreadyExistException;
 
-    void addEntirePlace(String userID, String propertyID, String location, int capacity,
+    void addEntirePlace(String propertyID, String userID, String location, int capacity,
                         int price, int numberOfRooms, String placeType)
             throws UserDoesNotExistException,
             InvalidUserTypeException,

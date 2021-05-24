@@ -16,6 +16,8 @@ public interface Guest extends User {
 
     void addPaidBooking(Booking booking);
 
+    void addBooking(Booking booking);
+
     Iterator<Booking> iteratorBookings();
 
     LocalDate getLastDepartureDate();

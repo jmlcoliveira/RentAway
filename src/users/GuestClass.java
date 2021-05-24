@@ -40,11 +40,16 @@ public class GuestClass extends UserClassAbs implements Guest {
         visitedLocations.add(booking.getProperty().getLocation());
     }
 
+    public void addBooking(Booking booking) {
+        bookings.add(booking);
+    }
+
     public Iterator<Booking> iteratorBookings() {
         return bookings.iterator();
     }
 
     public LocalDate getLastDepartureDate() {
+        if(paidBookings.size()==0) return null;
         LocalDate date = paidBookings.last().getDepartureDate();
         for (Booking b : paidBookings){
             LocalDate d = b.getDepartureDate();

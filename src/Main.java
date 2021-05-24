@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final String DATE_PATTERN = "dd-MM-yyyy";
 
     /**
      * Main method where Scanner and Database are initialized
@@ -178,7 +178,7 @@ public class Main {
 
         try {
             Iterator<Booking> it = db.iteratorStaysAtProperty(propertyID);
-
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
             System.out.printf(Success.PROPERTY_LIST_STAY, propertyID);
             while (it.hasNext()) {
                 Booking next = it.next();
@@ -208,6 +208,7 @@ public class Main {
             );
 
             Iterator<Booking> it = g.iteratorBookings();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
             while (it.hasNext()) {
                 Booking b = it.next();
                 Property p = b.getProperty();
@@ -257,6 +258,7 @@ public class Main {
     private static void processPay(Scanner in, Database db) {
         String bookingID = in.next().trim();
         String userID = in.next().trim();
+        in.nextLine();
 
         try {
             Iterator<Booking> it = db.pay(bookingID, userID);
@@ -332,7 +334,7 @@ public class Main {
         String userID = in.next().trim();
         try {
             Iterator<Booking> it = db.confirmBooking(bookingID, userID);
-            while (it.hasNext()){
+            while (it.hasNext()) {
                 Booking b = it.next();
                 System.out.printf(Success.BOOKING_WAS, b.getIdentifier(), b.getState().getStateValue());
             }
@@ -351,14 +353,15 @@ public class Main {
         String userID = in.next().trim();
         String propertyID = in.next().trim();
         String arrival = in.next().trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         LocalDate arrivalDate = LocalDate.parse(arrival, formatter);
         String departure = in.next().trim();
         LocalDate departureDate = LocalDate.parse(departure, formatter);
         int numGuests = in.nextInt();
-        in.next();
+        in.nextLine();
 
         try {
-            booking.Booking book = db.addBooking(userID, propertyID, arrivalDate, departureDate, numGuests);
+            Booking book = db.addBooking(userID, propertyID, arrivalDate, departureDate, numGuests);
             System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState().getStateValue());
 
         } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyIdDoesNotExistException |
@@ -383,7 +386,7 @@ public class Main {
             while (it.hasNext()) {
                 Property next = it.next();
                 System.out.printf(Success.PROPERTY_HOST_LISTED, next.getIdentifier(),
-                        next.getLocation(), next.getGuestsCapacity(), next.getPrice(), next.type(),
+                        next.getLocation(), next.getGuestsCapacity(), next.getPrice(), next.type().getTypeValue(),
                         next.getBookingCount(), next.getReviewCount());
             }
 
@@ -511,10 +514,10 @@ public class Main {
                     db.addHost(identifier, name, nationality, email);
                     break;
                 case UNKNOWN:
-                    throw new NoUsersRegisteredException();
+                    throw new UnknownUserTypeException();
             }
             System.out.printf(Success.USER_ADDED, identifier, userType.toString().toLowerCase());
-        } catch (NoUsersRegisteredException | UserAlreadyExistException e) {
+        } catch (UnknownUserTypeException | UserAlreadyExistException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -542,7 +545,7 @@ public class Main {
     }
 
     private static void processUnknown(Scanner in) {
-        System.out.println("fdsa");
+        System.out.println(Command.UNKNOWN.getDescription());
     }
 
     /**

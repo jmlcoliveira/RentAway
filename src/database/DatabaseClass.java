@@ -49,12 +49,13 @@ public class DatabaseClass implements Database {
         users.put(identifier, new HostClass(identifier, name, nationality, email));
     }
 
-    public void addEntirePlace(String userID, String propertyID, String location, int capacity,
+    public void addEntirePlace(String propertyID, String userID, String location, int capacity,
                                int price, int numberOfRooms, String placeType) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         Host host = addToHost(userID, propertyID);
         EntirePlace p = new EntirePlaceClass(propertyID, host, location, capacity,
                 price, numberOfRooms, PlaceType.valueOf(placeType.toUpperCase()));
         properties.put(propertyID, p);
+        host.addProperty(p);
         if (!propertiesByLocation.containsKey(location))
             propertiesByLocation.put(location, new LinkedList<>());
         propertiesByLocation.get(location).add(p);
@@ -65,6 +66,7 @@ public class DatabaseClass implements Database {
         PrivateRoom p = new PrivateRoomClass(propertyID, host, location, capacity,
                 price, amenities);
         properties.put(propertyID, p);
+        host.addProperty(p);
         if (!propertiesByLocation.containsKey(location))
             propertiesByLocation.put(location, new LinkedList<>());
         propertiesByLocation.get(location).add(p);
@@ -115,7 +117,7 @@ public class DatabaseClass implements Database {
 
         validateBookingDate(guest, property, arrival);
         Booking b = new BookingClass(
-                property.getBookingCount() + 1 + "",
+                String.format("%s-%d", propertyID, property.getBookingCount()+1),
                 guest,
                 property,
                 numGuests, arrival,
@@ -128,12 +130,28 @@ public class DatabaseClass implements Database {
                 //nothing will happen
             }
         }
+        property.addBooking(b);
+        property.getHost().addBooking(b);
+        guest.addBooking(b);
         return b;
     }
 
     private void validateBookingDate(Guest guest, Property property, LocalDate arrival) throws InvalidBookingDatesException {
         LocalDate guestLastDepartureDate = guest.getLastDepartureDate();
         LocalDate propertyLastPaidDepartureDate = property.getPropertyLastPaidDepartureDate();
+        if (guestLastDepartureDate == null && propertyLastPaidDepartureDate == null)
+            return;
+        if (guestLastDepartureDate == null) {
+            if (arrival.isBefore(propertyLastPaidDepartureDate))
+                throw new InvalidBookingDatesException();
+            return;
+        }
+        if (propertyLastPaidDepartureDate == null) {
+            if (arrival.isBefore(guestLastDepartureDate))
+                throw new InvalidBookingDatesException();
+            return;
+        }
+
         if (arrival.isBefore(guestLastDepartureDate) && arrival.isBefore(propertyLastPaidDepartureDate))
             throw new InvalidBookingDatesException();
     }
@@ -176,7 +194,7 @@ public class DatabaseClass implements Database {
         if (booking == null) throw new BookingDoesNotExistException(bookingID);
         if (!(user instanceof Guest)) throw new UserNotGuestOfBookingException(userID);
         Guest guest = (Guest) user;
-        if (!(guest.hasBooking(booking))) throw new UserNotGuestOfBookingException(userID);
+        if (!guest.hasBooking(booking)) throw new UserNotGuestOfBookingException(userID);
 
         String propertyID = getPropertyID(bookingID);
         Property property = getProperty(propertyID);
@@ -293,7 +311,10 @@ public class DatabaseClass implements Database {
     private Booking getBooking(String bookingID) {
         String propertyID = getPropertyID(bookingID);
         Property p = properties.get(propertyID);
-        Booking temp = new BookingClass(bookingID, null, p, 0, null, null);
+        Guest tempUser = new GuestClass(null, null, null, null);
+        Booking temp = new BookingClass(bookingID, tempUser, p, 0,
+                null,
+                null);
         List<Booking> bookings = p.getBookings();
         return bookings.get(bookings.indexOf(temp));
     }

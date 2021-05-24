@@ -9,18 +9,18 @@ public abstract class Success {
     public static final String USER_ADDED = "User %s was registered as %s.\n";
     public static final String USERS_LIST = "All registered users:";
     public static final String USER_LISTED_HOST = "%s: %s from %s with email %s [host user has " +
-            "%d proprieties]\n";
+            "%d properties]\n";
     public static final String USER_LISTED_GUEST ="%s: %s from %s with email %s [guest user has " +
             "%d bookings]\n";
 
     //Properties
     public static final String PROPERTY_ADDED = "Property %s was added to host %s.\n";
     public static final String PROPERTY_HOST_LIST = "Properties of host %s:\n";
-    public static final String PROPERTY_HOST_LISTED = "%s: %s %.0f %d [%s %d %d]\n";
+    public static final String PROPERTY_HOST_LISTED = "%s: %s %d %.0f [%s %d %d]\n";
     public static final String PROPERTY_LIST_STAY = "Property %s stays:";
     public static final String PROPERTY_LISTED_STAY = "%s: %s; %s; %s; %s; %d; %.2f\n";
     public static final String PROPERTY_IN_LOCATION_LIST = "Properties in %s:";
-    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %f; %.2f; %d; %s";
+    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %.1f; %d; %.2f; %s";
     public static final String PROPERTY_BEST_IN_LOCATION_LIST = "The best properties in %s";
     public static final String PROPERTY_BEST_IN_LOCATION_LISTED = "%s: %.1f; %d; %f.2; %s";
 
@@ -29,7 +29,7 @@ public abstract class Success {
     public static final String BOOKING_NO_REJECTIONS = "%s %s has not rejected any bookings.\n";
     public static final String BOOKINGS_REJECTED_LIST = "Bookings rejected by host %s:\n";
     public static final String BOOKING_REJECTED_LISTED = "%s: %s; %s; %s; %d\n";
-    public static final String BOOKING_PAID = "Booking %s was paid: %f\n";
+    public static final String BOOKING_PAID = "Booking %s was paid: %.2f\n";
 
     //Reviews
     public static final String REVIEW_REGISTER = "Review for %s was registered.\n";

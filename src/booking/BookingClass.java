@@ -14,13 +14,14 @@ public class BookingClass implements Booking {
     private final Guest guest;
     private final Property property;
     private Review review;
-    private int numberOfGuests;
-    private LocalDate arrivalDate, departureDate;
+    private final int numberOfGuests;
+    private final LocalDate arrivalDate;
+    private final LocalDate departureDate;
     private BookingState state;
 
-    public BookingClass(String idNumber, Guest guest, Property property, int numberOfGuests,
+    public BookingClass(String bookingID, Guest guest, Property property, int numberOfGuests,
                         LocalDate arrivalDate, LocalDate departureDate) {
-        this.identifier = property.getIdentifier() + "-" + idNumber;
+        this.identifier = bookingID;
         this.guest = guest;
         this.property = property;
         this.numberOfGuests = numberOfGuests;
@@ -96,6 +97,7 @@ public class BookingClass implements Booking {
 
     public void reject() {
         state = BookingState.REJECTED;
+        property.getHost().addRejectedBooking(this);
     }
 
     public void cancel() {
@@ -125,6 +127,7 @@ public class BookingClass implements Booking {
         if (this.departureDate.isBefore(b.getArrivalDate())) {
             if (this.state.equals(BookingState.REQUESTED)) {
                 this.state = BookingState.REJECTED;
+                property.getHost().addRejectedBooking(this);
                 return true;
             }
             if (this.state.equals(BookingState.CONFIRMED)) {
