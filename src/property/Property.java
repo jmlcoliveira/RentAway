@@ -35,6 +35,8 @@ public interface Property extends Comparable<Property> {
 
     void addBooking(Booking booking);
 
+    boolean bookingOverlaps(Booking booking);
+
     PropertyType getType();
 
     List<Booking> getBookings();

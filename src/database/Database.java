@@ -93,6 +93,6 @@ public interface Database {
     Iterator<Property> iteratorPropertiesByAverage(String location)
             throws NoPropertyInLocationException;
 
-    Guest getGlobalTrotter()
+    Guest getGlobeTrotter()
             throws NoGlobalTrotterException;
 }

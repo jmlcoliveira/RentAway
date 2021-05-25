@@ -33,7 +33,7 @@ public class DatabaseClass implements Database {
         User user = getUser(identifier);
         if (user == null) throw new UserDoesNotExistException(identifier);
         if (!(user instanceof Host)) throw new InvalidUserTypeException(identifier,
-                UserType.GUEST.getType());
+                UserType.HOST.getType());
         return ((Host) user).propertyIt();
     }
 
@@ -123,7 +123,7 @@ public class DatabaseClass implements Database {
                 numGuests, arrival,
                 departure);
         if (property.getType() == PropertyType.ENTIRE_PLACE && Duration.between(arrival.atStartOfDay(),
-                departure.atStartOfDay()).toDays() > 7) {
+                departure.atStartOfDay()).toDays() > 7 && !property.bookingOverlaps(b)) {
             try {
                 b.confirm();
             } catch (CannotExecuteActionInBookingException e) {
@@ -268,7 +268,7 @@ public class DatabaseClass implements Database {
         return properties.iterator();
     }
 
-    public Guest getGlobalTrotter() throws NoGlobalTrotterException {
+    public Guest getGlobeTrotter() throws NoGlobalTrotterException {
         if (guests.size() == 0) throw new NoGlobalTrotterException();
         Iterator<Guest> it = guests.values().iterator();
 

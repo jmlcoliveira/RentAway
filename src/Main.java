@@ -84,8 +84,8 @@ public class Main {
                 case BEST:
                     processBest(in, db);
                     break;
-                case GLOBALTROTTER:
-                    processGlobalTrotter(in, db);
+                case GLOBETROTTER:
+                    processGlobeTrotter(in, db);
                     break;
                 case HELP:
                     processHelpCommand(in);
@@ -105,10 +105,10 @@ public class Main {
      * @param in
      * @param db
      */
-    private static void processGlobalTrotter(Scanner in, Database db) {
+    private static void processGlobeTrotter(Scanner in, Database db) {
         in.nextLine();
         try {
-            Guest guest = db.getGlobalTrotter();
+            Guest guest = db.getGlobeTrotter();
             System.out.printf(Success.GLOBAL_TROTTER_INFO, guest.getIdentifier(), guest.getVisitedLocations());
         } catch (NoGlobalTrotterException e) {
             System.out.println(e.getMessage());
@@ -414,7 +414,13 @@ public class Main {
                 case UNKNOWN:
                     throw new UnknownPropertyTypeException();
             }
-        } catch (UnknownPropertyTypeException | UserDoesNotExistException | InvalidUserTypeException | PropertyAlreadyExistException e) {
+        } catch (UnknownPropertyTypeException e){
+            String a = in.nextLine();
+            a = in.nextLine();
+            a = in.nextLine();
+            System.out.println(e.getMessage());
+        }
+        catch(UserDoesNotExistException | InvalidUserTypeException | PropertyAlreadyExistException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -428,6 +434,7 @@ public class Main {
         int price = in.nextInt();
         in.nextLine();
         int amenities = in.nextInt();
+        in.nextLine();
         int count = 0;
         try {
             db.addPrivateRoom(propertyID, userID, location, capacity, price, amenities);

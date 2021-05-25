@@ -43,7 +43,7 @@ public abstract class PropertyClass implements Property {
     }
 
     public double getPrice() {
-        return price*1.00;
+        return price * 1.00;
     }
 
     public String getLocation() {
@@ -75,10 +75,17 @@ public abstract class PropertyClass implements Property {
         return sumPay;
     }
 
+    public boolean bookingOverlaps(Booking booking) {
+        for (Booking b : bookingList)
+            if (b.dateOverlaps(booking))
+                return true;
+        return false;
+    }
+
     public LocalDate getPropertyLastPaidDepartureDate() {
-        if(paidBookings.size() == 0) return null;
+        if (paidBookings.size() == 0) return null;
         LocalDate date = paidBookings.last().getDepartureDate();
-        for (Booking b : paidBookings){
+        for (Booking b : paidBookings) {
             LocalDate d = b.getDepartureDate();
             if (d.isAfter(date))
                 date = d;

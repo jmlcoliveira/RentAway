@@ -23,7 +23,7 @@ public class HostClass extends UserClassAbs implements Host {
     }
 
     public Iterator<Property> propertyIt() throws NoPropertiesRegisteredException {
-        if(properties.size() == 0) throw new NoPropertiesRegisteredException(getName());
+        if(properties.size() == 0) throw new NoPropertiesRegisteredException(getIdentifier());
         return properties.iterator();
     }
 
