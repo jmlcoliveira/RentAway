@@ -41,7 +41,7 @@ public interface Database {
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
             InvalidUserTypeException,
-            UserNotHostOfBookingException,
+            InvalidUserTypeForBookingException,
             CannotExecuteActionInBookingException;
 
     Booking addBooking(String userID, String propertyID, LocalDate arrival,
@@ -62,12 +62,14 @@ public interface Database {
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
             InvalidUserTypeException,
+            InvalidUserTypeForBookingException,
             CannotExecuteActionInBookingException;
 
     Iterator<Booking> pay(String bookingID, String userID)
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
-            UserNotGuestOfBookingException,
+            InvalidUserTypeException,
+            UserNotAllowedToPayBookingException,
             CannotExecuteActionInBookingException;
 
 
@@ -75,7 +77,7 @@ public interface Database {
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
             InvalidUserTypeException,
-            UserNotAllowedToReviewException,
+            InvalidUserTypeForBookingException,
             CannotExecuteActionInBookingException,
             BookingAlreadyReviewedException;
 

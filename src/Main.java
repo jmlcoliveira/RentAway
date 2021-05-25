@@ -244,7 +244,7 @@ public class Main {
         try {
             db.addReview(bookingID, userID, review, classification);
             System.out.printf(Success.REVIEW_REGISTER, bookingID);
-        } catch (UserNotAllowedToReviewException | BookingAlreadyReviewedException | CannotExecuteActionInBookingException | UserDoesNotExistException | BookingDoesNotExistException | InvalidUserTypeException e) {
+        } catch (InvalidUserTypeForBookingException | BookingAlreadyReviewedException | CannotExecuteActionInBookingException | UserDoesNotExistException | BookingDoesNotExistException | InvalidUserTypeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -272,7 +272,7 @@ public class Main {
                 System.out.printf(Success.BOOKING_WAS, next.getIdentifier(),
                         next.getState().getStateValue());
             }
-        } catch (BookingDoesNotExistException | UserDoesNotExistException | UserNotGuestOfBookingException
+        } catch (BookingDoesNotExistException | InvalidUserTypeException | UserDoesNotExistException | UserNotAllowedToPayBookingException
                 | CannotExecuteActionInBookingException e) {
             System.out.println(e.getMessage());
         }
@@ -317,7 +317,7 @@ public class Main {
             Booking book = db.rejectBooking(bookingID, userID);
             System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState().getStateValue());
         } catch (BookingDoesNotExistException | UserDoesNotExistException |
-                InvalidUserTypeException | CannotExecuteActionInBookingException e) {
+                InvalidUserTypeException | InvalidUserTypeForBookingException | CannotExecuteActionInBookingException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -337,7 +337,7 @@ public class Main {
                 Booking b = it.next();
                 System.out.printf(Success.BOOKING_WAS, b.getIdentifier(), b.getState().getStateValue());
             }
-        } catch (CannotExecuteActionInBookingException | InvalidUserTypeException | UserDoesNotExistException | BookingDoesNotExistException | UserNotHostOfBookingException e) {
+        } catch (CannotExecuteActionInBookingException | InvalidUserTypeException | UserDoesNotExistException | BookingDoesNotExistException | InvalidUserTypeForBookingException e) {
             System.out.println(e.getMessage());
         }
     }

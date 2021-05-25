@@ -40,6 +40,14 @@ public class HostClass extends UserClassAbs implements Host {
     }
 
     public void addRejectedBooking(Booking booking) {
+        Iterator<Booking> it = rejectedBookings.iterator();
+        while(it.hasNext()) {
+            Booking next = it.next();
+            if(bookings.indexOf(booking) < bookings.indexOf(next)) {
+                rejectedBookings.add(rejectedBookings.indexOf(next), booking);
+                return;
+            }
+        }
         rejectedBookings.add(booking);
     }
 
