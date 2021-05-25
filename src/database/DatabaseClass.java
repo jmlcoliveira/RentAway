@@ -242,10 +242,11 @@ public class DatabaseClass implements Database {
         Property p = getProperty(propertyID);
         if (p == null) throw new PropertyDoesNotExistException(propertyID);
         if (p.getPaidBookingCount() == 0) throw new PropertyHasNoStaysException(propertyID);
-        return null;
+        return p.iteratorPaidBookings();
     }
 
     public Iterator<Property> iteratorPropertiesByGuest(String location, int numGuests) throws NoPropertyInLocationException {
+        if(!propertiesByLocation.containsKey(location)) throw new NoPropertyInLocationException(location);
         Iterator<Property> it = propertiesByLocation.get(location).iterator();
         if (!it.hasNext()) throw new NoPropertyInLocationException(location);
 
@@ -255,6 +256,8 @@ public class DatabaseClass implements Database {
             if (next.getGuestsCapacity() >= numGuests)
                 properties.add(next);
         }
+
+        if(properties.size() == 0) throw new NoPropertyInLocationException(location);
 
         Collections.sort(properties, new ComparatorSearch());
         return properties.iterator();
@@ -316,6 +319,8 @@ public class DatabaseClass implements Database {
                 null,
                 null);
         List<Booking> bookings = p.getBookings();
-        return bookings.get(bookings.indexOf(temp));
+        int i = bookings.indexOf(temp);
+        if(i == -1) return null;
+        return bookings.get(i);
     }
 }

@@ -41,6 +41,8 @@ public interface Property extends Comparable<Property> {
 
     List<Booking> getBookings();
 
+    Iterator<Booking> iteratorPaidBookings();
+
     Host getHost();
 
     LocalDate getPropertyLastPaidDepartureDate();

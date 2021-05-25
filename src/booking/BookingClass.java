@@ -7,6 +7,7 @@ import property.Property;
 import review.*;
 import users.Guest;
 
+import java.time.Duration;
 import java.time.LocalDate;
 
 public class BookingClass implements Booking {
@@ -47,7 +48,8 @@ public class BookingClass implements Booking {
     }
 
     public double getPrice() {
-        return property.getPrice() * (departureDate.compareTo(arrivalDate));
+        return property.getPrice() * Duration.between(arrivalDate.atStartOfDay(),
+                departureDate.atStartOfDay()).toDays();
     }
 
     public BookingState getState() {
@@ -73,7 +75,7 @@ public class BookingClass implements Booking {
     @Override
     public void review(String comment, String classification) throws BookingAlreadyReviewedException {
         if (this.review != null) throw new BookingAlreadyReviewedException(this.identifier);
-        review = new ReviewClass(comment, Rating.valueOf(classification));
+        review = new ReviewClass(comment, Rating.valueOf(classification.toUpperCase()));
         property.addReview(review);
     }
 

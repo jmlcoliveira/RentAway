@@ -159,7 +159,7 @@ public class Main {
             while (it.hasNext()) {
                 Property next = it.next();
                 System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
-                        next.getAverageRating(), next.getTotalPayment(), next.getGuestsCapacity(),
+                        next.getAverageRating(), next.getPrice(), next.getGuestsCapacity(),
                         next.getType().getTypeValue());
             }
         } catch (NoPropertyInLocationException e) {
@@ -269,7 +269,6 @@ public class Main {
 
             while (it.hasNext()) {
                 Booking next = it.next();
-
                 System.out.printf(Success.BOOKING_WAS, next.getIdentifier(),
                         next.getState().getStateValue());
             }

@@ -62,12 +62,13 @@ public class GuestClass extends UserClassAbs implements Guest {
     @Override
     public Iterator<Booking> pay(Booking booking) {
         ListIterator<Booking> it = bookings.listIterator();
+        List<Booking> temp = new LinkedList<>();
         while (it.hasPrevious()) {
             Booking b = it.previous();
             if (b.rejectOrCancel(booking))
-                bookings.add(b);
+                temp.add(b);
         }
-        return bookings.iterator();
+        return temp.iterator();
     }
 
     @Override

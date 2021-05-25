@@ -21,19 +21,19 @@ public class Tests {
 	@Test public void test05() { test("05_in_properties_pre.txt","05_out_properties_pre.txt"); }
 	@Test public void test06() { test("06_in_book_base.txt","06_out_book_base.txt"); }
 	@Test public void test07() { test("07_in_book_pre.txt","07_out_book_pre.txt"); }
-	@Test public void test08() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test09() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test10() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test11() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test12() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test13() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test14() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test15() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test16() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test17() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test18() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test19() { test("7_in_test.txt","7_out_test.txt"); }
-	@Test public void test20() { test("7_in_test.txt","7_out_test.txt"); }
+	@Test public void test08() { test("08_in_confirm_base.txt","08_out_confirm_base.txt"); }
+	@Test public void test09() { test("09_in_confirm_pre.txt","09_out_confirm_pre.txt"); }
+	@Test public void test10() { test("10_in_reject_base.txt","10_out_reject_base.txt"); }
+	@Test public void test11() { test("11_in_reject_pre.txt","11_out_reject_pre.txt"); }
+	@Test public void test12() { test("12_in_rejections_base.txt","12_out_rejections_base.txt"); }
+	@Test public void test13() { test("13_in_rejections_pre.txt","13_out_rejections_pre.txt"); }
+	@Test public void test14() { test("14_in_pay_base.txt","14_out_pay_base.txt"); }
+	@Test public void test15() { test("15_in_pay_pre.txt","15_out_pay_pre.txt"); }
+	@Test public void test16() { test("16_in_review_base.txt","16_out_review_base.txt"); }
+	@Test public void test17() { test("17_in_review_pre.txt","17_out_review_pre.txt"); }
+	@Test public void test18() { test("18_in_guest.txt","18_out_guest.txt"); }
+	@Test public void test19() { test("19_in_stays.txt","19_out_stays.txt"); }
+	@Test public void test20() { test("20_in_search.txt","20_out_search.txt"); }
 
 	//nome da pasta em que os testes devem estar
 	private static final File BASE = new File("tests");

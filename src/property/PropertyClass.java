@@ -64,7 +64,7 @@ public abstract class PropertyClass implements Property {
 
     @Override
     public double getTotalPayment() {
-        double sumPay = 0;
+        double sumPay = 0.00;
 
         for (Booking booking : bookingList) {
             BookingState nextState = booking.getState();
@@ -109,6 +109,10 @@ public abstract class PropertyClass implements Property {
         return bookingList;
     }
 
+    public Iterator<Booking> iteratorPaidBookings(){
+        return paidBookings.iterator();
+    }
+
     @Override
     public Host getHost() {
         return host;
@@ -122,6 +126,7 @@ public abstract class PropertyClass implements Property {
     @Override
     public double getAverageRating() {
         double rating = 0.00;
+        if(reviewList.size() == 0) return rating;
         for (Review r : reviewList)
             rating += r.getRating();
         return rating / reviewList.size();
@@ -138,6 +143,7 @@ public abstract class PropertyClass implements Property {
         addPaidBooking(booking);
         List<Booking> bookings = new LinkedList<>();
         booking.getGuest().addPaidBooking(booking);
+        bookings.add(booking);
 
         ListIterator<Booking> it = bookingList.listIterator();
         while (it.hasPrevious()) {
