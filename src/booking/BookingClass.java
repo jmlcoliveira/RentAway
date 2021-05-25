@@ -109,13 +109,17 @@ public class BookingClass implements Booking {
     public boolean dateOverlaps(Booking booking) {
         LocalDate a = booking.getArrivalDate();
         LocalDate d = booking.getDepartureDate();
+        if(a.isAfter(departureDate) || d.isBefore(arrivalDate))
+            return false;
+        return true;
+
+        /*
         if (a.isAfter(arrivalDate) && a.isBefore(departureDate))
             return true;
         if (d.isAfter(arrivalDate) && d.isBefore(departureDate))
             return true;
         if (a.isEqual(arrivalDate) && d.isEqual(departureDate))
-            return true;
-        return false;
+            return true;*/
     }
 
     public boolean equals(Object o) {

@@ -158,11 +158,11 @@ public abstract class PropertyClass implements Property {
         booking.confirm();
         List<Booking> temp = new LinkedList<>();
         temp.add(booking);
-        ListIterator<Booking> it = bookingList.listIterator();
-        while (it.hasPrevious()) {
-            Booking b = it.previous();
-            if (b.dateOverlaps(booking)) {
-                b.cancel();
+        Iterator<Booking> it = bookingList.iterator();
+        while (it.hasNext()) {
+            Booking b = it.next();
+            if (b.dateOverlaps(booking) && (b.getState().equals(BookingState.REQUESTED))) {
+                b.reject();
                 temp.add(b);
             }
         }
