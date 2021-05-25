@@ -43,7 +43,7 @@ public interface Database {
             UserNotAllowedToConfirmBookingException,
             CannotExecuteActionInBookingException;
 
-    booking.Booking addBooking(String userID, String propertyID, LocalDate arrival,
+    Booking addBooking(String userID, String propertyID, LocalDate arrival,
                                LocalDate departure, int numGuests)
             throws UserDoesNotExistException,
             InvalidUserTypeException,
