@@ -20,7 +20,7 @@ public abstract class Success {
     public static final String PROPERTY_LIST_STAY = "Property %s stays:\n";
     public static final String PROPERTY_LISTED_STAY = "%s: %s; %s; %s; %s; %d; %.2f\n";
     public static final String PROPERTY_IN_LOCATION_LIST = "Properties in %s:\n";
-    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %.1f; %d; %.2f; %s\n";
+    public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %.1f; %.2f; %d; %s\n";
     public static final String PROPERTY_BEST_IN_LOCATION_LIST = "The best properties in %s";
     public static final String PROPERTY_BEST_IN_LOCATION_LISTED = "%s: %.1f; %d; %f.2; %s";
 
@@ -40,7 +40,7 @@ public abstract class Success {
 
     //Guests
     public static final String GUEST_BOOKING_LIST = "Guest %s bookings: paid %.2f euros\n";
-    public static final String GUEST_BOOKINGS_LISTED = "%s: %s; %s; %s; %s; %s, %d; %s; %.2f\n";
+    public static final String GUEST_BOOKINGS_LISTED = "%s: %s; %s; %s; %s; %s; %d; %s; %.2f\n";
 
     //GlobalTrotter
     public static final String GLOBAL_TROTTER_INFO = "Global trotter %s has visited %d locations.\n";

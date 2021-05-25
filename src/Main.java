@@ -215,8 +215,8 @@ public class Main {
                 System.out.printf(Success.GUEST_BOOKINGS_LISTED,
                         b.getIdentifier(),
                         p.getIdentifier(),
-                        p.getLocation(),
                         p.getType().getTypeValue(),
+                        p.getLocation(),
                         b.getArrivalDate().format(formatter),
                         b.getDepartureDate().format(formatter),
                         b.getNumberOfGuests(),
@@ -413,13 +413,12 @@ public class Main {
                 case UNKNOWN:
                     throw new UnknownPropertyTypeException();
             }
-        } catch (UnknownPropertyTypeException e){
+        } catch (UnknownPropertyTypeException e) {
             String a = in.nextLine();
             a = in.nextLine();
             a = in.nextLine();
             System.out.println(e.getMessage());
-        }
-        catch(UserDoesNotExistException | InvalidUserTypeException | PropertyAlreadyExistException e) {
+        } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyAlreadyExistException e) {
             System.out.println(e.getMessage());
         }
     }
