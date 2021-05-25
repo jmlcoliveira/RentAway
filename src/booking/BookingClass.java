@@ -6,6 +6,7 @@ import exceptions.CannotExecuteActionInBookingException;
 import property.Property;
 import review.*;
 import users.Guest;
+import users.Host;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -142,5 +143,10 @@ public class BookingClass implements Booking {
             }
         }
         return false;
+    }
+
+    @Override
+    public Host getHost() {
+        return this.property.getHost();
     }
 }

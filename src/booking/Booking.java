@@ -3,6 +3,7 @@ package booking;
 import exceptions.*;
 import property.Property;
 import users.Guest;
+import users.Host;
 
 import java.time.LocalDate;
 
@@ -41,4 +42,6 @@ public interface Booking {
     boolean rejectOrCancel(Booking b);
 
     boolean dateOverlaps(Booking booking);
+
+    Host getHost();
 }

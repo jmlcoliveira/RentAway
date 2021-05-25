@@ -337,7 +337,7 @@ public class Main {
                 Booking b = it.next();
                 System.out.printf(Success.BOOKING_WAS, b.getIdentifier(), b.getState().getStateValue());
             }
-        } catch (CannotExecuteActionInBookingException | UserDoesNotExistException | BookingDoesNotExistException | UserNotAllowedToConfirmBookingException e) {
+        } catch (CannotExecuteActionInBookingException | InvalidUserTypeException | UserDoesNotExistException | BookingDoesNotExistException | UserNotHostOfBookingException e) {
             System.out.println(e.getMessage());
         }
     }

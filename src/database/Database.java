@@ -40,7 +40,8 @@ public interface Database {
     Iterator<Booking> confirmBooking(String bookingID, String userID)
             throws BookingDoesNotExistException,
             UserDoesNotExistException,
-            UserNotAllowedToConfirmBookingException,
+            InvalidUserTypeException,
+            UserNotHostOfBookingException,
             CannotExecuteActionInBookingException;
 
     Booking addBooking(String userID, String propertyID, LocalDate arrival,

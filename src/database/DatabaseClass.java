@@ -88,14 +88,19 @@ public class DatabaseClass implements Database {
         privateRoom.addAmenity(amenity);
     }
 
-    public Iterator<Booking> confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, UserNotAllowedToConfirmBookingException, CannotExecuteActionInBookingException {
+    public Iterator<Booking> confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException,
+            UserDoesNotExistException,InvalidUserTypeException ,UserNotHostOfBookingException,
+            CannotExecuteActionInBookingException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
+
+        if (!(user instanceof Host)) throw new InvalidUserTypeException(userID, UserType.HOST.getType());
 
         Booking booking = getBooking(bookingID);
         if (booking == null) throw new BookingDoesNotExistException(bookingID);
 
-        if (!(user instanceof Host)) throw new UserNotAllowedToConfirmBookingException(userID);
+        if (!(booking.getHost().equals(user))) throw new UserNotHostOfBookingException(userID,
+                bookingID);
         Property property = properties.get(getPropertyID(bookingID));
         return property.confirmBooking(booking);
     }

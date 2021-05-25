@@ -1,5 +1,7 @@
 package users;
 
+import java.util.Objects;
+
 public abstract class UserClassAbs implements User{
     private final String identifier;
     private final String name;
@@ -28,4 +30,5 @@ public abstract class UserClassAbs implements User{
     public final String getEmail() {
         return email;
     }
+
 }
