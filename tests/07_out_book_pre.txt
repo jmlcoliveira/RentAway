@@ -7,7 +7,7 @@ Property linetti-jersey was added to host linetti.
 User raymond was registered as host.
 Property raymond-house was added to host raymond.
 User alice does not exist.
-User linetti is not a host user.
+User linetti is not a guest user.
 Property boyle-paris does not exist.
 Property boyle-florida has a capacity limit of 2 guests.
 Booking linetti-jersey-1 was confirmed.

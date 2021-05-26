@@ -20,7 +20,7 @@ public interface Guest extends User {
 
     Iterator<Booking> iteratorBookings();
 
-    LocalDate getLastDepartureDate();
+    LocalDate getLastPaidDepartureDate();
 
     boolean hasBooking(Booking booking);
 

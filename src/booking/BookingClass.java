@@ -78,6 +78,7 @@ public class BookingClass implements Booking {
         if (this.review != null) throw new BookingAlreadyReviewedException(this.identifier);
         review = new ReviewClass(comment, Rating.valueOf(classification.toUpperCase()));
         property.addReview(review);
+        state = BookingState.REVIEWED;
     }
 
     @Override
@@ -113,14 +114,6 @@ public class BookingClass implements Booking {
         if(a.isAfter(departureDate) || d.isBefore(arrivalDate))
             return false;
         return true;
-
-        /*
-        if (a.isAfter(arrivalDate) && a.isBefore(departureDate))
-            return true;
-        if (d.isAfter(arrivalDate) && d.isBefore(departureDate))
-            return true;
-        if (a.isEqual(arrivalDate) && d.isEqual(departureDate))
-            return true;*/
     }
 
     public boolean equals(Object o) {

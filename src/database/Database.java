@@ -87,7 +87,7 @@ public interface Database {
             InvalidUserTypeException;
 
     Iterator<Booking> iteratorStaysAtProperty(String propertyID)
-            throws PropertyHasNoStaysException,
+            throws NoPropertyInLocationException,
             PropertyDoesNotExistException;
 
     Iterator<Property> iteratorPropertiesByGuest(String location, int numGuests)

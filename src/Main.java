@@ -187,7 +187,7 @@ public class Main {
                         next.getGuest().getIdentifier(), next.getGuest().getNationality(),
                         next.getNumberOfGuests(), next.getPrice());
             }
-        } catch (PropertyHasNoStaysException | PropertyDoesNotExistException e) {
+        } catch (NoPropertyInLocationException | PropertyDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
     }

@@ -34,16 +34,12 @@ public abstract class Success {
     //Reviews
     public static final String REVIEW_REGISTER = "Review for %s was registered.\n";
 
-    //Hosts
-    public static final String HOST_PROPERTIES_LIST = "Properties of host %s: %d; %d, %.1f; %.2f\n";
-    public static final String HOST_PROPERTIES_LISTED = "%s: %d; %d, %.1f; %.2f\n";
-
     //Guests
     public static final String GUEST_BOOKING_LIST = "Guest %s bookings: paid %.2f euros\n";
     public static final String GUEST_BOOKINGS_LISTED = "%s: %s; %s; %s; %s; %s; %d; %s; %.2f\n";
 
     //GlobalTrotter
-    public static final String GLOBAL_TROTTER_INFO = "Global trotter %s has visited %d locations.\n";
+    public static final String GLOBAL_TROTTER_INFO = "Globe trotter %s has visited %d locations.\n";
 
     //Exit
     public static final String EXIT = "Bye!";

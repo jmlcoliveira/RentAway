@@ -62,13 +62,13 @@ average
 review raymond-house-10 scully
 Liked it.
 average
-review raymond-house-3 scully
+review raymond-house-3 hitchcock
 Liked it.
 average
 review raymond-house-2 diaz
 Liked it.
 average
-review raymond-house-3 scully
+review raymond-house-3 hitchcock
 Liked it.
 average
 exit

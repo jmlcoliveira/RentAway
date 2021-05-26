@@ -48,7 +48,7 @@ public class GuestClass extends UserClassAbs implements Guest {
         return bookings.iterator();
     }
 
-    public LocalDate getLastDepartureDate() {
+    public LocalDate getLastPaidDepartureDate() {
         if(paidBookings.size()==0) return null;
         LocalDate date = paidBookings.last().getDepartureDate();
         for (Booking b : paidBookings){
@@ -63,8 +63,8 @@ public class GuestClass extends UserClassAbs implements Guest {
     public Iterator<Booking> pay(Booking booking) {
         ListIterator<Booking> it = bookings.listIterator();
         List<Booking> temp = new LinkedList<>();
-        while (it.hasPrevious()) {
-            Booking b = it.previous();
+        while (it.hasNext()) {
+            Booking b = it.next();
             if (b.rejectOrCancel(booking))
                 temp.add(b);
         }

@@ -146,8 +146,8 @@ public abstract class PropertyClass implements Property {
         bookings.add(booking);
 
         ListIterator<Booking> it = bookingList.listIterator();
-        while (it.hasPrevious()) {
-            Booking b = it.previous();
+        while (it.hasNext()) {
+            Booking b = it.next();
             if (b.rejectOrCancel(booking))
                 bookings.add(b);
         }
