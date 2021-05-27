@@ -13,14 +13,12 @@ import java.util.*;
 public class DatabaseClass implements Database {
 
     private final SortedMap<String, User> users;
-    private final Map<String, Guest> guests;
     private final Map<String, Property> properties;
     private final Map<String, SortedSet<Property>> propertiesByLocation;
     private Guest globeTrotter;
 
     public DatabaseClass() {
         users = new TreeMap<>();
-        guests = new HashMap<>();
         properties = new HashMap<>();
         propertiesByLocation = new HashMap<>();
         globeTrotter = null;
@@ -43,7 +41,6 @@ public class DatabaseClass implements Database {
         if (getUser(identifier) != null) throw new UserAlreadyExistException(identifier);
         Guest g = new GuestClass(identifier, name, nationality, email);
         users.put(identifier, g);
-        guests.put(identifier, g);
     }
 
     public void addHost(String identifier, String name, String nationality, String email) throws UserAlreadyExistException {
@@ -257,7 +254,7 @@ public class DatabaseClass implements Database {
         if (!(user instanceof Guest))
             throw new InvalidUserTypeException(guestID, UserType.GUEST.getType());
         Guest guest = (Guest) user;
-        if (guest.getBookingsTotal() == 0) throw new GuestHasNoBookingsException(guestID);
+        if (guest.getBookingsCount() == 0) throw new GuestHasNoBookingsException(guestID);
         return guest;
     }
 
@@ -298,28 +295,6 @@ public class DatabaseClass implements Database {
     }
 
     public Guest getGlobeTrotter() throws NoGlobalTrotterException {
-        /*if (guests.size() == 0) throw new NoGlobalTrotterException();
-        Iterator<Guest> it = guests.values().iterator();
-
-        Guest globalTrotter = null;
-        while (it.hasNext()) {
-            Guest next = it.next();
-            if (globalTrotter == null && next.getVisitedLocations() > 0) {
-                globalTrotter = next;
-                continue;
-            }
-            if (globalTrotter != null) {
-                if (next.getVisitedLocations() > globalTrotter.getVisitedLocations())
-                    globalTrotter = next;
-                else if (next.getVisitedLocations() == globalTrotter.getVisitedLocations()) {
-                    if (next.getBookingsTotal() > globalTrotter.getBookingsTotal())
-                        globalTrotter = next;
-                    else if (next.getBookingsTotal() == globalTrotter.getBookingsTotal())
-                        if (next.getIdentifier().compareTo(globalTrotter.getIdentifier()) > 0)
-                            globalTrotter = next;
-                }
-            }
-        }*/
         if (globeTrotter == null) throw new NoGlobalTrotterException();
         return globeTrotter;
     }
@@ -333,9 +308,9 @@ public class DatabaseClass implements Database {
             if (guest.getVisitedLocations() > globeTrotter.getVisitedLocations())
                 globeTrotter = guest;
             else if (guest.getVisitedLocations() == globeTrotter.getVisitedLocations()) {
-                if (guest.getBookingsTotal() > globeTrotter.getBookingsTotal())
+                if (guest.getBookingsCount() > globeTrotter.getBookingsCount())
                     globeTrotter = guest;
-                else if (guest.getBookingsTotal() == globeTrotter.getBookingsTotal())
+                else if (guest.getBookingsCount() == globeTrotter.getBookingsCount())
                     if (guest.getIdentifier().compareTo(globeTrotter.getIdentifier()) > 0)
                         globeTrotter = guest;
             }

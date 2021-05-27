@@ -485,7 +485,7 @@ public class Main {
                 if (next instanceof Guest)
                     System.out.printf(Success.USER_LISTED_GUEST, next.getIdentifier(),
                             next.getName(),
-                            next.getNationality(), next.getEmail(), ((Guest) next).getBookingsTotal());
+                            next.getNationality(), next.getEmail(), ((Guest) next).getBookingsCount());
 
                 if (next instanceof Host)
                     System.out.printf(Success.USER_LISTED_HOST, next.getIdentifier(),

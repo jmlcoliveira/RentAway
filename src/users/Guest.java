@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 public interface Guest extends User {
 
-    int getBookingsTotal();
+    int getBookingsCount();
 
     double getTotalAmountPaid();
 

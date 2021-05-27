@@ -20,7 +20,7 @@ public class GuestClass extends UserClassAbs implements Guest {
         visitedLocations = new HashSet<>();
     }
 
-    public int getBookingsTotal() {
+    public int getBookingsCount() {
         return allBookingsByInsertionOrder.size();
     }
 
@@ -42,11 +42,7 @@ public class GuestClass extends UserClassAbs implements Guest {
     }
 
     public void addBooking(Booking booking) {
-        if (booking.isPaid())
-            paidBookings.add(booking);
-        else
-            unpaidBookings.add(booking);
-
+        unpaidBookings.add(booking);
         allBookingsByInsertionOrder.add(booking);
     }
 
