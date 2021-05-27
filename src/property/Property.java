@@ -1,17 +1,14 @@
 package property;
 
 import booking.Booking;
-import exceptions.CannotExecuteActionInBookingException;
+import exceptions.booking.CannotExecuteActionInBookingException;
 import review.Review;
 import users.Host;
 
 import java.time.LocalDate;
 import java.util.Iterator;
-import java.util.List;
 
 public interface Property extends Comparable<Property> {
-
-    PropertyType type();
 
     String getIdentifier();
 
@@ -37,7 +34,7 @@ public interface Property extends Comparable<Property> {
 
     PropertyType getType();
 
-    List<Booking> getBookings();
+    Booking getBooking(Booking b);
 
     Iterator<Booking> iteratorPaidBookings();
 

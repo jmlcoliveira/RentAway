@@ -61,9 +61,9 @@ public class Tests {
 			fullInput = new String(Files.readAllBytes(input.toPath()));
 			fullOutput = new String(Files.readAllBytes(output.toPath()));
 			consoleStream.println("INPUT ============");
-			consoleStream.println(new String(fullInput));
+			consoleStream.println(fullInput);
 			consoleStream.println("OUTPUT ESPERADO =============");
-			consoleStream.println(new String(fullOutput));
+			consoleStream.println(fullOutput);
 			consoleStream.println("OUTPUT =============");
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -79,7 +79,7 @@ public class Tests {
 			e.printStackTrace();
 			fail("Erro no programa");
 		} finally {
-			consoleStream.println(outContent.toString());
+			consoleStream.println(outContent);
 
 			assertEquals(removeCarriages(fullOutput), removeCarriages(outContent.toString()));
 		}

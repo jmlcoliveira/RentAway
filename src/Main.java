@@ -1,6 +1,9 @@
 import commands.Command;
 import database.*;
 import exceptions.*;
+import exceptions.booking.*;
+import exceptions.property.*;
+import exceptions.user.*;
 import outputmessages.*;
 import property.*;
 import users.*;
@@ -109,7 +112,7 @@ public class Main {
         in.nextLine();
         try {
             Guest guest = db.getGlobeTrotter();
-            System.out.printf(Success.GLOBAL_TROTTER_INFO, guest.getIdentifier(), guest.getVisitedLocations());
+            System.out.printf(Success.GLOBE_TROTTER_INFO, guest.getIdentifier(), guest.getVisitedLocations());
         } catch (NoGlobalTrotterException e) {
             System.out.println(e.getMessage());
         }
@@ -130,7 +133,7 @@ public class Main {
             System.out.println(Success.PROPERTY_BEST_IN_LOCATION_LIST);
             while (it.hasNext()) {
                 Property next = it.next();
-                System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
+                System.out.printf(Success.PROPERTY_BEST_IN_LOCATION_LISTED, next.getIdentifier(),
                         next.getAverageRating(), next.getGuestsCapacity(), next.getPrice(),
                         next.getType().getTypeValue());
             }
@@ -138,8 +141,6 @@ public class Main {
         } catch (NoPropertyInLocationException e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 
     /**
@@ -185,7 +186,7 @@ public class Main {
                 System.out.printf(Success.PROPERTY_LISTED_STAY, next.getIdentifier(),
                         next.getArrivalDate().format(formatter), next.getDepartureDate().format(formatter),
                         next.getGuest().getIdentifier(), next.getGuest().getNationality(),
-                        next.getNumberOfGuests(), next.getPrice());
+                        next.getNumberOfGuests(), next.getPaidAmount());
             }
         } catch (NoPropertyInLocationException | PropertyDoesNotExistException e) {
             System.out.println(e.getMessage());
@@ -221,7 +222,7 @@ public class Main {
                         b.getDepartureDate().format(formatter),
                         b.getNumberOfGuests(),
                         b.getState().getStateValue(),
-                        b.getPrice()
+                        b.getPaidAmount()
                 );
             }
         } catch (GuestHasNoBookingsException | InvalidUserTypeException | UserDoesNotExistException e) {
@@ -265,7 +266,7 @@ public class Main {
 
             Booking paidBooking = it.next();
             System.out.printf(Success.BOOKING_PAID, paidBooking.getIdentifier(),
-                    paidBooking.getPrice());
+                    paidBooking.getPaidAmount());
 
             while (it.hasNext()) {
                 Booking next = it.next();
@@ -363,7 +364,7 @@ public class Main {
             Booking book = db.addBooking(userID, propertyID, arrivalDate, departureDate, numGuests);
             System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState().getStateValue());
 
-        } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyIdDoesNotExistException |
+        } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyDoesNotExistException |
                 NumGuestsExceedsCapacityException | InvalidBookingDatesException e) {
             System.out.println(e.getMessage());
         }
@@ -384,9 +385,15 @@ public class Main {
             System.out.printf(Success.PROPERTY_HOST_LIST, hostID);
             while (it.hasNext()) {
                 Property next = it.next();
-                System.out.printf(Success.PROPERTY_HOST_LISTED, next.getIdentifier(),
-                        next.getLocation(), next.getGuestsCapacity(), next.getPrice(), next.type().getTypeValue(),
-                        next.getBookingCount(), next.getReviewCount());
+                System.out.printf(Success.PROPERTY_HOST_LISTED,
+                        next.getIdentifier(),
+                        next.getLocation(),
+                        next.getGuestsCapacity(),
+                        next.getPrice(),
+                        next.getType().getTypeValue(),
+                        next.getBookingCount(),
+                        next.getReviewCount()
+                );
             }
 
         } catch (UserDoesNotExistException | InvalidUserTypeException | NoPropertiesRegisteredException e) {
@@ -583,6 +590,12 @@ public class Main {
         }
     }
 
+    /**
+     * Returns PropertyType which corresponds to the property given by the user
+     *
+     * @param in input where the data will be read from
+     * @return PropertyType which corresponds to the property given by the user
+     */
     private static PropertyType getPropertyType(Scanner in) {
         String propertyType = in.nextLine().trim();
         for (PropertyType p : PropertyType.values())

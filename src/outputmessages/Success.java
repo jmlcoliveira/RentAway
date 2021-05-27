@@ -39,7 +39,7 @@ public abstract class Success {
     public static final String GUEST_BOOKINGS_LISTED = "%s: %s; %s; %s; %s; %s; %d; %s; %.2f\n";
 
     //GlobalTrotter
-    public static final String GLOBAL_TROTTER_INFO = "Globe trotter %s has visited %d locations.\n";
+    public static final String GLOBE_TROTTER_INFO = "Globe trotter %s has visited %d locations.\n";
 
     //Exit
     public static final String EXIT = "Bye!";

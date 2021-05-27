@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.booking;
 
 public class BookingDoesNotExistException extends Exception {
     private static final String MESSAGE = "Booking %s does not exist.";

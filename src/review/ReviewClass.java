@@ -1,12 +1,10 @@
 package review;
 
-import booking.Booking;
+public class ReviewClass implements Review {
+    private final String comment;
+    private final Rating rating;
 
-public class ReviewClass implements Review{
-    private String comment;
-    private Rating rating;
-
-    public ReviewClass(String comment, Rating rating){
+    public ReviewClass(String comment, Rating rating) {
         this.comment = comment;
         this.rating = rating;
     }

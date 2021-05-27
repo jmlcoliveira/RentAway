@@ -1,8 +1,8 @@
 package booking;
 
 import commands.Command;
-import exceptions.BookingAlreadyReviewedException;
-import exceptions.CannotExecuteActionInBookingException;
+import exceptions.booking.BookingAlreadyReviewedException;
+import exceptions.booking.CannotExecuteActionInBookingException;
 import property.Property;
 import review.*;
 import users.*;
@@ -47,7 +47,7 @@ public class BookingClass implements Booking {
         return numberOfGuests;
     }
 
-    public double getPrice() {
+    public double getPaidAmount() {
         return isPaid() ? property.getPrice() * Duration.between(arrivalDate.atStartOfDay(),
                 departureDate.atStartOfDay()).toDays() : 0.00;
     }
@@ -74,7 +74,7 @@ public class BookingClass implements Booking {
 
     @Override
     public void review(String comment, String classification) throws BookingAlreadyReviewedException {
-        if (this.review != null) throw new BookingAlreadyReviewedException(this.identifier);
+        if (review != null) throw new BookingAlreadyReviewedException(this.identifier);
         review = new ReviewClass(comment, Rating.valueOf(classification.toUpperCase()));
         property.addReview(review);
         state = BookingState.REVIEWED;
@@ -110,9 +110,7 @@ public class BookingClass implements Booking {
     public boolean dateOverlaps(Booking booking) {
         LocalDate a = booking.getArrivalDate();
         LocalDate d = booking.getDepartureDate();
-        if(a.isAfter(departureDate) || d.isBefore(arrivalDate))
-            return false;
-        return true;
+        return !a.isAfter(departureDate) && !d.isBefore(arrivalDate);
     }
 
     public boolean equals(Object o) {

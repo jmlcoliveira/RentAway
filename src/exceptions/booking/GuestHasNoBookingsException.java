@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.booking;
 
 public class GuestHasNoBookingsException extends Exception {
     private static final String MESSAGE = "Guest %s has no bookings.";

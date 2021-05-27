@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.property;
 
 public class NoPropertiesRegisteredException extends Exception{
 

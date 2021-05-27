@@ -2,6 +2,12 @@ package database;
 
 import booking.Booking;
 import exceptions.*;
+import exceptions.booking.*;
+import exceptions.property.*;
+import exceptions.user.InvalidUserTypeException;
+import exceptions.user.NoUsersRegisteredException;
+import exceptions.user.UserAlreadyExistException;
+import exceptions.user.UserDoesNotExistException;
 import property.Property;
 import users.*;
 
@@ -45,12 +51,12 @@ public interface Database {
             CannotExecuteActionInBookingException;
 
     Booking addBooking(String userID, String propertyID, LocalDate arrival,
-                               LocalDate departure, int numGuests)
+                       LocalDate departure, int numGuests)
             throws UserDoesNotExistException,
             InvalidUserTypeException,
             NumGuestsExceedsCapacityException,
             InvalidBookingDatesException,
-            PropertyIdDoesNotExistException;
+            PropertyDoesNotExistException;
 
     Iterator<booking.Booking> iteratorRejections(String userID)
             throws UserDoesNotExistException,

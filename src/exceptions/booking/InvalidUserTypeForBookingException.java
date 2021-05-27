@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.booking;
 
 public class InvalidUserTypeForBookingException extends Exception{
     private static final String MESSAGE = "User %s is not the %s of booking %s.";

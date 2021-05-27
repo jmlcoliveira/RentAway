@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.property;
 
 public class NoPropertyInLocationException extends Exception {
     private static final String MESSAGE = "No property was found in %s.";

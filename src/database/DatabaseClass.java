@@ -3,6 +3,12 @@ package database;
 import booking.*;
 import commands.Command;
 import exceptions.*;
+import exceptions.booking.*;
+import exceptions.property.*;
+import exceptions.user.InvalidUserTypeException;
+import exceptions.user.NoUsersRegisteredException;
+import exceptions.user.UserAlreadyExistException;
+import exceptions.user.UserDoesNotExistException;
 import property.*;
 import users.*;
 
@@ -90,6 +96,12 @@ public class DatabaseClass implements Database {
     public Iterator<Booking> confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException,
             UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException,
             CannotExecuteActionInBookingException {
+        Booking booking = validateUserAndBooking(bookingID, userID);
+        Property property = properties.get(getPropertyIDFromBookingID(bookingID));
+        return property.confirmBooking(booking);
+    }
+
+    private Booking validateUserAndBooking(String bookingID, String userID) throws UserDoesNotExistException, InvalidUserTypeException, BookingDoesNotExistException, InvalidUserTypeForBookingException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
 
@@ -102,11 +114,10 @@ public class DatabaseClass implements Database {
         if (!(booking.getHost().equals(user)))
             throw new InvalidUserTypeForBookingException(userID, UserType.HOST.getType(),
                     bookingID);
-        Property property = properties.get(getPropertyID(bookingID));
-        return property.confirmBooking(booking);
+        return booking;
     }
 
-    public Booking addBooking(String userID, String propertyID, LocalDate arrival, LocalDate departure, int numGuests) throws UserDoesNotExistException, InvalidUserTypeException, NumGuestsExceedsCapacityException, InvalidBookingDatesException, PropertyIdDoesNotExistException {
+    public Booking addBooking(String userID, String propertyID, LocalDate arrival, LocalDate departure, int numGuests) throws UserDoesNotExistException, InvalidUserTypeException, NumGuestsExceedsCapacityException, InvalidBookingDatesException, PropertyDoesNotExistException {
         User user = getUser(userID);
 
         if (user == null) throw new UserDoesNotExistException(userID);
@@ -116,7 +127,7 @@ public class DatabaseClass implements Database {
         Guest guest = (Guest) user;
         Property property = getProperty(propertyID);
 
-        if (property == null) throw new PropertyIdDoesNotExistException(propertyID);
+        if (property == null) throw new PropertyDoesNotExistException(propertyID);
         int guestsCapacity = property.getGuestsCapacity();
         if (guestsCapacity < numGuests) throw new NumGuestsExceedsCapacityException(propertyID,
                 guestsCapacity);
@@ -181,14 +192,7 @@ public class DatabaseClass implements Database {
     public Booking rejectBooking(String bookingID, String userID) throws BookingDoesNotExistException,
             UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException,
             CannotExecuteActionInBookingException {
-        User user = getUser(userID);
-        if (user == null) throw new UserDoesNotExistException(userID);
-        if (!(user instanceof Host))
-            throw new InvalidUserTypeException(userID, UserType.HOST.getType());
-        Booking b = getBooking(bookingID);
-        if (b == null) throw new BookingDoesNotExistException(bookingID);
-        if (!(b.getHost().equals(user)))
-            throw new InvalidUserTypeForBookingException(userID, UserType.HOST.getType(), bookingID);
+        Booking b = validateUserAndBooking(bookingID, userID);
         BookingState bState = b.getState();
         if (bState != BookingState.REQUESTED)
             throw new CannotExecuteActionInBookingException(Command.REJECT.getCommand(), bookingID, bState.getStateValue());
@@ -209,7 +213,7 @@ public class DatabaseClass implements Database {
         if (!(booking.getGuest().equals(guest)))
             throw new UserNotAllowedToPayBookingException(userID);
 
-        String propertyID = getPropertyID(bookingID);
+        String propertyID = getPropertyIDFromBookingID(bookingID);
         Property property = getProperty(propertyID);
 
         Iterator<Booking> propertyBookingIt = property.pay(booking);
@@ -243,7 +247,7 @@ public class DatabaseClass implements Database {
                     bookingID);
         if (!booking.isPaid())
             throw new CannotExecuteActionInBookingException(Command.REVIEW.getCommand(), bookingID, booking.getState().getStateValue());
-        if(booking.getState() == BookingState.REVIEWED)
+        if (booking.getState() == BookingState.REVIEWED)
             throw new BookingAlreadyReviewedException(bookingID);
         booking.review(review, classification);
     }
@@ -298,8 +302,8 @@ public class DatabaseClass implements Database {
         if (globeTrotter == null) throw new NoGlobalTrotterException();
         return globeTrotter;
     }
-    
-    private void updateGlobeTrotter(Guest guest){
+
+    private void updateGlobeTrotter(Guest guest) {
         if (globeTrotter == null && guest.getVisitedLocations() > 0) {
             globeTrotter = guest;
             return;
@@ -325,21 +329,18 @@ public class DatabaseClass implements Database {
         return properties.get(identifier);
     }
 
-    private String getPropertyID(String bookingID) {
+    private String getPropertyIDFromBookingID(String bookingID) {
         int i = bookingID.lastIndexOf('-');
         return bookingID.substring(0, i);
     }
 
     private Booking getBooking(String bookingID) {
-        String propertyID = getPropertyID(bookingID);
+        String propertyID = getPropertyIDFromBookingID(bookingID);
         Property p = properties.get(propertyID);
         Guest tempUser = new GuestClass(null, null, null, null);
         Booking temp = new BookingClass(bookingID, tempUser, p, 0,
                 null,
                 null);
-        List<Booking> bookings = p.getBookings();
-        int i = bookings.indexOf(temp);
-        if (i == -1) return null;
-        return bookings.get(i);
+        return p.getBooking(temp);
     }
 }

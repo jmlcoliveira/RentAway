@@ -1,6 +1,6 @@
 package users;
 import booking.Booking;
-import exceptions.NoPropertiesRegisteredException;
+import exceptions.property.NoPropertiesRegisteredException;
 import property.Property;
 import java.util.*;
 

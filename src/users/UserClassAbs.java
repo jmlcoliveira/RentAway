@@ -38,5 +38,4 @@ public abstract class UserClassAbs implements User{
         UserClassAbs that = (UserClassAbs) o;
         return Objects.equals(identifier, that.identifier);
     }
-
 }

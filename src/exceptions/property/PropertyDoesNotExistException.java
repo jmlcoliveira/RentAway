@@ -1,7 +1,7 @@
-package exceptions;
+package exceptions.property;
 
 public class PropertyDoesNotExistException extends Exception {
-    private static final String MESSAGE = "Property %s does not exist";
+    private static final String MESSAGE = "Property %s does not exist.";
 
     public PropertyDoesNotExistException(String identifier){
         super(String.format(MESSAGE, identifier));

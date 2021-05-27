@@ -27,7 +27,7 @@ public class GuestClass extends UserClassAbs implements Guest {
     public double getTotalAmountPaid() {
         double amount = 0.0;
         for (Booking b : paidBookings)
-            amount += b.getPrice();
+            amount += b.getPaidAmount();
         return amount;
     }
 

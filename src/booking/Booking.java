@@ -1,6 +1,7 @@
 package booking;
 
-import exceptions.*;
+import exceptions.booking.BookingAlreadyReviewedException;
+import exceptions.booking.CannotExecuteActionInBookingException;
 import property.Property;
 import users.Guest;
 import users.Host;
@@ -19,7 +20,7 @@ public interface Booking {
 
     int getNumberOfGuests();
 
-    double getPrice();
+    double getPaidAmount();
 
     BookingState getState();
 

@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.booking;
 
 public class HostHasNotRejectedBookingsException extends Exception {
     private static final String MESSAGE = "Host %s has not rejected any booking.";
