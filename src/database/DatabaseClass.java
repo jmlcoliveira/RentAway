@@ -15,13 +15,15 @@ public class DatabaseClass implements Database {
     private final SortedMap<String, User> users;
     private final Map<String, Guest> guests;
     private final Map<String, Property> properties;
-    private final Map<String, List<Property>> propertiesByLocation;
+    private final Map<String, SortedSet<Property>> propertiesByLocation;
+    private Guest globeTrotter;
 
     public DatabaseClass() {
         users = new TreeMap<>();
         guests = new HashMap<>();
         properties = new HashMap<>();
         propertiesByLocation = new HashMap<>();
+        globeTrotter = null;
     }
 
     public Iterator<User> iteratorUsers() throws NoUsersRegisteredException {
@@ -57,7 +59,7 @@ public class DatabaseClass implements Database {
         properties.put(propertyID, p);
         host.addProperty(p);
         if (!propertiesByLocation.containsKey(location))
-            propertiesByLocation.put(location, new LinkedList<>());
+            propertiesByLocation.put(location, new TreeSet<>(new ComparatorCapacityDesc()));
         propertiesByLocation.get(location).add(p);
     }
 
@@ -68,7 +70,7 @@ public class DatabaseClass implements Database {
         properties.put(propertyID, p);
         host.addProperty(p);
         if (!propertiesByLocation.containsKey(location))
-            propertiesByLocation.put(location, new LinkedList<>());
+            propertiesByLocation.put(location, new TreeSet<>(new ComparatorCapacityDesc()));
         propertiesByLocation.get(location).add(p);
     }
 
@@ -216,6 +218,8 @@ public class DatabaseClass implements Database {
         Iterator<Booking> propertyBookingIt = property.pay(booking);
         Iterator<Booking> guestBookingIt = guest.pay(booking);
 
+        updateGlobeTrotter(guest);
+
         List<Booking> bookings = new LinkedList<>();
 
         while (propertyBookingIt.hasNext())
@@ -264,17 +268,19 @@ public class DatabaseClass implements Database {
         return p.iteratorPaidBookings();
     }
 
-    public Iterator<Property> iteratorPropertiesByGuest(String location, int numGuests) throws NoPropertyInLocationException {
+    public Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity) throws NoPropertyInLocationException {
         if (!propertiesByLocation.containsKey(location))
             throw new NoPropertyInLocationException(location);
         Iterator<Property> it = propertiesByLocation.get(location).iterator();
         if (!it.hasNext()) throw new NoPropertyInLocationException(location);
 
-        List<Property> properties = new LinkedList<>();
+        List<Property> properties = new ArrayList<>();
         while (it.hasNext()) {
             Property next = it.next();
-            if (next.getGuestsCapacity() >= numGuests)
+            if (next.getGuestsCapacity() >= capacity)
                 properties.add(next);
+            else
+                break;
         }
 
         if (properties.size() == 0) throw new NoPropertyInLocationException(location);
@@ -284,7 +290,7 @@ public class DatabaseClass implements Database {
     }
 
     public Iterator<Property> iteratorPropertiesByAverage(String location) throws NoPropertyInLocationException {
-        List<Property> properties = propertiesByLocation.get(location);
+        List<Property> properties = new ArrayList<>(propertiesByLocation.get(location));
         if (properties.isEmpty()) throw new NoPropertyInLocationException(location);
 
         Collections.sort(properties, new ComparatorBest());
@@ -292,7 +298,7 @@ public class DatabaseClass implements Database {
     }
 
     public Guest getGlobeTrotter() throws NoGlobalTrotterException {
-        if (guests.size() == 0) throw new NoGlobalTrotterException();
+        /*if (guests.size() == 0) throw new NoGlobalTrotterException();
         Iterator<Guest> it = guests.values().iterator();
 
         Guest globalTrotter = null;
@@ -313,9 +319,27 @@ public class DatabaseClass implements Database {
                             globalTrotter = next;
                 }
             }
+        }*/
+        if (globeTrotter == null) throw new NoGlobalTrotterException();
+        return globeTrotter;
+    }
+    
+    private void updateGlobeTrotter(Guest guest){
+        if (globeTrotter == null && guest.getVisitedLocations() > 0) {
+            globeTrotter = guest;
+            return;
         }
-        if (globalTrotter == null) throw new NoGlobalTrotterException();
-        return globalTrotter;
+        if (globeTrotter != null) {
+            if (guest.getVisitedLocations() > globeTrotter.getVisitedLocations())
+                globeTrotter = guest;
+            else if (guest.getVisitedLocations() == globeTrotter.getVisitedLocations()) {
+                if (guest.getBookingsTotal() > globeTrotter.getBookingsTotal())
+                    globeTrotter = guest;
+                else if (guest.getBookingsTotal() == globeTrotter.getBookingsTotal())
+                    if (guest.getIdentifier().compareTo(globeTrotter.getIdentifier()) > 0)
+                        globeTrotter = guest;
+            }
+        }
     }
 
     private User getUser(String identifier) {

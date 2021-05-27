@@ -153,7 +153,7 @@ public class Main {
         int numGuests = in.nextInt();
 
         try {
-            Iterator<Property> it = db.iteratorPropertiesByGuest(location, numGuests);
+            Iterator<Property> it = db.iteratorPropertiesByCapacity(location, numGuests);
             System.out.printf(Success.PROPERTY_IN_LOCATION_LIST, location);
 
             while (it.hasNext()) {
@@ -221,7 +221,7 @@ public class Main {
                         b.getDepartureDate().format(formatter),
                         b.getNumberOfGuests(),
                         b.getState().getStateValue(),
-                        b.isPaid() ? b.getPrice() : 0.00
+                        b.getPrice()
                 );
             }
         } catch (GuestHasNoBookingsException | InvalidUserTypeException | UserDoesNotExistException e) {

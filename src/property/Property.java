@@ -29,8 +29,6 @@ public interface Property extends Comparable<Property> {
 
     double getAverageRating();
 
-    double getTotalPayment();
-
     void addPaidBooking(Booking b);
 
     void addBooking(Booking booking);

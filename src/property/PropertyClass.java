@@ -62,7 +62,7 @@ public abstract class PropertyClass implements Property {
         return TYPE;
     }
 
-    @Override
+    /*@Override
     public double getTotalPayment() {
         double sumPay = 0.00;
 
@@ -73,7 +73,7 @@ public abstract class PropertyClass implements Property {
                 sumPay += booking.getPrice();
         }
         return sumPay;
-    }
+    }*/
 
     public boolean bookingOverlaps(Booking booking) {
         for (Booking b : bookingList)
@@ -141,13 +141,11 @@ public abstract class PropertyClass implements Property {
     public Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
         booking.pay();
         addPaidBooking(booking);
-        List<Booking> bookings = new LinkedList<>();
         booking.getGuest().addPaidBooking(booking);
+        List<Booking> bookings = new ArrayList<>();
         bookings.add(booking);
 
-        ListIterator<Booking> it = bookingList.listIterator();
-        while (it.hasNext()) {
-            Booking b = it.next();
+        for (Booking b : bookingList) {
             if (b.rejectOrCancel(booking))
                 bookings.add(b);
         }

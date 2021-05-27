@@ -90,7 +90,7 @@ public interface Database {
             throws NoPropertyInLocationException,
             PropertyDoesNotExistException;
 
-    Iterator<Property> iteratorPropertiesByGuest(String location, int numGuests)
+    Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity)
             throws NoPropertyInLocationException;
 
     Iterator<Property> iteratorPropertiesByAverage(String location)

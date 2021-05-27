@@ -47,8 +47,8 @@ public class Tests {
 		System.setOut(new PrintStream(outContent));
 	}
 
-	public void test(String intput, String output) {
-		test(new File(BASE, intput), new File(BASE, output));
+	public void test(String input, String output) {
+		test(new File(BASE, input), new File(BASE, output));
 	}
 
 	public void test(File input, File output) {

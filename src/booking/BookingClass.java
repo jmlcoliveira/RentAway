@@ -5,8 +5,7 @@ import exceptions.BookingAlreadyReviewedException;
 import exceptions.CannotExecuteActionInBookingException;
 import property.Property;
 import review.*;
-import users.Guest;
-import users.Host;
+import users.*;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -49,8 +48,8 @@ public class BookingClass implements Booking {
     }
 
     public double getPrice() {
-        return property.getPrice() * Duration.between(arrivalDate.atStartOfDay(),
-                departureDate.atStartOfDay()).toDays();
+        return isPaid() ? property.getPrice() * Duration.between(arrivalDate.atStartOfDay(),
+                departureDate.atStartOfDay()).toDays() : 0.00;
     }
 
     public BookingState getState() {
