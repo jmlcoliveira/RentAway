@@ -9,23 +9,25 @@ import java.util.*;
 public class GuestClass extends UserClassAbs implements Guest {
     private final List<Booking> unpaidBookings;
     private final SortedSet<Booking> paidBookings;
+    private final List<Booking> allBookingsByInsertionOrder;
     private final Set<String> visitedLocations;
 
     public GuestClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
-        unpaidBookings = new LinkedList<>();
+        unpaidBookings = new ArrayList<>();
         paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
+        allBookingsByInsertionOrder = new ArrayList<>();
         visitedLocations = new HashSet<>();
     }
 
     public int getBookingsTotal() {
-        return unpaidBookings.size() + paidBookings.size();
+        return allBookingsByInsertionOrder.size();
     }
 
     public double getTotalAmountPaid() {
         double amount = 0.0;
         for (Booking b : paidBookings)
-                amount += b.getPrice();
+            amount += b.getPrice();
         return amount;
     }
 
@@ -40,17 +42,22 @@ public class GuestClass extends UserClassAbs implements Guest {
     }
 
     public void addBooking(Booking booking) {
-        unpaidBookings.add(booking);
+        if (booking.isPaid())
+            paidBookings.add(booking);
+        else
+            unpaidBookings.add(booking);
+
+        allBookingsByInsertionOrder.add(booking);
     }
 
     public Iterator<Booking> iteratorBookings() {
-        return paidBookings.iterator();
+        return allBookingsByInsertionOrder.iterator();
     }
 
     public LocalDate getLastPaidDepartureDate() {
-        if(paidBookings.size()==0) return null;
+        if (paidBookings.size() == 0) return null;
         LocalDate date = paidBookings.last().getDepartureDate();
-        for (Booking b : paidBookings){
+        for (Booking b : paidBookings) {
             LocalDate d = b.getDepartureDate();
             if (d.isAfter(date))
                 date = d;
