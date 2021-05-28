@@ -18,7 +18,6 @@ Register host raymond
 Raymond Holt
 usa
 rholt@hotmail.com
-
 property entire place
 boyle-miami boyle
 Miami

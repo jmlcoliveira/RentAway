@@ -130,7 +130,7 @@ public class Main {
         try {
             Iterator<Property> it = db.iteratorPropertiesByAverage(location);
 
-            System.out.println(Success.PROPERTY_BEST_IN_LOCATION_LIST);
+            System.out.printf(Success.PROPERTY_BEST_IN_LOCATION_LIST, location);
             while (it.hasNext()) {
                 Property next = it.next();
                 System.out.printf(Success.PROPERTY_BEST_IN_LOCATION_LISTED, next.getIdentifier(),

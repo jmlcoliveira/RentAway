@@ -21,8 +21,8 @@ public abstract class Success {
     public static final String PROPERTY_LISTED_STAY = "%s: %s; %s; %s; %s; %d; %.2f\n";
     public static final String PROPERTY_IN_LOCATION_LIST = "Properties in %s:\n";
     public static final String PROPERTY_IN_LOCATION_LISTED = "%s: %.1f; %.2f; %d; %s\n";
-    public static final String PROPERTY_BEST_IN_LOCATION_LIST = "The best properties in %s";
-    public static final String PROPERTY_BEST_IN_LOCATION_LISTED = "%s: %.1f; %d; %f.2; %s";
+    public static final String PROPERTY_BEST_IN_LOCATION_LIST = "The best properties in %s:\n";
+    public static final String PROPERTY_BEST_IN_LOCATION_LISTED = "%s: %.1f; %d; %.2f; %s\n";
 
     //Book
     public static final String BOOKING_WAS = "Booking %s was %s.\n";
@@ -39,7 +39,7 @@ public abstract class Success {
     public static final String GUEST_BOOKINGS_LISTED = "%s: %s; %s; %s; %s; %s; %d; %s; %.2f\n";
 
     //GlobalTrotter
-    public static final String GLOBE_TROTTER_INFO = "Globe trotter %s has visited %d locations.\n";
+    public static final String GLOBE_TROTTER_INFO = "Global trotter %s has visited %d locations.\n";
 
     //Exit
     public static final String EXIT = "Bye!";

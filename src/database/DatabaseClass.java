@@ -150,6 +150,7 @@ public class DatabaseClass implements Database {
         property.addBooking(b);
         property.getHost().addBooking(b);
         guest.addBooking(b);
+        updateGlobeTrotter(guest);
         return b;
     }
 
@@ -291,6 +292,8 @@ public class DatabaseClass implements Database {
     }
 
     public Iterator<Property> iteratorPropertiesByAverage(String location) throws NoPropertyInLocationException {
+        if (!propertiesByLocation.containsKey(location))
+            throw new NoPropertyInLocationException(location);
         List<Property> properties = new ArrayList<>(propertiesByLocation.get(location));
         if (properties.isEmpty()) throw new NoPropertyInLocationException(location);
 

@@ -6,7 +6,7 @@ Property linetti-jersey2 was added to host linetti.
 Property linetti-jersey3 was added to host linetti.
 Property linetti-jersey4 was added to host linetti.
 Property linetti-jersey1 already exists.
-Unknown rental property type
+Unknown rental property type.
 User alice does not exist.
 User peralta is not a host user.
 Property linetti-jersey1 already exists.
