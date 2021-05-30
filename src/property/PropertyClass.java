@@ -14,6 +14,10 @@ import java.util.*;
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public abstract class PropertyClass implements Property {
+
+    private final int BOOKING_SIZE = 200;
+    private final int REVIEW_SIZE = 100;
+
     private final String identifier;
     private final String location;
     private final Host host;
@@ -25,10 +29,10 @@ public abstract class PropertyClass implements Property {
     private final List<Booking> unpaidBookings;
 
     public PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price) {
-        bookingList = new LinkedList<>();
-        reviewList = new LinkedList<>();
+        bookingList = new ArrayList<>(BOOKING_SIZE);
+        reviewList = new ArrayList<>(REVIEW_SIZE);
         paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
-        unpaidBookings = new ArrayList<>();
+        unpaidBookings = new LinkedList<>();
         this.identifier = identifier;
         this.location = location;
         this.host = host;
@@ -130,7 +134,7 @@ public abstract class PropertyClass implements Property {
     }
 
     @Override
-    public Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
+    public List<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
         booking.pay();
         addPaidBooking(booking);
         booking.getGuest().addPaidBooking(booking);
@@ -141,7 +145,7 @@ public abstract class PropertyClass implements Property {
             if (b.rejectOrCancel(booking))
                 bookings.add(b);
         }
-        return bookings.iterator();
+        return bookings;
     }
 
     public Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException {

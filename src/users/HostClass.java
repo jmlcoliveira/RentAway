@@ -12,15 +12,20 @@ import java.util.List;
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class HostClass extends UserClassAbs implements Host {
+
+    private final int PROPERTIES_SIZE = 10;
+    private final int BOOKINGS_SIZE = 300;
+    private final int REJECTED_BOOKINGS_SIZE = 150;
+
     private final List<Property> properties;
     private final List<Booking> bookings;
     private final List<Booking> rejectedBookings;
 
     public HostClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
-        properties = new ArrayList<>();
-        bookings = new ArrayList<>();
-        rejectedBookings = new ArrayList<>();
+        properties = new ArrayList<>(PROPERTIES_SIZE);
+        bookings = new ArrayList<>(BOOKINGS_SIZE);
+        rejectedBookings = new ArrayList<>(REJECTED_BOOKINGS_SIZE);
     }
 
     public int numOfProperties() {
@@ -28,7 +33,7 @@ public class HostClass extends UserClassAbs implements Host {
     }
 
     public Iterator<Property> propertyIt() throws NoPropertiesRegisteredException {
-        if(properties.size() == 0) throw new NoPropertiesRegisteredException(getIdentifier());
+        if (properties.size() == 0) throw new NoPropertiesRegisteredException(getIdentifier());
         return properties.iterator();
     }
 
@@ -45,8 +50,9 @@ public class HostClass extends UserClassAbs implements Host {
     }
 
     public void addRejectedBooking(Booking booking) {
+        int i = bookings.indexOf(booking);
         for (Booking next : rejectedBookings) {
-            if (bookings.indexOf(booking) < bookings.indexOf(next)) {
+            if (i < bookings.indexOf(next)) {
                 rejectedBookings.add(rejectedBookings.indexOf(next), booking);
                 return;
             }
@@ -58,7 +64,7 @@ public class HostClass extends UserClassAbs implements Host {
         properties.add(property);
     }
 
-    public Iterator<Booking> iteratorRejectedBookings(){
+    public Iterator<Booking> iteratorRejectedBookings() {
         return rejectedBookings.iterator();
     }
 }
