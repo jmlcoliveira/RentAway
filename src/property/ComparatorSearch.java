@@ -2,6 +2,9 @@ package property;
 
 import java.util.Comparator;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class ComparatorSearch implements Comparator<Property> {
 
     public int compare(Property o1, Property o2) {

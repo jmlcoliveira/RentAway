@@ -6,6 +6,9 @@ import booking.ComparatorByArrivalDate;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class GuestClass extends UserClassAbs implements Guest {
     private final List<Booking> unpaidBookings;
     private final SortedSet<Booking> paidBookings;

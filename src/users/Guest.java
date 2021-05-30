@@ -2,10 +2,12 @@ package users;
 
 import booking.Booking;
 
-import javax.xml.stream.Location;
 import java.time.LocalDate;
 import java.util.Iterator;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public interface Guest extends User {
 
     int getBookingsCount();

@@ -1,5 +1,8 @@
 package review;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public enum Rating {
     TERRIBLE(1),
     POOR(2),

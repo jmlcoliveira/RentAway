@@ -1,7 +1,7 @@
 package database;
 
 import booking.Booking;
-import exceptions.*;
+import exceptions.NoGlobeTrotterException;
 import exceptions.booking.*;
 import exceptions.property.*;
 import exceptions.user.InvalidUserTypeException;
@@ -9,11 +9,15 @@ import exceptions.user.NoUsersRegisteredException;
 import exceptions.user.UserAlreadyExistException;
 import exceptions.user.UserDoesNotExistException;
 import property.Property;
-import users.*;
+import users.Guest;
+import users.User;
 
 import java.time.LocalDate;
 import java.util.Iterator;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public interface Database {
 
     Iterator<User> iteratorUsers() throws NoUsersRegisteredException;
@@ -93,7 +97,7 @@ public interface Database {
             InvalidUserTypeException;
 
     Iterator<Booking> iteratorStaysAtProperty(String propertyID)
-            throws NoPropertyInLocationException,
+            throws PropertyHasNoStaysException,
             PropertyDoesNotExistException;
 
     Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity)
@@ -103,5 +107,5 @@ public interface Database {
             throws NoPropertyInLocationException;
 
     Guest getGlobeTrotter()
-            throws NoGlobalTrotterException;
+            throws NoGlobeTrotterException;
 }

@@ -3,10 +3,15 @@ package users;
 import booking.Booking;
 import exceptions.property.NoPropertiesRegisteredException;
 import property.Property;
-import java.util.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class HostClass extends UserClassAbs implements Host {
-    //todo
     private final List<Property> properties;
     private final List<Booking> bookings;
     private final List<Booking> rejectedBookings;

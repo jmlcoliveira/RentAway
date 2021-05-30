@@ -4,12 +4,18 @@ import commands.Command;
 import exceptions.booking.BookingAlreadyReviewedException;
 import exceptions.booking.CannotExecuteActionInBookingException;
 import property.Property;
-import review.*;
-import users.*;
+import review.Rating;
+import review.Review;
+import review.ReviewClass;
+import users.Guest;
+import users.Host;
 
 import java.time.Duration;
 import java.time.LocalDate;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class BookingClass implements Booking {
     private final String identifier;
     private final Guest guest;

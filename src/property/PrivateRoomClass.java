@@ -5,6 +5,9 @@ import users.Host;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class PrivateRoomClass extends PropertyClass implements PrivateRoom {
     private final PropertyType propertyType = PropertyType.PRIVATE_ROOM;
 

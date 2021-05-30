@@ -1,5 +1,8 @@
 package booking;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public enum BookingState {
     REQUESTED("requested"),
     CONFIRMED("confirmed"),

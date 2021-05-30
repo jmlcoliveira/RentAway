@@ -1,13 +1,18 @@
+import booking.Booking;
 import commands.Command;
-import database.*;
-import exceptions.*;
+import database.Database;
+import database.DatabaseClass;
+import exceptions.NoGlobeTrotterException;
 import exceptions.booking.*;
 import exceptions.property.*;
 import exceptions.user.*;
-import outputmessages.*;
-import property.*;
-import users.*;
-import booking.Booking;
+import outputmessages.Success;
+import property.Property;
+import property.PropertyType;
+import users.Guest;
+import users.Host;
+import users.User;
+import users.UserType;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -113,7 +118,7 @@ public class Main {
         try {
             Guest guest = db.getGlobeTrotter();
             System.out.printf(Success.GLOBE_TROTTER_INFO, guest.getIdentifier(), guest.getVisitedLocations());
-        } catch (NoGlobalTrotterException e) {
+        } catch (NoGlobeTrotterException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -188,7 +193,7 @@ public class Main {
                         next.getGuest().getIdentifier(), next.getGuest().getNationality(),
                         next.getNumberOfGuests(), next.getPaidAmount());
             }
-        } catch (NoPropertyInLocationException | PropertyDoesNotExistException e) {
+        } catch (PropertyHasNoStaysException | PropertyDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
     }

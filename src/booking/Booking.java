@@ -8,6 +8,9 @@ import users.Host;
 
 import java.time.LocalDate;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public interface Booking {
 
     void review(String comment, String classification) throws BookingAlreadyReviewedException;

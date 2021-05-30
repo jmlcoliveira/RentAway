@@ -7,10 +7,12 @@ import exceptions.booking.CannotExecuteActionInBookingException;
 import review.Review;
 import users.Host;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public abstract class PropertyClass implements Property {
     private final String identifier;
     private final String location;

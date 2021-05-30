@@ -2,6 +2,9 @@ package property;
 
 import users.Host;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class EntirePlaceClass extends PropertyClass implements EntirePlace {
     private final PropertyType propertyType = PropertyType.ENTIRE_PLACE;
 

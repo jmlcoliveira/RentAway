@@ -2,6 +2,9 @@ package booking;
 
 import java.util.Comparator;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class ComparatorByArrivalDate implements Comparator<Booking> {
 
     @Override

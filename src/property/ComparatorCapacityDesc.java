@@ -2,6 +2,9 @@ package property;
 
 import java.util.Comparator;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class ComparatorCapacityDesc implements Comparator<Property> {
     public int compare(Property o1, Property o2) {
         if(o1.getIdentifier().equals(o2.getIdentifier()))

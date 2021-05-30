@@ -8,6 +8,9 @@ import users.Host;
 import java.time.LocalDate;
 import java.util.Iterator;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public interface Property extends Comparable<Property> {
 
     String getIdentifier();

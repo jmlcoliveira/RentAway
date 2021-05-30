@@ -1,5 +1,8 @@
 package commands;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public enum Command {
     REGISTER("register", "adds a new user"),
     USERS("users", "list all the registered users"),

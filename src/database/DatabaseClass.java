@@ -1,8 +1,10 @@
 package database;
 
-import booking.*;
+import booking.Booking;
+import booking.BookingClass;
+import booking.BookingState;
 import commands.Command;
-import exceptions.NoGlobalTrotterException;
+import exceptions.NoGlobeTrotterException;
 import exceptions.booking.*;
 import exceptions.property.*;
 import exceptions.user.InvalidUserTypeException;
@@ -16,6 +18,9 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class DatabaseClass implements Database {
 
     /**
@@ -284,10 +289,10 @@ public class DatabaseClass implements Database {
         return guest;
     }
 
-    public Iterator<Booking> iteratorStaysAtProperty(String propertyID) throws NoPropertyInLocationException, PropertyDoesNotExistException {
+    public Iterator<Booking> iteratorStaysAtProperty(String propertyID) throws PropertyHasNoStaysException, PropertyDoesNotExistException {
         Property p = getProperty(propertyID);
         if (p == null) throw new PropertyDoesNotExistException(propertyID);
-        if (p.getPaidBookingCount() == 0) throw new NoPropertyInLocationException(propertyID);
+        if (p.getPaidBookingCount() == 0) throw new PropertyHasNoStaysException(propertyID);
         return p.iteratorPaidBookings();
     }
 
@@ -322,8 +327,8 @@ public class DatabaseClass implements Database {
         return properties.iterator();
     }
 
-    public Guest getGlobeTrotter() throws NoGlobalTrotterException {
-        if (globeTrotter == null) throw new NoGlobalTrotterException();
+    public Guest getGlobeTrotter() throws NoGlobeTrotterException {
+        if (globeTrotter == null) throw new NoGlobeTrotterException();
         return globeTrotter;
     }
 

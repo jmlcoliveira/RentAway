@@ -2,6 +2,9 @@ package users;
 
 import java.util.Objects;
 
+/**
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public abstract class UserClassAbs implements User{
     private final String identifier;
     private final String name;
