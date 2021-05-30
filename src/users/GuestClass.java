@@ -76,6 +76,15 @@ public class GuestClass extends UserClassAbs implements Guest {
         return temp;
     }
 
+    public boolean dateOverlaps(LocalDate arrival, LocalDate departure) {
+        if (paidBookings.size() == 0) return false;
+        for (Booking b : paidBookings) {
+            if (!arrival.isAfter(b.getDepartureDate()) && !departure.isBefore(b.getArrivalDate()))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean hasBooking(Booking booking) {
         return unpaidBookings.contains(booking) || paidBookings.contains(booking);

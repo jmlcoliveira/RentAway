@@ -44,9 +44,9 @@ public interface Property extends Comparable<Property> {
 
     Host getHost();
 
-    LocalDate getPropertyLastPaidDepartureDate();
-
     List<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException;
+
+    boolean dateOverlaps(LocalDate arrival, LocalDate departure);
 
     Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException;
 

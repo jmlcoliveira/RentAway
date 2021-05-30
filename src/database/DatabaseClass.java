@@ -176,7 +176,7 @@ public class DatabaseClass implements Database {
         if (guestsCapacity < numGuests)
             throw new NumGuestsExceedsCapacityException(propertyID, guestsCapacity);
 
-        validateBookingDate(guest, property, arrival);
+        validateBookingDate(guest, property, arrival, departure);
 
         Booking b = new BookingClass(
                 String.format("%s-%d", propertyID, property.getBookingCount() + 1),
@@ -205,8 +205,10 @@ public class DatabaseClass implements Database {
      * @param arrival  pretended booking arrival date
      * @throws InvalidBookingDatesException if the date is not valid
      */
-    private void validateBookingDate(Guest guest, Property property, LocalDate arrival) throws InvalidBookingDatesException {
-        LocalDate guestLastPaidDepartureDate = guest.getLastPaidDepartureDate();
+    private void validateBookingDate(Guest guest, Property property, LocalDate arrival, LocalDate departure) throws InvalidBookingDatesException {
+        if (guest.dateOverlaps(arrival, departure)) throw new InvalidBookingDatesException();
+        if (property.dateOverlaps(arrival, departure)) throw new InvalidBookingDatesException();
+        /*LocalDate guestLastPaidDepartureDate = guest.getLastPaidDepartureDate();
         LocalDate propertyLastPaidDepartureDate = property.getPropertyLastPaidDepartureDate();
         if (guestLastPaidDepartureDate == null && propertyLastPaidDepartureDate == null)
             return;
@@ -222,7 +224,7 @@ public class DatabaseClass implements Database {
         }
 
         if (arrival.isBefore(guestLastPaidDepartureDate) && arrival.isBefore(propertyLastPaidDepartureDate))
-            throw new InvalidBookingDatesException();
+            throw new InvalidBookingDatesException();*/
     }
 
     public Iterator<Booking> iteratorRejections(String userID) throws UserDoesNotExistException,

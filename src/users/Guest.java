@@ -23,9 +23,9 @@ public interface Guest extends User {
 
     Iterator<Booking> iteratorBookings();
 
-    LocalDate getLastPaidDepartureDate();
-
     boolean hasBooking(Booking booking);
 
     List<Booking> pay(Booking booking);
+
+    boolean dateOverlaps(LocalDate arrival, LocalDate departure);
 }

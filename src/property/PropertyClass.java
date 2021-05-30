@@ -148,6 +148,15 @@ public abstract class PropertyClass implements Property {
         return bookings;
     }
 
+    public boolean dateOverlaps(LocalDate arrival, LocalDate departure) {
+        if (paidBookings.size() == 0) return false;
+        for (Booking b : paidBookings) {
+            if (!arrival.isAfter(b.getDepartureDate()) && !departure.isBefore(b.getArrivalDate()))
+                return true;
+        }
+        return false;
+    }
+
     public Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException {
         booking.confirm();
         List<Booking> temp = new LinkedList<>();
