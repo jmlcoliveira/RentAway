@@ -2,7 +2,6 @@ import booking.Booking;
 import commands.Command;
 import database.Database;
 import database.DatabaseClass;
-import exceptions.NoGlobeTrotterException;
 import exceptions.booking.*;
 import exceptions.property.*;
 import exceptions.user.*;

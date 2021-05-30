@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.user;
 
 /**
  * @author Guilherme Pocas 60236, Joao Oliveira 61052

@@ -1,13 +1,9 @@
 package database;
 
 import booking.Booking;
-import exceptions.NoGlobeTrotterException;
 import exceptions.booking.*;
 import exceptions.property.*;
-import exceptions.user.InvalidUserTypeException;
-import exceptions.user.NoUsersRegisteredException;
-import exceptions.user.UserAlreadyExistException;
-import exceptions.user.UserDoesNotExistException;
+import exceptions.user.*;
 import property.Property;
 import users.Guest;
 import users.User;

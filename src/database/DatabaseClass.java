@@ -4,13 +4,9 @@ import booking.Booking;
 import booking.BookingClass;
 import booking.BookingState;
 import commands.Command;
-import exceptions.NoGlobeTrotterException;
 import exceptions.booking.*;
 import exceptions.property.*;
-import exceptions.user.InvalidUserTypeException;
-import exceptions.user.NoUsersRegisteredException;
-import exceptions.user.UserAlreadyExistException;
-import exceptions.user.UserDoesNotExistException;
+import exceptions.user.*;
 import property.*;
 import users.*;
 
@@ -19,6 +15,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
+ * Database class which communicates with Main class
+ * Stores information about all properties and users.
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class DatabaseClass implements Database {
@@ -45,15 +44,18 @@ public class DatabaseClass implements Database {
     private final Map<String, SortedSet<Property>> propertiesByLocation;
 
     /**
+     * Globe trotter is the guest that has visited more distinct locations
      * Globe Trotter which is updated when a guest pays for a booking or a new booking is added
      */
     private Guest globeTrotter;
 
+    /**
+     * Constructor method which initializes the data structures
+     */
     public DatabaseClass() {
         users = new TreeMap<>();
         properties = new HashMap<>();
         propertiesByLocation = new HashMap<>();
-        globeTrotter = null;
     }
 
     public Iterator<User> iteratorUsers() throws NoUsersRegisteredException {
@@ -82,7 +84,7 @@ public class DatabaseClass implements Database {
 
     public void addEntirePlace(String propertyID, String userID, String location, int capacity,
                                int price, int numberOfRooms, String placeType) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
-        Host host = addToHost(userID, propertyID);
+        Host host = validateHostAndProperty(userID, propertyID);
         EntirePlace p = new EntirePlaceClass(propertyID, host, location, capacity,
                 price, numberOfRooms, PlaceType.valueOf(placeType.toUpperCase()));
         properties.put(propertyID, p);
@@ -93,7 +95,7 @@ public class DatabaseClass implements Database {
     }
 
     public void addPrivateRoom(String propertyID, String userID, String location, int capacity, int price, int amenities) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
-        Host host = addToHost(userID, propertyID);
+        Host host = validateHostAndProperty(userID, propertyID);
         PrivateRoom p = new PrivateRoomClass(propertyID, host, location, capacity,
                 price, amenities);
         properties.put(propertyID, p);
@@ -103,7 +105,17 @@ public class DatabaseClass implements Database {
         propertiesByLocation.get(location).add(p);
     }
 
-    private Host addToHost(String userID, String propertyID) throws UserDoesNotExistException,
+    /**
+     * Return an host object with the given userID
+     *
+     * @param userID     ID of an user
+     * @param propertyID ID of a property
+     * @return an host object with the given userID
+     * @throws UserDoesNotExistException     if no user was found
+     * @throws InvalidUserTypeException      if the userID does not belong to an Host
+     * @throws PropertyAlreadyExistException if a property the the propertyID already exist
+     */
+    private Host validateHostAndProperty(String userID, String propertyID) throws UserDoesNotExistException,
             InvalidUserTypeException, PropertyAlreadyExistException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
@@ -122,12 +134,24 @@ public class DatabaseClass implements Database {
     public Iterator<Booking> confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException,
             UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException,
             CannotExecuteActionInBookingException {
-        Booking booking = validateUserAndBooking(bookingID, userID);
+        Booking booking = validateHostAndBooking(bookingID, userID);
         Property property = properties.get(getPropertyIDFromBookingID(bookingID));
         return property.confirmBooking(booking);
     }
 
-    private Booking validateUserAndBooking(String bookingID, String userID) throws UserDoesNotExistException, InvalidUserTypeException, BookingDoesNotExistException, InvalidUserTypeForBookingException {
+    /**
+     * Returns a booking object with the given bookingID
+     *
+     * @param bookingID id of a booking
+     * @param userID    id of an user
+     * @return a booking object with the given bookingID
+     * @throws UserDoesNotExistException          if no user was found
+     * @throws InvalidUserTypeException           if the userID does not belong to an Host
+     * @throws BookingDoesNotExistException       if the bookingID is invalid
+     * @throws InvalidUserTypeForBookingException if the host is not the owner of the property of
+     *                                            the booking
+     */
+    private Booking validateHostAndBooking(String bookingID, String userID) throws UserDoesNotExistException, InvalidUserTypeException, BookingDoesNotExistException, InvalidUserTypeForBookingException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
 
@@ -180,6 +204,16 @@ public class DatabaseClass implements Database {
         return b;
     }
 
+    /**
+     * Validates if a new booking arrival date is valid.
+     * A booking (arrival) date is considered valid if all the guest and property paid bookings
+     * (past bookings) have departure dates before the arrival date of the booking being made.
+     *
+     * @param guest    guest which is trying to book the property
+     * @param property property which is been booked
+     * @param arrival  pretended booking arrival date
+     * @throws InvalidBookingDatesException if the date is not valid
+     */
     private void validateBookingDate(Guest guest, Property property, LocalDate arrival) throws InvalidBookingDatesException {
         LocalDate guestLastPaidDepartureDate = guest.getLastPaidDepartureDate();
         LocalDate propertyLastPaidDepartureDate = property.getPropertyLastPaidDepartureDate();
@@ -219,7 +253,7 @@ public class DatabaseClass implements Database {
     public Booking rejectBooking(String bookingID, String userID) throws BookingDoesNotExistException,
             UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException,
             CannotExecuteActionInBookingException {
-        Booking b = validateUserAndBooking(bookingID, userID);
+        Booking b = validateHostAndBooking(bookingID, userID);
         BookingState bState = b.getState();
         if (bState != BookingState.REQUESTED)
             throw new CannotExecuteActionInBookingException(Command.REJECT.getCommand(), bookingID, bState.getStateValue());
@@ -332,6 +366,14 @@ public class DatabaseClass implements Database {
         return globeTrotter;
     }
 
+    /**
+     * Verifies if a guest which suffered changes should be the new Globe Trotter.
+     * The globe trotter is the guest that has visited more locations In case of a draw, is
+     * the guest with higher number of bookings. If a draw occurs again is the guest that comes
+     * last in alphabetical order.
+     *
+     * @param guest guest which had modifications (payed for a booking or created a new booking)
+     */
     private void updateGlobeTrotter(Guest guest) {
         if (globeTrotter == null && guest.getVisitedLocations() > 0) {
             globeTrotter = guest;
@@ -350,19 +392,48 @@ public class DatabaseClass implements Database {
         }
     }
 
-    private User getUser(String identifier) {
-        return users.get(identifier);
+    /**
+     * Returns an user object if the user exists or <code>null</code> if the userID does not exist
+     *
+     * @param userID ID of an user
+     * @return an user object if the userID exists or <code>null</code> if the userID does not
+     * exist
+     */
+    private User getUser(String userID) {
+        return users.get(userID);
     }
 
-    private Property getProperty(String identifier) {
-        return properties.get(identifier);
+    /**
+     * Returns a property object if the propertyID exists or <code>null</code> if the propertyID
+     * does not exist.
+     *
+     * @param propertyID ID of a property
+     * @return a property object if the propertyID exists or <code>null</code> if the propertyID
+     * does not exist.
+     */
+    private Property getProperty(String propertyID) {
+        return properties.get(propertyID);
     }
 
+    /**
+     * Returns a String with the ID of a property in the format: property-ID
+     *
+     * @param bookingID ID of a booking in the format: property-ID-bookingID
+     * @return a String with the ID of a property in the format: property-ID
+     */
     private String getPropertyIDFromBookingID(String bookingID) {
         int i = bookingID.lastIndexOf('-');
         return bookingID.substring(0, i);
     }
 
+    /**
+     * Returns a booking object if the bookingID exists or <code>null</code> if the bookingID
+     * does not exist.
+     *
+     * @param bookingID ID of a booking
+     * @return a booking object if the bookingID exists or <code>null</code> if the bookingID
+     * does not exist.
+     */
     private Booking getBooking(String bookingID) {
         String propertyID = getPropertyIDFromBookingID(bookingID);
         Property p = properties.get(propertyID);
