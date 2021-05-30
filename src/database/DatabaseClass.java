@@ -66,8 +66,8 @@ public class DatabaseClass implements Database {
     public Iterator<Property> iteratorPropertiesByHost(String identifier) throws UserDoesNotExistException, InvalidUserTypeException, NoPropertiesRegisteredException {
         User user = getUser(identifier);
         if (user == null) throw new UserDoesNotExistException(identifier);
-        if (!(user instanceof Host)) throw new InvalidUserTypeException(identifier,
-                UserType.HOST.getType());
+        if (!(user instanceof Host))
+            throw new InvalidUserTypeException(identifier, UserType.HOST.getType());
         return ((Host) user).propertyIt();
     }
 
@@ -82,22 +82,20 @@ public class DatabaseClass implements Database {
         users.put(identifier, new HostClass(identifier, name, nationality, email));
     }
 
-    public void addEntirePlace(String propertyID, String userID, String location, int capacity,
-                               int price, int numberOfRooms, String placeType) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
+    public void addEntirePlace(String propertyID, String userID, String location, int capacity, int price, int numberOfRooms, String placeType) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         Host host = validateHostAndProperty(userID, propertyID);
-        EntirePlace p = new EntirePlaceClass(propertyID, host, location, capacity,
-                price, numberOfRooms, PlaceType.valueOf(placeType.toUpperCase()));
+        EntirePlace p = new EntirePlaceClass(propertyID, host, location, capacity, price, numberOfRooms, PlaceType.valueOf(placeType.toUpperCase()));
         properties.put(propertyID, p);
         host.addProperty(p);
         if (!propertiesByLocation.containsKey(location))
             propertiesByLocation.put(location, new TreeSet<>(new ComparatorCapacityDesc()));
+
         propertiesByLocation.get(location).add(p);
     }
 
     public void addPrivateRoom(String propertyID, String userID, String location, int capacity, int price, int amenities) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         Host host = validateHostAndProperty(userID, propertyID);
-        PrivateRoom p = new PrivateRoomClass(propertyID, host, location, capacity,
-                price, amenities);
+        PrivateRoom p = new PrivateRoomClass(propertyID, host, location, capacity, price, amenities);
         properties.put(propertyID, p);
         host.addProperty(p);
         if (!propertiesByLocation.containsKey(location))
@@ -115,13 +113,11 @@ public class DatabaseClass implements Database {
      * @throws InvalidUserTypeException      if the userID does not belong to an Host
      * @throws PropertyAlreadyExistException if a property the the propertyID already exist
      */
-    private Host validateHostAndProperty(String userID, String propertyID) throws UserDoesNotExistException,
-            InvalidUserTypeException, PropertyAlreadyExistException {
+    private Host validateHostAndProperty(String userID, String propertyID) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
-
-        if (!(user instanceof Host)) throw new InvalidUserTypeException(userID,
-                UserType.HOST.getType());
+        if (!(user instanceof Host))
+            throw new InvalidUserTypeException(userID, UserType.HOST.getType());
         if (properties.containsKey(propertyID)) throw new PropertyAlreadyExistException(propertyID);
         return (Host) user;
     }
@@ -131,9 +127,7 @@ public class DatabaseClass implements Database {
         privateRoom.addAmenity(amenity);
     }
 
-    public Iterator<Booking> confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException,
-            UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException,
-            CannotExecuteActionInBookingException {
+    public Iterator<Booking> confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException, CannotExecuteActionInBookingException {
         Booking booking = validateHostAndBooking(bookingID, userID);
         Property property = properties.get(getPropertyIDFromBookingID(bookingID));
         return property.confirmBooking(booking);
@@ -162,8 +156,8 @@ public class DatabaseClass implements Database {
         if (booking == null) throw new BookingDoesNotExistException(bookingID);
 
         if (!(booking.getHost().equals(user)))
-            throw new InvalidUserTypeForBookingException(userID, UserType.HOST.getType(),
-                    bookingID);
+            throw new InvalidUserTypeForBookingException(userID, UserType.HOST.getType(), bookingID);
+
         return booking;
     }
 
@@ -171,18 +165,19 @@ public class DatabaseClass implements Database {
         User user = getUser(userID);
 
         if (user == null) throw new UserDoesNotExistException(userID);
-        if (!(user instanceof Guest)) throw new InvalidUserTypeException(userID,
-                UserType.GUEST.getType());
+        if (!(user instanceof Guest))
+            throw new InvalidUserTypeException(userID, UserType.GUEST.getType());
 
         Guest guest = (Guest) user;
         Property property = getProperty(propertyID);
 
         if (property == null) throw new PropertyDoesNotExistException(propertyID);
         int guestsCapacity = property.getGuestsCapacity();
-        if (guestsCapacity < numGuests) throw new NumGuestsExceedsCapacityException(propertyID,
-                guestsCapacity);
+        if (guestsCapacity < numGuests)
+            throw new NumGuestsExceedsCapacityException(propertyID, guestsCapacity);
 
         validateBookingDate(guest, property, arrival);
+
         Booking b = new BookingClass(
                 String.format("%s-%d", propertyID, property.getBookingCount() + 1),
                 guest,
@@ -191,11 +186,7 @@ public class DatabaseClass implements Database {
                 departure);
         if (property.getType() == PropertyType.ENTIRE_PLACE && Duration.between(arrival.atStartOfDay(),
                 departure.atStartOfDay()).toDays() > 7 && !property.bookingOverlaps(b)) {
-            try {
-                b.confirm();
-            } catch (CannotExecuteActionInBookingException e) {
-                //nothing will happen
-            }
+            b.forceConfirm();
         }
         property.addBooking(b);
         property.getHost().addBooking(b);
@@ -239,8 +230,8 @@ public class DatabaseClass implements Database {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
 
-        if (!(user instanceof Host)) throw new InvalidUserTypeException(userID,
-                UserType.HOST.getType());
+        if (!(user instanceof Host))
+            throw new InvalidUserTypeException(userID, UserType.HOST.getType());
 
         Host host = (Host) user;
         if (host.getBookingsTotal() == 0) throw new UserHasNoBookingsException(userID);
@@ -250,9 +241,7 @@ public class DatabaseClass implements Database {
         return host.iteratorRejectedBookings();
     }
 
-    public Booking rejectBooking(String bookingID, String userID) throws BookingDoesNotExistException,
-            UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException,
-            CannotExecuteActionInBookingException {
+    public Booking rejectBooking(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException, CannotExecuteActionInBookingException {
         Booking b = validateHostAndBooking(bookingID, userID);
         BookingState bState = b.getState();
         if (bState != BookingState.REQUESTED)
@@ -261,9 +250,7 @@ public class DatabaseClass implements Database {
         return b;
     }
 
-    public Iterator<Booking> pay(String bookingID, String userID) throws BookingDoesNotExistException,
-            UserDoesNotExistException, InvalidUserTypeException, UserNotAllowedToPayBookingException,
-            CannotExecuteActionInBookingException {
+    public Iterator<Booking> pay(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, UserNotAllowedToPayBookingException, CannotExecuteActionInBookingException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
         Booking booking = getBooking(bookingID);
@@ -277,39 +264,38 @@ public class DatabaseClass implements Database {
         String propertyID = getPropertyIDFromBookingID(bookingID);
         Property property = getProperty(propertyID);
 
-        Iterator<Booking> propertyBookingIt = property.pay(booking);
-        Iterator<Booking> guestBookingIt = guest.pay(booking);
+        List<Booking> propertyBooking = property.pay(booking);
+        List<Booking> guestBooking = guest.pay(booking);
 
         updateGlobeTrotter(guest);
 
-        List<Booking> bookings = new LinkedList<>();
+        List<Booking> bookings = new ArrayList<>(propertyBooking);
+        bookings.addAll(guestBooking);
 
-        while (propertyBookingIt.hasNext())
+        /*while (propertyBookingIt.hasNext())
             bookings.add(propertyBookingIt.next());
         while (guestBookingIt.hasNext())
-            bookings.add(guestBookingIt.next());
+            bookings.add(guestBookingIt.next());*/
 
         return bookings.iterator();
     }
 
 
-    public void addReview(String bookingID, String userID, String review, String classification) throws BookingDoesNotExistException,
-            UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException, CannotExecuteActionInBookingException,
-            BookingAlreadyReviewedException {
+    public void addReview(String bookingID, String userID, String review, String classification) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException, CannotExecuteActionInBookingException, BookingAlreadyReviewedException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
-        if (!(user instanceof Guest)) throw new InvalidUserTypeException(userID,
-                UserType.GUEST.getType());
+        if (!(user instanceof Guest))
+            throw new InvalidUserTypeException(userID, UserType.GUEST.getType());
         Booking booking = getBooking(bookingID);
         if (booking == null) throw new BookingDoesNotExistException(bookingID);
         Guest guest = (Guest) user;
         if (!guest.hasBooking(booking))
-            throw new InvalidUserTypeForBookingException(userID, UserType.GUEST.getType(),
-                    bookingID);
+            throw new InvalidUserTypeForBookingException(userID, UserType.GUEST.getType(), bookingID);
         if (!booking.isPaid())
             throw new CannotExecuteActionInBookingException(Command.REVIEW.getCommand(), bookingID, booking.getState().getStateValue());
         if (booking.getState() == BookingState.REVIEWED)
             throw new BookingAlreadyReviewedException(bookingID);
+
         booking.review(review, classification);
     }
 
@@ -438,9 +424,8 @@ public class DatabaseClass implements Database {
         String propertyID = getPropertyIDFromBookingID(bookingID);
         Property p = properties.get(propertyID);
         Guest tempUser = new GuestClass(null, null, null, null);
-        Booking temp = new BookingClass(bookingID, tempUser, p, 0,
-                null,
-                null);
+        Booking temp = new BookingClass(bookingID, tempUser, p, 0, null, null);
+
         return p.getBooking(temp);
     }
 }

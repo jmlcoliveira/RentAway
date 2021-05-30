@@ -17,7 +17,7 @@ public class GuestClass extends UserClassAbs implements Guest {
 
     public GuestClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
-        unpaidBookings = new ArrayList<>();
+        unpaidBookings = new LinkedList<>();
         paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
         allBookingsByInsertionOrder = new ArrayList<>();
         visitedLocations = new HashSet<>();
@@ -65,7 +65,7 @@ public class GuestClass extends UserClassAbs implements Guest {
     }
 
     @Override
-    public Iterator<Booking> pay(Booking booking) {
+    public List<Booking> pay(Booking booking) {
         ListIterator<Booking> it = unpaidBookings.listIterator();
         List<Booking> temp = new LinkedList<>();
         while (it.hasNext()) {
@@ -73,7 +73,7 @@ public class GuestClass extends UserClassAbs implements Guest {
             if (b.rejectOrCancel(booking))
                 temp.add(b);
         }
-        return temp.iterator();
+        return temp;
     }
 
     @Override

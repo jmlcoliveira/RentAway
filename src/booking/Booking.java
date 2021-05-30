@@ -37,11 +37,11 @@ public interface Booking {
 
     void confirm() throws CannotExecuteActionInBookingException;
 
+    void forceConfirm();
+
     void pay() throws CannotExecuteActionInBookingException;
 
     void reject();
-
-    void cancel();
 
     boolean rejectOrCancel(Booking b);
 

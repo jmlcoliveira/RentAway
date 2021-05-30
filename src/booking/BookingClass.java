@@ -96,6 +96,10 @@ public class BookingClass implements Booking {
         this.state = BookingState.CONFIRMED;
     }
 
+    public void forceConfirm() {
+        this.state = BookingState.CONFIRMED;
+    }
+
     @Override
     public void pay() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.CONFIRMED))
@@ -107,10 +111,6 @@ public class BookingClass implements Booking {
     public void reject() {
         state = BookingState.REJECTED;
         property.getHost().addRejectedBooking(this);
-    }
-
-    public void cancel() {
-        state = BookingState.CANCELLED;
     }
 
     public boolean dateOverlaps(Booking booking) {

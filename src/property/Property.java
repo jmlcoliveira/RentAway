@@ -7,6 +7,7 @@ import users.Host;
 
 import java.time.LocalDate;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
@@ -45,7 +46,7 @@ public interface Property extends Comparable<Property> {
 
     LocalDate getPropertyLastPaidDepartureDate();
 
-    Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException;
+    List<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException;
 
     Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException;
 
