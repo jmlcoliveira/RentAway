@@ -2,7 +2,7 @@ package database;
 
 import booking.*;
 import commands.Command;
-import exceptions.*;
+import exceptions.NoGlobalTrotterException;
 import exceptions.booking.*;
 import exceptions.property.*;
 import exceptions.user.InvalidUserTypeException;
@@ -18,9 +18,30 @@ import java.util.*;
 
 public class DatabaseClass implements Database {
 
+    /**
+     * SortedMap containing all users sorted by id asc.
+     * The key is the user id
+     * The value is the user object
+     */
     private final SortedMap<String, User> users;
+
+    /**
+     * Map containing all properties.
+     * The key is the property ID
+     * The value is the property object
+     */
     private final Map<String, Property> properties;
+
+    /**
+     * Map containing properties from a location.
+     * The key is the location
+     * The value is a SortedSet with the properties sorted by number of guests
+     */
     private final Map<String, SortedSet<Property>> propertiesByLocation;
+
+    /**
+     * Globe Trotter which is updated when a guest pays for a booking or a new booking is added
+     */
     private Guest globeTrotter;
 
     public DatabaseClass() {
