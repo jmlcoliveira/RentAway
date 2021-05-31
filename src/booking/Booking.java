@@ -45,7 +45,7 @@ public interface Booking {
 
     boolean rejectOrCancel(Booking b);
 
-    boolean dateOverlaps(Booking booking);
+    boolean dateOverlaps(LocalDate arrival, LocalDate departure);
 
     Host getHost();
 }

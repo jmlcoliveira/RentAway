@@ -58,18 +58,28 @@ public class DatabaseClass implements Database {
         propertiesByLocation = new HashMap<>();
     }
 
-    public Iterator<User> iteratorUsers() throws NoUsersRegisteredException {
-        if (users.isEmpty()) throw new NoUsersRegisteredException();
+    public Iterator<User> iteratorUsers() {
         return users.values().iterator();
     }
 
-    public Iterator<Property> iteratorPropertiesByHost(String identifier) throws UserDoesNotExistException, InvalidUserTypeException, NoPropertiesRegisteredException {
+    @Override
+    public boolean hasUsers() {
+        return users.size() > 0;
+    }
+
+    public Iterator<Property> iteratorPropertiesByHost(String identifier) {
         User user = getUser(identifier);
-        if (user == null) throw new UserDoesNotExistException(identifier);
-        if (!(user instanceof Host))
-            throw new InvalidUserTypeException(identifier, UserType.HOST.getType());
         return ((Host) user).propertyIt();
     }
+
+    public boolean hostHasProperties(String userID) throws UserDoesNotExistException, InvalidUserTypeException {
+        User user = getUser(userID);
+        if (user == null) throw new UserDoesNotExistException(userID);
+        if (!(user instanceof Host))
+            throw new InvalidUserTypeException(userID, UserType.HOST.getType());
+        return ((Host) user).hasProperties();
+    }
+
 
     public void addGuest(String identifier, String name, String nationality, String email) throws UserAlreadyExistException {
         if (getUser(identifier) != null) throw new UserAlreadyExistException(identifier);
@@ -129,7 +139,11 @@ public class DatabaseClass implements Database {
 
     public Iterator<Booking> confirmBooking(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException, CannotExecuteActionInBookingException {
         Booking booking = validateHostAndBooking(bookingID, userID);
+        Guest guest = booking.getGuest();
         Property property = properties.get(getPropertyIDFromBookingID(bookingID));
+
+        guest.addConfirmedBooking(booking);
+        property.addConfirmedBooking(booking);
         return property.confirmBooking(booking);
     }
 
@@ -187,6 +201,8 @@ public class DatabaseClass implements Database {
         if (property.getType() == PropertyType.ENTIRE_PLACE && Duration.between(arrival.atStartOfDay(),
                 departure.atStartOfDay()).toDays() > 7 && !property.bookingOverlaps(b)) {
             b.forceConfirm();
+            guest.addConfirmedBooking(b);
+            property.addConfirmedBooking(b);
         }
         property.addBooking(b);
         property.getHost().addBooking(b);
@@ -293,11 +309,15 @@ public class DatabaseClass implements Database {
         return guest;
     }
 
-    public Iterator<Booking> iteratorStaysAtProperty(String propertyID) throws PropertyHasNoStaysException, PropertyDoesNotExistException {
+    public Iterator<Booking> iteratorStaysAtProperty(String propertyID) {
+        Property p = getProperty(propertyID);
+        return p.iteratorPaidBookings();
+    }
+
+    public boolean propertyHasStays(String propertyID) throws PropertyDoesNotExistException {
         Property p = getProperty(propertyID);
         if (p == null) throw new PropertyDoesNotExistException(propertyID);
-        if (p.getPaidBookingCount() == 0) throw new PropertyHasNoStaysException(propertyID);
-        return p.iteratorPaidBookings();
+        return p.hasStays();
     }
 
     public Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity) throws NoPropertyInLocationException {

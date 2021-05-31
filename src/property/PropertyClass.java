@@ -23,12 +23,14 @@ public abstract class PropertyClass implements Property {
     private final List<Booking> bookingList;
     private final List<Review> reviewList;
     private final SortedSet<Booking> paidBookings;
+    private final List<Booking> confirmedBookings;
     private final List<Booking> unpaidBookings;
 
     public PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price) {
         bookingList = new ArrayList<>();
         reviewList = new ArrayList<>();
         paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
+        confirmedBookings = new ArrayList<>();
         unpaidBookings = new LinkedList<>();
         this.identifier = identifier;
         this.location = location;
@@ -63,7 +65,7 @@ public abstract class PropertyClass implements Property {
 
     public boolean bookingOverlaps(Booking booking) {
         for (Booking b : bookingList)
-            if (b.dateOverlaps(booking))
+            if (b.dateOverlaps(booking.getArrivalDate(), booking.getDepartureDate()))
                 return true;
         return false;
     }
@@ -80,6 +82,10 @@ public abstract class PropertyClass implements Property {
     public void addPaidBooking(Booking b) {
         paidBookings.add(b);
         unpaidBookings.remove(b);
+    }
+
+    public void addConfirmedBooking(Booking booking) {
+        confirmedBookings.add(booking);
     }
 
     public void addBooking(Booking booking) {
@@ -135,12 +141,19 @@ public abstract class PropertyClass implements Property {
     }
 
     public boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
-        if (paidBookings.size() == 0) return false;
         for (Booking b : paidBookings) {
-            if (!arrival.isAfter(b.getDepartureDate()) && !departure.isBefore(b.getArrivalDate()))
+            if (!arrival.isAfter(b.getDepartureDate()))
+                return true;
+        }
+        for (Booking b : confirmedBookings) {
+            if (b.dateOverlaps(arrival, departure))
                 return true;
         }
         return false;
+    }
+
+    public boolean hasStays() {
+        return paidBookings.size() > 0;
     }
 
     public Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException {
@@ -148,7 +161,7 @@ public abstract class PropertyClass implements Property {
         List<Booking> temp = new LinkedList<>();
         temp.add(booking);
         for (Booking b : unpaidBookings) {
-            if (b.dateOverlaps(booking) && (b.getState().equals(BookingState.REQUESTED))) {
+            if (b.dateOverlaps(booking.getArrivalDate(), booking.getDepartureDate()) && (b.getState().equals(BookingState.REQUESTED))) {
                 b.reject();
                 temp.add(b);
             }

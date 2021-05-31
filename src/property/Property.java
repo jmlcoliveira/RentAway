@@ -31,6 +31,8 @@ public interface Property extends Comparable<Property> {
 
     void addPaidBooking(Booking b);
 
+    void addConfirmedBooking(Booking booking);
+
     void addBooking(Booking booking);
 
     boolean bookingOverlaps(Booking booking);
@@ -50,4 +52,6 @@ public interface Property extends Comparable<Property> {
     Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException;
 
     void addReview(Review review);
+
+    boolean hasStays();
 }

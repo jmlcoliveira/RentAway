@@ -28,8 +28,12 @@ public class HostClass extends UserClassAbs implements Host {
         return properties.size();
     }
 
-    public Iterator<Property> propertyIt() throws NoPropertiesRegisteredException {
-        if (properties.size() == 0) throw new NoPropertiesRegisteredException(getIdentifier());
+    @Override
+    public boolean hasProperties() {
+        return properties.size() > 0;
+    }
+
+    public Iterator<Property> propertyIt() {
         return properties.iterator();
     }
 

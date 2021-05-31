@@ -113,10 +113,8 @@ public class BookingClass implements Booking {
         property.getHost().addRejectedBooking(this);
     }
 
-    public boolean dateOverlaps(Booking booking) {
-        LocalDate a = booking.getArrivalDate();
-        LocalDate d = booking.getDepartureDate();
-        return !a.isAfter(departureDate) && !d.isBefore(arrivalDate);
+    public boolean dateOverlaps(LocalDate arrival, LocalDate departure) {
+        return !arrival.isAfter(this.departureDate) && !departure.isBefore(this.arrivalDate);
     }
 
     public boolean equals(Object o) {

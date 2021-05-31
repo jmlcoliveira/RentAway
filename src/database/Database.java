@@ -20,23 +20,26 @@ public interface Database {
      * Returns an Iterator with every user in the database
      *
      * @return Iterator with every registered user
-     * @throws NoUsersRegisteredException if there are no users registered
      */
-    Iterator<User> iteratorUsers() throws NoUsersRegisteredException;
+    Iterator<User> iteratorUsers();
+
+    boolean hasUsers();
 
     /**
      * Returns an Iterator with every property of a given host
      *
      * @param id the ID of the host
      * @return Iterator with the properties of the host
-     * @throws UserDoesNotExistException        if no user was found
-     * @throws InvalidUserTypeException         if the user with that userID is not a host
-     * @throws NoPropertiesRegisteredException  if there are no properties registered
      */
-    Iterator<Property> iteratorPropertiesByHost(String id)
-            throws UserDoesNotExistException,
-            InvalidUserTypeException,
-            NoPropertiesRegisteredException;
+    Iterator<Property> iteratorPropertiesByHost(String id);
+
+    /**
+     * @param userID
+     * @return
+     * @throws UserDoesNotExistException
+     * @throws InvalidUserTypeException
+     */
+    boolean hostHasProperties(String userID) throws UserDoesNotExistException, InvalidUserTypeException;
 
     /**
      * Adds a guest to the database
@@ -250,9 +253,9 @@ public interface Database {
      * @throws PropertyDoesNotExistException    if no property was found
      * @throws PropertyHasNoStaysException      if the property has no paid bookings
      */
-    Iterator<Booking> iteratorStaysAtProperty(String propertyID)
-            throws PropertyDoesNotExistException,
-            PropertyHasNoStaysException;
+    Iterator<Booking> iteratorStaysAtProperty(String propertyID);
+
+    boolean propertyHasStays(String propertyID) throws PropertyDoesNotExistException;
 
     /**
      * Returns the Iterator of the properties with a minimum capacity, in a given location

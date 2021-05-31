@@ -12,6 +12,7 @@ import java.util.*;
 public class GuestClass extends UserClassAbs implements Guest {
     private final List<Booking> unpaidBookings;
     private final SortedSet<Booking> paidBookings;
+    private final List<Booking> confirmedBookings;
     private final List<Booking> allBookingsByInsertionOrder;
     private final Set<String> visitedLocations;
 
@@ -19,6 +20,7 @@ public class GuestClass extends UserClassAbs implements Guest {
         super(identifier, name, nationality, email);
         unpaidBookings = new LinkedList<>();
         paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
+        confirmedBookings = new ArrayList<>();
         allBookingsByInsertionOrder = new ArrayList<>();
         visitedLocations = new HashSet<>();
     }
@@ -44,6 +46,10 @@ public class GuestClass extends UserClassAbs implements Guest {
         visitedLocations.add(booking.getProperty().getLocation());
     }
 
+    public void addConfirmedBooking(Booking booking) {
+        confirmedBookings.add(booking);
+    }
+
     public void addBooking(Booking booking) {
         unpaidBookings.add(booking);
         allBookingsByInsertionOrder.add(booking);
@@ -66,9 +72,12 @@ public class GuestClass extends UserClassAbs implements Guest {
     }
 
     public boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
-        if (paidBookings.size() == 0) return false;
         for (Booking b : paidBookings) {
-            if (!arrival.isAfter(b.getDepartureDate()) && !departure.isBefore(b.getArrivalDate()))
+            if (!arrival.isAfter(b.getDepartureDate()))
+                return true;
+        }
+        for (Booking b : confirmedBookings) {
+            if (b.dateOverlaps(arrival, departure))
                 return true;
         }
         return false;

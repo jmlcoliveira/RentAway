@@ -13,7 +13,7 @@ public interface Host extends User {
 
     int numOfProperties();
 
-    Iterator<Property> propertyIt() throws NoPropertiesRegisteredException;
+    Iterator<Property> propertyIt();
 
     int getBookingsTotal();
 
@@ -26,4 +26,6 @@ public interface Host extends User {
     void addProperty(Property property);
 
     Iterator<Booking> iteratorRejectedBookings();
+
+    boolean hasProperties();
 }

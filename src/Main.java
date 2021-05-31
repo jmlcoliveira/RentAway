@@ -293,6 +293,7 @@ public class Main {
     private static void processRejections(Scanner in, Database db) {
         String userID = in.next().trim();
         in.nextLine();
+
         try {
             Iterator<booking.Booking> it = db.iteratorRejections(userID);
             System.out.printf(Success.BOOKINGS_REJECTED_LIST, userID);
@@ -384,23 +385,27 @@ public class Main {
         String hostID = in.next().trim();
 
         try {
-            Iterator<Property> it = db.iteratorPropertiesByHost(hostID);
 
-            System.out.printf(Success.PROPERTY_HOST_LIST, hostID);
-            while (it.hasNext()) {
-                Property next = it.next();
-                System.out.printf(Success.PROPERTY_HOST_LISTED,
-                        next.getIdentifier(),
-                        next.getLocation(),
-                        next.getGuestsCapacity(),
-                        next.getPrice(),
-                        next.getType().getTypeValue(),
-                        next.getBookingCount(),
-                        next.getReviewCount()
-                );
+            if (db.hostHasProperties(hostID)) {
+                Iterator<Property> it = db.iteratorPropertiesByHost(hostID);
+                System.out.printf(Success.PROPERTY_HOST_LIST, hostID);
+                while (it.hasNext()) {
+                    Property next = it.next();
+                    System.out.printf(Success.PROPERTY_HOST_LISTED,
+                            next.getIdentifier(),
+                            next.getLocation(),
+                            next.getGuestsCapacity(),
+                            next.getPrice(),
+                            next.getType().getTypeValue(),
+                            next.getBookingCount(),
+                            next.getReviewCount()
+                    );
+                }
+            } else {
+                System.out.printf(Error.HOST_HAS_NO_PROPERTIES, hostID);
             }
 
-        } catch (UserDoesNotExistException | InvalidUserTypeException | NoPropertiesRegisteredException e) {
+        } catch (UserDoesNotExistException | InvalidUserTypeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -485,8 +490,8 @@ public class Main {
      * @param db
      */
     private static void processUsers(Scanner in, Database db) {
-        try {
-            in.nextLine();
+        in.nextLine();
+        if (db.hasUsers()) {
             Iterator<User> it = db.iteratorUsers();
 
             System.out.println(Success.USERS_LIST);
@@ -503,9 +508,9 @@ public class Main {
                             next.getName(),
                             next.getNationality(), next.getEmail(), ((Host) next).numOfProperties());
             }
-        } catch (NoUsersRegisteredException e) {
-            System.out.println(e.getMessage());
-        }
+        } else
+            System.out.println(Error.NO_USERS_ERROR);
+
     }
 
     /**
