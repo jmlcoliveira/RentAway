@@ -1,17 +1,21 @@
 import booking.Booking;
+import booking.exceptions.*;
 import commands.Command;
 import database.Database;
 import database.DatabaseClass;
-import exceptions.booking.*;
-import exceptions.property.*;
-import exceptions.user.*;
+import outputmessages.Error;
 import outputmessages.Success;
 import property.Property;
 import property.PropertyType;
+import property.exceptions.NumGuestsExceedsCapacityException;
+import property.exceptions.PropertyAlreadyExistException;
+import property.exceptions.PropertyDoesNotExistException;
+import property.exceptions.UnknownPropertyTypeException;
 import users.Guest;
 import users.Host;
 import users.User;
 import users.UserType;
+import users.exceptions.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -131,7 +135,7 @@ public class Main {
     private static void processBest(Scanner in, Database db) {
         String location = in.next();
 
-        try {
+        if (db.hasProperty(location)) {
             Iterator<Property> it = db.iteratorPropertiesByAverage(location);
 
             System.out.printf(Success.PROPERTY_BEST_IN_LOCATION_LIST, location);
@@ -141,10 +145,8 @@ public class Main {
                         next.getAverageRating(), next.getGuestsCapacity(), next.getPrice(),
                         next.getType().getTypeValue());
             }
-
-        } catch (NoPropertyInLocationException e) {
-            System.out.println(e.getMessage());
-        }
+        } else
+            System.out.printf(Error.PROPERTY_NOT_FOUND, location);
     }
 
     /**
@@ -157,19 +159,21 @@ public class Main {
         String location = in.nextLine().trim();
         int numGuests = in.nextInt();
 
-        try {
+        if (db.hasProperty(location, numGuests)) {
             Iterator<Property> it = db.iteratorPropertiesByCapacity(location, numGuests);
-            System.out.printf(Success.PROPERTY_IN_LOCATION_LIST, location);
+            if (it.hasNext()) {
+                System.out.printf(Success.PROPERTY_IN_LOCATION_LIST, location);
 
-            while (it.hasNext()) {
-                Property next = it.next();
-                System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
-                        next.getAverageRating(), next.getPrice(), next.getGuestsCapacity(),
-                        next.getType().getTypeValue());
-            }
-        } catch (NoPropertyInLocationException e) {
-            System.out.println(e.getMessage());
-        }
+                while (it.hasNext()) {
+                    Property next = it.next();
+                    System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
+                            next.getAverageRating(), next.getPrice(), next.getGuestsCapacity(),
+                            next.getType().getTypeValue());
+                }
+            } else
+                System.out.printf(Error.PROPERTY_NOT_FOUND, location);
+        } else
+            System.out.printf(Error.PROPERTY_NOT_FOUND, location);
     }
 
     /**
@@ -182,20 +186,26 @@ public class Main {
         String propertyID = in.next().trim();
 
         try {
-            Iterator<Booking> it = db.iteratorStaysAtProperty(propertyID);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-            System.out.printf(Success.PROPERTY_LIST_STAY, propertyID);
-            while (it.hasNext()) {
-                Booking next = it.next();
-                System.out.printf(Success.PROPERTY_LISTED_STAY, next.getIdentifier(),
-                        next.getArrivalDate().format(formatter), next.getDepartureDate().format(formatter),
-                        next.getGuest().getIdentifier(), next.getGuest().getNationality(),
-                        next.getNumberOfGuests(), next.getPaidAmount());
+            if (db.propertyHasStays(propertyID)) {
+                Iterator<Booking> it = db.iteratorStaysAtProperty(propertyID);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+                System.out.printf(Success.PROPERTY_LIST_STAY, propertyID);
+                while (it.hasNext()) {
+                    Booking next = it.next();
+                    System.out.printf(Success.PROPERTY_LISTED_STAY, next.getIdentifier(),
+                            next.getArrivalDate().format(formatter), next.getDepartureDate().format(formatter),
+                            next.getGuest().getIdentifier(), next.getGuest().getNationality(),
+                            next.getNumberOfGuests(), next.getPaidAmount());
+                }
+            } else {
+                System.out.printf(Error.PROPERTY_HAS_NO_STAYS, propertyID);
             }
-        } catch (PropertyHasNoStaysException | PropertyDoesNotExistException e) {
+
+        } catch (PropertyDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * 2.13
@@ -206,30 +216,33 @@ public class Main {
     private static void processGuest(Scanner in, Database db) {
         String guestID = in.nextLine().trim();
         try {
-            Guest g = db.getGuest(guestID);
-            System.out.printf(Success.GUEST_BOOKING_LIST,
-                    guestID,
-                    g.getTotalAmountPaid()
-            );
-
-            Iterator<Booking> it = g.iteratorBookings();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-            while (it.hasNext()) {
-                Booking b = it.next();
-                Property p = b.getProperty();
-                System.out.printf(Success.GUEST_BOOKINGS_LISTED,
-                        b.getIdentifier(),
-                        p.getIdentifier(),
-                        p.getType().getTypeValue(),
-                        p.getLocation(),
-                        b.getArrivalDate().format(formatter),
-                        b.getDepartureDate().format(formatter),
-                        b.getNumberOfGuests(),
-                        b.getState().getStateValue(),
-                        b.getPaidAmount()
+            if (db.guestHasBookings(guestID)) {
+                Guest g = db.getGuest(guestID);
+                System.out.printf(Success.GUEST_BOOKING_LIST,
+                        guestID,
+                        g.getTotalAmountPaid()
                 );
-            }
-        } catch (GuestHasNoBookingsException | InvalidUserTypeException | UserDoesNotExistException e) {
+
+                Iterator<Booking> it = g.iteratorBookings();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+                while (it.hasNext()) {
+                    Booking b = it.next();
+                    Property p = b.getProperty();
+                    System.out.printf(Success.GUEST_BOOKINGS_LISTED,
+                            b.getIdentifier(),
+                            p.getIdentifier(),
+                            p.getType().getTypeValue(),
+                            p.getLocation(),
+                            b.getArrivalDate().format(formatter),
+                            b.getDepartureDate().format(formatter),
+                            b.getNumberOfGuests(),
+                            b.getState().getStateValue(),
+                            b.getPaidAmount()
+                    );
+                }
+            } else
+                System.out.printf(Error.GUEST_HAS_NO_BOOKINGS, guestID);
+        } catch (InvalidUserTypeException | UserDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -295,15 +308,18 @@ public class Main {
         in.nextLine();
 
         try {
-            Iterator<booking.Booking> it = db.iteratorRejections(userID);
-            System.out.printf(Success.BOOKINGS_REJECTED_LIST, userID);
-            while (it.hasNext()) {
-                booking.Booking b = it.next();
-                User guest = b.getGuest();
-                System.out.printf(Success.BOOKING_REJECTED_LISTED, b.getIdentifier(),
-                        b.getPropertyID(), guest.getIdentifier(), guest.getNationality(), b.getNumberOfGuests());
-            }
-        } catch (UserHasNoBookingsException | InvalidUserTypeException | UserDoesNotExistException | HostHasNotRejectedBookingsException e) {
+            if (db.hostHasRejectedBookings(userID)) {
+                Iterator<booking.Booking> it = db.iteratorRejections(userID);
+                System.out.printf(Success.BOOKINGS_REJECTED_LIST, userID);
+                while (it.hasNext()) {
+                    booking.Booking b = it.next();
+                    User guest = b.getGuest();
+                    System.out.printf(Success.BOOKING_REJECTED_LISTED, b.getIdentifier(),
+                            b.getPropertyID(), guest.getIdentifier(), guest.getNationality(), b.getNumberOfGuests());
+                }
+            } else
+                System.out.printf(Error.NO_REJECTED_BOOKINGS, userID);
+        } catch (UserHasNoBookingsException | InvalidUserTypeException | UserDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
     }

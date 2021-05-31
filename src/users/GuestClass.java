@@ -43,6 +43,7 @@ public class GuestClass extends UserClassAbs implements Guest {
     public void addPaidBooking(Booking booking) {
         paidBookings.add(booking);
         unpaidBookings.remove(booking);
+        confirmedBookings.remove(booking);
         visitedLocations.add(booking.getProperty().getLocation());
     }
 

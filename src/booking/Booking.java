@@ -1,7 +1,7 @@
 package booking;
 
-import exceptions.booking.BookingAlreadyReviewedException;
-import exceptions.booking.CannotExecuteActionInBookingException;
+import booking.exceptions.BookingAlreadyReviewedException;
+import booking.exceptions.CannotExecuteActionInBookingException;
 import property.Property;
 import users.Guest;
 import users.Host;

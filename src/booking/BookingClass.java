@@ -1,8 +1,8 @@
 package booking;
 
+import booking.exceptions.BookingAlreadyReviewedException;
+import booking.exceptions.CannotExecuteActionInBookingException;
 import commands.Command;
-import exceptions.booking.BookingAlreadyReviewedException;
-import exceptions.booking.CannotExecuteActionInBookingException;
 import property.Property;
 import review.Rating;
 import review.Review;

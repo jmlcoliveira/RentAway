@@ -1,7 +1,7 @@
 package property;
 
 import booking.Booking;
-import exceptions.booking.CannotExecuteActionInBookingException;
+import booking.exceptions.CannotExecuteActionInBookingException;
 import review.Review;
 import users.Host;
 

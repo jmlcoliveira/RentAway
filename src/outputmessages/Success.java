@@ -29,7 +29,6 @@ public abstract class Success {
 
     //Book
     public static final String BOOKING_WAS = "Booking %s was %s.\n";
-    public static final String BOOKING_NO_REJECTIONS = "%s %s has not rejected any bookings.\n";
     public static final String BOOKINGS_REJECTED_LIST = "Bookings rejected by host %s:\n";
     public static final String BOOKING_REJECTED_LISTED = "%s: %s; %s; %s; %d\n";
     public static final String BOOKING_PAID = "Booking %s was paid: %.2f\n";

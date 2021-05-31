@@ -3,7 +3,7 @@ package property;
 import booking.Booking;
 import booking.BookingState;
 import booking.ComparatorByArrivalDate;
-import exceptions.booking.CannotExecuteActionInBookingException;
+import booking.exceptions.CannotExecuteActionInBookingException;
 import review.Review;
 import users.Host;
 
@@ -26,7 +26,7 @@ public abstract class PropertyClass implements Property {
     private final List<Booking> confirmedBookings;
     private final List<Booking> unpaidBookings;
 
-    public PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price) {
+    protected PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price) {
         bookingList = new ArrayList<>();
         reviewList = new ArrayList<>();
         paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
@@ -82,6 +82,7 @@ public abstract class PropertyClass implements Property {
     public void addPaidBooking(Booking b) {
         paidBookings.add(b);
         unpaidBookings.remove(b);
+        confirmedBookings.remove(b);
     }
 
     public void addConfirmedBooking(Booking booking) {

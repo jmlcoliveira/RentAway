@@ -1,4 +1,4 @@
-package exceptions.property;
+package property.exceptions;
 
 /**
  * @author Guilherme Pocas 60236, Joao Oliveira 61052

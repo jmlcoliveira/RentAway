@@ -3,12 +3,17 @@ package database;
 import booking.Booking;
 import booking.BookingClass;
 import booking.BookingState;
+import booking.exceptions.*;
 import commands.Command;
-import exceptions.booking.*;
-import exceptions.property.*;
-import exceptions.user.*;
 import property.*;
+import property.exceptions.NumGuestsExceedsCapacityException;
+import property.exceptions.PropertyAlreadyExistException;
+import property.exceptions.PropertyDoesNotExistException;
 import users.*;
+import users.exceptions.InvalidUserTypeException;
+import users.exceptions.NoGlobeTrotterException;
+import users.exceptions.UserAlreadyExistException;
+import users.exceptions.UserDoesNotExistException;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -21,6 +26,8 @@ import java.util.*;
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class DatabaseClass implements Database {
+
+    private final int MAX_NUM_GUESTS = 15;
 
     /**
      * SortedMap containing all users sorted by id asc.
@@ -226,8 +233,12 @@ public class DatabaseClass implements Database {
         if (property.isDateInvalid(arrival, departure)) throw new InvalidBookingDatesException();
     }
 
-    public Iterator<Booking> iteratorRejections(String userID) throws UserDoesNotExistException,
-            InvalidUserTypeException, UserHasNoBookingsException, HostHasNotRejectedBookingsException {
+    public Iterator<Booking> iteratorRejections(String userID) {
+        Host host = (Host) getUser(userID);
+        return host.iteratorRejectedBookings();
+    }
+
+    public boolean hostHasRejectedBookings(String userID) throws UserDoesNotExistException, InvalidUserTypeException, UserHasNoBookingsException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
 
@@ -235,11 +246,10 @@ public class DatabaseClass implements Database {
             throw new InvalidUserTypeException(userID, UserType.HOST.getType());
 
         Host host = (Host) user;
+
         if (host.getBookingsTotal() == 0) throw new UserHasNoBookingsException(userID);
 
-        if (host.getRejectedBookings() == 0) throw new HostHasNotRejectedBookingsException(userID);
-
-        return host.iteratorRejectedBookings();
+        return host.getRejectedBookings() > 0;
     }
 
     public Booking rejectBooking(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException, CannotExecuteActionInBookingException {
@@ -299,14 +309,17 @@ public class DatabaseClass implements Database {
         booking.review(review, classification);
     }
 
-    public Guest getGuest(String guestID) throws GuestHasNoBookingsException, UserDoesNotExistException, InvalidUserTypeException {
+    public Guest getGuest(String guestID) {
+        return (Guest) getUser(guestID);
+    }
+
+    public boolean guestHasBookings(String guestID) throws UserDoesNotExistException, InvalidUserTypeException {
         User user = getUser(guestID);
         if (user == null) throw new UserDoesNotExistException(guestID);
         if (!(user instanceof Guest))
             throw new InvalidUserTypeException(guestID, UserType.GUEST.getType());
         Guest guest = (Guest) user;
-        if (guest.getBookingsCount() == 0) throw new GuestHasNoBookingsException(guestID);
-        return guest;
+        return guest.getBookingsCount() > 0;
     }
 
     public Iterator<Booking> iteratorStaysAtProperty(String propertyID) {
@@ -320,11 +333,8 @@ public class DatabaseClass implements Database {
         return p.hasStays();
     }
 
-    public Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity) throws NoPropertyInLocationException {
-        if (!propertiesByLocation.containsKey(location))
-            throw new NoPropertyInLocationException(location);
+    public Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity) {
         Iterator<Property> it = propertiesByLocation.get(location).iterator();
-        if (!it.hasNext()) throw new NoPropertyInLocationException(location);
 
         List<Property> properties = new ArrayList<>();
         while (it.hasNext()) {
@@ -335,20 +345,24 @@ public class DatabaseClass implements Database {
                 break;
         }
 
-        if (properties.size() == 0) throw new NoPropertyInLocationException(location);
-
         properties.sort(new ComparatorSearch());
         return properties.iterator();
     }
 
-    public Iterator<Property> iteratorPropertiesByAverage(String location) throws NoPropertyInLocationException {
-        if (!propertiesByLocation.containsKey(location))
-            throw new NoPropertyInLocationException(location);
+    public Iterator<Property> iteratorPropertiesByAverage(String location) {
         List<Property> properties = new ArrayList<>(propertiesByLocation.get(location));
-        if (properties.isEmpty()) throw new NoPropertyInLocationException(location);
-
         properties.sort(new ComparatorBest());
         return properties.iterator();
+    }
+
+    public boolean hasProperty(String location, int numGuests) {
+        if (numGuests > MAX_NUM_GUESTS) return false;
+        if (!propertiesByLocation.containsKey(location)) return false;
+        return !propertiesByLocation.get(location).isEmpty();
+    }
+
+    public boolean hasProperty(String location) {
+        return hasProperty(location, 0);
     }
 
     public Guest getGlobeTrotter() throws NoGlobeTrotterException {
