@@ -17,12 +17,12 @@ Booking raymond-house-2 was paid: 3840.00
 Booking raymond-house-1 was confirmed.
 Booking raymond-house-1 was paid: 1280.00
 Review for raymond-house-3 was registered.
-User versailles-macron does not exist.
+Property versailles-macron does not exist.
 Property raymond-house stays:
 raymond-house-1: 30-12-2021; 03-01-2022; scully; usa; 2; 1280.00
 raymond-house-2: 30-09-2021; 12-10-2021; diaz; usa; 2; 3840.00
 raymond-house-3: 04-01-2021; 12-01-2021; hitchcock; usa; 2; 2560.00
-No property was found in boyle-florida.
+Property boyle-florida does not have any stays.
 Booking boyle-florida-1 was requested.
 Booking boyle-florida-1 was confirmed.
 Booking boyle-florida-1 was paid: 480.00
@@ -34,9 +34,9 @@ Booking boyle-florida-3 was requested.
 Booking boyle-florida-3 was confirmed.
 Booking boyle-florida-3 was paid: 800.00
 Property boyle-florida stays:
-boyle-florida-1: 27-05-2021; 30-05-2021; peralta; usa; 2; 480.00
-boyle-florida-2: 01-07-2021; 09-07-2021; diaz; usa; 2; 1280.00
 boyle-florida-3: 10-07-2021; 15-07-2021; scully; usa; 2; 800.00
+boyle-florida-2: 01-07-2021; 09-07-2021; diaz; usa; 2; 1280.00
+boyle-florida-1: 27-05-2021; 30-05-2021; peralta; usa; 2; 480.00
 Booking cheddar-room-1 was requested.
 Booking cheddar-room-2 was requested.
 Booking cheddar-room-3 was requested.

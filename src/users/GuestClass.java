@@ -53,19 +53,8 @@ public class GuestClass extends UserClassAbs implements Guest {
         return allBookingsByInsertionOrder.iterator();
     }
 
-    public LocalDate getLastPaidDepartureDate() {
-        if (paidBookings.size() == 0) return null;
-        LocalDate date = paidBookings.last().getDepartureDate();
-        for (Booking b : paidBookings) {
-            LocalDate d = b.getDepartureDate();
-            if (d.isAfter(date))
-                date = d;
-        }
-        return date;
-    }
-
     @Override
-    public List<Booking> pay(Booking booking) {
+    public Iterator<Booking> pay(Booking booking) {
         ListIterator<Booking> it = unpaidBookings.listIterator();
         List<Booking> temp = new LinkedList<>();
         while (it.hasNext()) {
@@ -73,10 +62,10 @@ public class GuestClass extends UserClassAbs implements Guest {
             if (b.rejectOrCancel(booking))
                 temp.add(b);
         }
-        return temp;
+        return temp.iterator();
     }
 
-    public boolean dateOverlaps(LocalDate arrival, LocalDate departure) {
+    public boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
         if (paidBookings.size() == 0) return false;
         for (Booking b : paidBookings) {
             if (!arrival.isAfter(b.getDepartureDate()) && !departure.isBefore(b.getArrivalDate()))

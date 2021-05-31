@@ -7,7 +7,6 @@ import users.Host;
 
 import java.time.LocalDate;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
@@ -44,9 +43,9 @@ public interface Property extends Comparable<Property> {
 
     Host getHost();
 
-    List<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException;
+    Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException;
 
-    boolean dateOverlaps(LocalDate arrival, LocalDate departure);
+    boolean isDateInvalid(LocalDate arrival, LocalDate departure);
 
     Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException;
 

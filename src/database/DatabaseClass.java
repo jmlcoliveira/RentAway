@@ -206,25 +206,8 @@ public class DatabaseClass implements Database {
      * @throws InvalidBookingDatesException if the date is not valid
      */
     private void validateBookingDate(Guest guest, Property property, LocalDate arrival, LocalDate departure) throws InvalidBookingDatesException {
-        if (guest.dateOverlaps(arrival, departure)) throw new InvalidBookingDatesException();
-        if (property.dateOverlaps(arrival, departure)) throw new InvalidBookingDatesException();
-        /*LocalDate guestLastPaidDepartureDate = guest.getLastPaidDepartureDate();
-        LocalDate propertyLastPaidDepartureDate = property.getPropertyLastPaidDepartureDate();
-        if (guestLastPaidDepartureDate == null && propertyLastPaidDepartureDate == null)
-            return;
-        if (guestLastPaidDepartureDate == null) {
-            if (arrival.isBefore(propertyLastPaidDepartureDate))
-                throw new InvalidBookingDatesException();
-            return;
-        }
-        if (propertyLastPaidDepartureDate == null) {
-            if (arrival.isBefore(guestLastPaidDepartureDate))
-                throw new InvalidBookingDatesException();
-            return;
-        }
-
-        if (arrival.isBefore(guestLastPaidDepartureDate) && arrival.isBefore(propertyLastPaidDepartureDate))
-            throw new InvalidBookingDatesException();*/
+        if (guest.isDateInvalid(arrival, departure)) throw new InvalidBookingDatesException();
+        if (property.isDateInvalid(arrival, departure)) throw new InvalidBookingDatesException();
     }
 
     public Iterator<Booking> iteratorRejections(String userID) throws UserDoesNotExistException,
@@ -266,18 +249,17 @@ public class DatabaseClass implements Database {
         String propertyID = getPropertyIDFromBookingID(bookingID);
         Property property = getProperty(propertyID);
 
-        List<Booking> propertyBooking = property.pay(booking);
-        List<Booking> guestBooking = guest.pay(booking);
+        Iterator<Booking> propertyBookingIt = property.pay(booking);
+        Iterator<Booking> guestBookingIt = guest.pay(booking);
 
         updateGlobeTrotter(guest);
 
-        List<Booking> bookings = new ArrayList<>(propertyBooking);
-        bookings.addAll(guestBooking);
+        List<Booking> bookings = new ArrayList<>();
 
-        /*while (propertyBookingIt.hasNext())
+        while (propertyBookingIt.hasNext())
             bookings.add(propertyBookingIt.next());
         while (guestBookingIt.hasNext())
-            bookings.add(guestBookingIt.next());*/
+            bookings.add(guestBookingIt.next());
 
         return bookings.iterator();
     }
@@ -335,7 +317,7 @@ public class DatabaseClass implements Database {
 
         if (properties.size() == 0) throw new NoPropertyInLocationException(location);
 
-        Collections.sort(properties, new ComparatorSearch());
+        properties.sort(new ComparatorSearch());
         return properties.iterator();
     }
 
@@ -345,7 +327,7 @@ public class DatabaseClass implements Database {
         List<Property> properties = new ArrayList<>(propertiesByLocation.get(location));
         if (properties.isEmpty()) throw new NoPropertyInLocationException(location);
 
-        Collections.sort(properties, new ComparatorBest());
+        properties.sort(new ComparatorBest());
         return properties.iterator();
     }
 

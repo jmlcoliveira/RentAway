@@ -15,9 +15,6 @@ import java.util.*;
  */
 public abstract class PropertyClass implements Property {
 
-    private final int BOOKING_SIZE = 200;
-    private final int REVIEW_SIZE = 100;
-
     private final String identifier;
     private final String location;
     private final Host host;
@@ -29,8 +26,8 @@ public abstract class PropertyClass implements Property {
     private final List<Booking> unpaidBookings;
 
     public PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price) {
-        bookingList = new ArrayList<>(BOOKING_SIZE);
-        reviewList = new ArrayList<>(REVIEW_SIZE);
+        bookingList = new ArrayList<>();
+        reviewList = new ArrayList<>();
         paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
         unpaidBookings = new LinkedList<>();
         this.identifier = identifier;
@@ -74,17 +71,6 @@ public abstract class PropertyClass implements Property {
     public Booking getBooking(Booking b) {
         int i = bookingList.indexOf(b);
         return i != -1 ? bookingList.get(i) : null;
-    }
-
-    public LocalDate getPropertyLastPaidDepartureDate() {
-        if (paidBookings.size() == 0) return null;
-        LocalDate date = paidBookings.last().getDepartureDate();
-        for (Booking b : paidBookings) {
-            LocalDate d = b.getDepartureDate();
-            if (d.isAfter(date))
-                date = d;
-        }
-        return date;
     }
 
     public void addReview(Review review) {
@@ -134,7 +120,7 @@ public abstract class PropertyClass implements Property {
     }
 
     @Override
-    public List<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
+    public Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
         booking.pay();
         addPaidBooking(booking);
         booking.getGuest().addPaidBooking(booking);
@@ -145,10 +131,10 @@ public abstract class PropertyClass implements Property {
             if (b.rejectOrCancel(booking))
                 bookings.add(b);
         }
-        return bookings;
+        return bookings.iterator();
     }
 
-    public boolean dateOverlaps(LocalDate arrival, LocalDate departure) {
+    public boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
         if (paidBookings.size() == 0) return false;
         for (Booking b : paidBookings) {
             if (!arrival.isAfter(b.getDepartureDate()) && !departure.isBefore(b.getArrivalDate()))
