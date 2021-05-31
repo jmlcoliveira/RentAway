@@ -111,7 +111,7 @@ public class DatabaseClass implements Database {
      * @return an host object with the given userID
      * @throws UserDoesNotExistException     if no user was found
      * @throws InvalidUserTypeException      if the userID does not belong to an Host
-     * @throws PropertyAlreadyExistException if a property the the propertyID already exist
+     * @throws PropertyAlreadyExistException if a property with the propertyID already exist
      */
     private Host validateHostAndProperty(String userID, String propertyID) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         User user = getUser(userID);
