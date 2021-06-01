@@ -74,8 +74,10 @@ public class DatabaseClass implements Database {
         return users.size() > 0;
     }
 
-    public Iterator<Property> iteratorPropertiesByHost(String identifier) {
-        User user = getUser(identifier);
+    public Iterator<Property> iteratorPropertiesByHost(String userID) {
+        User user = getUser(userID);
+        assert user != null;
+        assert user instanceof Host;
         return ((Host) user).propertyIt();
     }
 
@@ -234,8 +236,10 @@ public class DatabaseClass implements Database {
     }
 
     public Iterator<Booking> iteratorRejections(String userID) {
-        Host host = (Host) getUser(userID);
-        return host.iteratorRejectedBookings();
+        User user = getUser(userID);
+        assert user != null;
+        assert user instanceof Host;
+        return ((Host) user).iteratorRejectedBookings();
     }
 
     public boolean hostHasRejectedBookings(String userID) throws UserDoesNotExistException, InvalidUserTypeException, UserHasNoBookingsException {
@@ -310,7 +314,10 @@ public class DatabaseClass implements Database {
     }
 
     public Guest getGuest(String guestID) {
-        return (Guest) getUser(guestID);
+        User user = getUser(guestID);
+        assert user != null;
+        assert user instanceof Guest;
+        return (Guest) user;
     }
 
     public boolean guestHasBookings(String guestID) throws UserDoesNotExistException, InvalidUserTypeException {
@@ -324,6 +331,7 @@ public class DatabaseClass implements Database {
 
     public Iterator<Booking> iteratorStaysAtProperty(String propertyID) {
         Property p = getProperty(propertyID);
+        assert p != null;
         return p.iteratorPaidBookings();
     }
 
