@@ -1,0 +1,186 @@
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
+User linetti was registered as host.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
+User boyle was registered as host.
+
+> Register host pimento
+> Adrian Pimento
+> usa
+> apimento@gmail.com
+User pimento was registered as host.
+
+> Register host santiago
+> Amy Santiago
+> usa
+> amy.santiago@gmail.com
+User santiago was registered as host.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
+User raymond was registered as host.
+
+> property entire place
+> boyle-miami boyle
+> Miami
+> 9 320 3 apartment
+Property boyle-miami was added to host boyle.
+
+> property entire place
+> linetti-miami linetti
+> Miami
+> 9 350 4 apartment
+Property linetti-miami was added to host linetti.
+
+> property entire place
+> santiago-miami santiago
+> Miami
+> 3 245 3 apartment
+Property santiago-miami was added to host santiago.
+
+> property entire place
+> linetti-miami linetti
+> Miami
+> 3 245 3 apartment
+Property linetti-miami already exists.
+
+> property entire place
+> pimento-miami pimento
+> Miami
+> 2 270 3 apartment
+Property pimento-miami was added to host pimento.
+
+> property entire place
+> raymond-new-york raymond
+> New York
+> 4 320 2 apartment
+Property raymond-new-york was added to host raymond.
+
+> property entire place
+> linetti-new-york linetti
+> New York
+> 5 229 3 apartment
+Property linetti-new-york was added to host linetti.
+
+> property entire place
+> santiago-new-york-1 santiago
+> New York
+> 3 245 3 apartment
+Property santiago-new-york-1 was added to host santiago.
+
+> property entire place
+> santiago-new-york-2 santiago
+> New York
+> 3 245 3 apartment
+Property santiago-new-york-2 was added to host santiago.
+
+> property entire place
+> pimento-new-york pimento
+> New York
+> 6 340 3 apartment
+Property pimento-new-york was added to host pimento.
+
+> property entire place
+> santiago-new-york-3 santiago
+> New York
+> 5 229 3 apartment
+Property santiago-new-york-3 was added to host santiago.
+
+> property entire place
+> raymond-lisbon-c raymond
+> Lisbon
+> 3 125 2 apartment
+Property raymond-lisbon-c was added to host raymond.
+
+> property entire place
+> raymond-lisbon-d raymond
+> Lisbon
+> 2 125 2 apartment
+Property raymond-lisbon-d was added to host raymond.
+
+> property entire place
+> linetti-lisbon linetti
+> Lisbon
+> 5 145 3 apartment
+Property linetti-lisbon was added to host linetti.
+
+> property entire place
+> santiago-lisbon-b santiago
+> Lisbon
+> 15 350 10 apartment
+Property santiago-lisbon-b was added to host santiago.
+
+> property entire place
+> santiago-lisbon-c santiago
+> Lisbon
+> 15 350 10 apartment
+Property santiago-lisbon-c was added to host santiago.
+
+> property entire place
+> santiago-lisbon-a santiago
+> Lisbon
+> 14 229 3 apartment
+Property santiago-lisbon-a was added to host santiago.
+
+> property entire place
+> pimento-lisboa pimento
+> Lisbon
+> 8 320 4 apartment
+Property pimento-lisboa was added to host pimento.
+
+> search Paris
+> 3
+No property was found in Paris.
+
+> search New York
+> 4
+Properties in New York:
+linetti-new-york: 0.0; 229.00; 5; entire place
+santiago-new-york-3: 0.0; 229.00; 5; entire place
+raymond-new-york: 0.0; 320.00; 4; entire place
+pimento-new-york: 0.0; 340.00; 6; entire place
+
+> search New York
+> 7
+No property was found in New York.
+
+> search Lisbon
+> 15
+Properties in Lisbon:
+santiago-lisbon-b: 0.0; 350.00; 15; entire place
+santiago-lisbon-c: 0.0; 350.00; 15; entire place
+
+> search Lisbon
+> 3
+Properties in Lisbon:
+raymond-lisbon-c: 0.0; 125.00; 3; entire place
+linetti-lisbon: 0.0; 145.00; 5; entire place
+santiago-lisbon-a: 0.0; 229.00; 14; entire place
+pimento-lisboa: 0.0; 320.00; 8; entire place
+santiago-lisbon-b: 0.0; 350.00; 15; entire place
+santiago-lisbon-c: 0.0; 350.00; 15; entire place
+
+> search Miami
+> 6
+Properties in Miami:
+boyle-miami: 0.0; 320.00; 9; entire place
+linetti-miami: 0.0; 350.00; 9; entire place
+
+> search Miami
+> 2
+Properties in Miami:
+santiago-miami: 0.0; 245.00; 3; entire place
+pimento-miami: 0.0; 270.00; 2; entire place
+boyle-miami: 0.0; 320.00; 9; entire place
+linetti-miami: 0.0; 350.00; 9; entire place
+
+> exit
+Bye!

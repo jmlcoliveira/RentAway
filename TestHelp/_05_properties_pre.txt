@@ -1,0 +1,140 @@
+> properties alice
+User alice does not exist.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
+User linetti was registered as host.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
+User peralta was registered as guest.
+
+> property entire place
+> linetti-jersey1 linetti
+> New Jersey
+> 2 100 1 apartment
+Property linetti-jersey1 was added to host linetti.
+
+> property entire place
+> linetti-jersey2 linetti
+> New Jersey
+> 2 100 1 apartment
+Property linetti-jersey2 was added to host linetti.
+
+> property entire place
+> linetti-jersey3 linetti
+> New Jersey
+> 2 100 1 apartment
+Property linetti-jersey3 was added to host linetti.
+
+> property entire place
+> linetti-jersey4 linetti
+> New Jersey
+> 2 100 1 apartment
+Property linetti-jersey4 was added to host linetti.
+
+> property entire place
+> linetti-jersey1 linetti
+> New Jersey
+> 2 100 1 apartment
+Property linetti-jersey1 already exists.
+
+> propertyUnknown rental property type.
+
+> property entire place
+> alice-lisbon alice
+> Lisbon
+> 3 120 1 apartment
+User alice does not exist.
+
+> property private room
+> peralta-bronx peralta
+> Bronx
+> 1 90
+> 0
+User peralta is not a host user.
+
+> property private room
+> linetti-jersey1 linetti
+> New Jersey
+> 2 120
+> 0
+Property linetti-jersey1 already exists.
+
+> property entire place
+> linetti-jersey3 linetti
+> New Jersey
+> 2 100 1 apartment
+Property linetti-jersey3 already exists.
+
+> property private room
+> linetti-jersey4 linetti
+> New Jersey
+> 2 120
+> 0
+Property linetti-jersey4 already exists.
+
+> properties linetti
+Properties of host linetti:
+linetti-jersey1: New Jersey 2 100 [entire place 0 0]
+linetti-jersey2: New Jersey 2 100 [entire place 0 0]
+linetti-jersey3: New Jersey 2 100 [entire place 0 0]
+linetti-jersey4: New Jersey 2 100 [entire place 0 0]
+
+> property entire place
+> raymond-house raymond
+> New York
+> 4 320 2 apartment
+User raymond does not exist.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
+User raymond was registered as host.
+
+> property private room
+> cheddar-room raymond
+> St. Petersburg
+> 2 90
+> 2
+> garden
+> kitchen
+Property cheddar-room was added to host raymond.
+
+> property entire place
+> cozner-house raymond
+> Lisbon
+> 4 120 3 house
+Property cozner-house was added to host raymond.
+
+> property entire place
+> cozner-house linetti
+> Lisbon
+> 4 120 3 house
+Property cozner-house already exists.
+
+> property private room
+> cheddar-room raymond
+> St. Petersburg
+> 2 90
+> 2
+> garden
+> kitchen
+Property cheddar-room already exists.
+
+> properties peralta
+User peralta is not a host user.
+
+> users
+All registered users:
+linetti: Gina Linetti from usa with email glinetti@gmail.com [host user has 4 properties]
+peralta: Jake Peralta from usa with email jake@gmail.com [guest user has 0 bookings]
+raymond: Raymond Holt from usa with email rholt@hotmail.com [host user has 2 properties]
+
+> exit
+Bye!

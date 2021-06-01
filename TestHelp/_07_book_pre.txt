@@ -1,0 +1,80 @@
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
+User diaz was registered as guest.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
+User linetti was registered as host.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
+User peralta was registered as guest.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
+User boyle was registered as host.
+
+> property private room
+> boyle-florida boyle
+> Miami
+> 2 160
+> 3
+> swimming pool
+> kitchen
+> living room
+Property boyle-florida was added to host boyle.
+
+> property entire place
+> linetti-jersey linetti
+> New Jersey
+> 4 230 2 apartment
+Property linetti-jersey was added to host linetti.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
+User raymond was registered as host.
+
+> property entire place
+> raymond-house raymond
+> New York
+> 4 320 2 apartment
+Property raymond-house was added to host raymond.
+
+> book alice boyle-florida 20-08-2021 02-09-2021 1
+User alice does not exist.
+
+> book linetti boyle-florida 20-08-2021 02-09-2021 1
+User linetti is not a guest user.
+
+> book peralta boyle-paris 20-08-2021 02-09-2021 1
+Property boyle-paris does not exist.
+
+> book diaz boyle-florida 20-08-2021 02-09-2021 3
+Property boyle-florida has a capacity limit of 2 guests.
+
+> book diaz linetti-jersey 01-06-2021 09-06-2021 2
+Booking linetti-jersey-1 was confirmed.
+
+> book peralta linetti-jersey 27-05-2021 02-06-2021 2
+Invalid booking dates.
+
+> users
+All registered users:
+boyle: Charles Boyle from usa with email charles.boyle@gmail.com [host user has 1 properties]
+diaz: Rosa Diaz from usa with email diaz@gmail.com [guest user has 1 bookings]
+linetti: Gina Linetti from usa with email glinetti@gmail.com [host user has 1 properties]
+peralta: Jake Peralta from usa with email jake@gmail.com [guest user has 0 bookings]
+raymond: Raymond Holt from usa with email rholt@hotmail.com [host user has 1 properties]
+
+> exit
+Bye!

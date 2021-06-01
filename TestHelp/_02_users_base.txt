@@ -1,0 +1,73 @@
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
+User peralta was registered as guest.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
+User linetti was registered as host.
+
+> users
+All registered users:
+linetti: Gina Linetti from usa with email glinetti@gmail.com [host user has 0 properties]
+peralta: Jake Peralta from usa with email jake@gmail.com [guest user has 0 bookings]
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
+User hitchcock was registered as guest.
+
+> Register guest scully
+> Norm Scully
+> usa
+> scully@gmail.com
+User scully was registered as guest.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
+User boyle was registered as host.
+
+> Register host pimento
+> Adrian Pimento
+> usa
+> apimento@gmail.com
+User pimento was registered as host.
+
+> Register host santiago
+> Amy Santiago
+> usa
+> amy.santiago@gmail.com
+User santiago was registered as host.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
+User raymond was registered as host.
+
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
+User diaz was registered as guest.
+
+> users
+All registered users:
+boyle: Charles Boyle from usa with email charles.boyle@gmail.com [host user has 0 properties]
+diaz: Rosa Diaz from usa with email diaz@gmail.com [guest user has 0 bookings]
+hitchcock: Michael Hitchcock from usa with email hitchcock@gmail.com [guest user has 0 bookings]
+linetti: Gina Linetti from usa with email glinetti@gmail.com [host user has 0 properties]
+peralta: Jake Peralta from usa with email jake@gmail.com [guest user has 0 bookings]
+pimento: Adrian Pimento from usa with email apimento@gmail.com [host user has 0 properties]
+raymond: Raymond Holt from usa with email rholt@hotmail.com [host user has 0 properties]
+santiago: Amy Santiago from usa with email amy.santiago@gmail.com [host user has 0 properties]
+scully: Norm Scully from usa with email scully@gmail.com [guest user has 0 bookings]
+
+> exit
+Bye!

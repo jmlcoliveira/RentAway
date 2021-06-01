@@ -1,0 +1,111 @@
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
+User diaz was registered as guest.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
+User linetti was registered as host.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
+User peralta was registered as guest.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
+User boyle was registered as host.
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
+User hitchcock was registered as guest.
+
+> Register guest scully
+> Norm Scully
+> usa
+> scully@gmail.com
+User scully was registered as guest.
+
+> property private room
+> boyle-florida boyle
+> Miami
+> 2 160
+> 3
+> swimming pool
+> kitchen
+> living room
+Property boyle-florida was added to host boyle.
+
+> property entire place
+> linetti-jersey linetti
+> New Jersey
+> 4 230 2 apartment
+Property linetti-jersey was added to host linetti.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
+User raymond was registered as host.
+
+> property entire place
+> raymond-house raymond
+> New York
+> 4 320 2 apartment
+Property raymond-house was added to host raymond.
+
+> property private room
+> cheddar-room raymond
+> St. Petersburg
+> 2 90
+> 2
+> garden
+> kitchen
+Property cheddar-room was added to host raymond.
+
+> book scully raymond-house 30-12-2021 03-01-2022 2
+Booking raymond-house-1 was requested.
+
+> confirm raymond-house-1 raymond
+Booking raymond-house-1 was confirmed.
+
+> pay raymond-house-1 alice
+User alice does not exist.
+
+> pay raymond-house-1 linetti
+User linetti is not a guest user.
+
+> pay raymond-house-2 scully
+Booking raymond-house-2 does not exist.
+
+> pay raymond-house-1 scully
+Booking raymond-house-1 was paid: 1280.00
+
+> pay raymond-house-1 scully
+Cannot pay booking raymond-house-1 that is in state paid.
+
+> book diaz boyle-florida 29-08-2021 07-09-2021 2
+Booking boyle-florida-1 was requested.
+
+> pay boyle-florida-1 diaz
+Cannot pay booking boyle-florida-1 that is in state requested.
+
+> confirm boyle-florida-1 boyle
+Booking boyle-florida-1 was confirmed.
+
+> pay boyle-florida-1 diaz
+Booking boyle-florida-1 was paid: 1440.00
+
+> book scully boyle-florida 20-08-2021 25-08-2021 2
+Invalid booking dates.
+
+> exit
+Bye!

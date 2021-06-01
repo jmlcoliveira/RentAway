@@ -16,6 +16,7 @@ Booking raymond-house-3 was paid: 2560.00
 User alice does not exist.
 User linetti is not a guest user.
 Booking raymond-house-10 does not exist.
+User scully is not the guest of booking raymond-house-3.
 Review for raymond-house-3 was registered.
 Cannot review booking raymond-house-2 that is in state confirmed.
 Booking raymond-house-3 was already reviewed.

@@ -1,52 +1,181 @@
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
 User diaz was registered as guest.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
 User linetti was registered as host.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
 User peralta was registered as guest.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
 User boyle was registered as host.
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
 User hitchcock was registered as guest.
+
+> Register guest scully
+> Norm Scully
+> usa
+> scully@gmail.com
 User scully was registered as guest.
+
+> property private room
+> boyle-florida boyle
+> Miami
+> 2 160
+> 3
+> swimming pool
+> kitchen
+> living room
 Property boyle-florida was added to host boyle.
+
+> property entire place
+> linetti-jersey linetti
+> New Jersey
+> 4 230 2 apartment
 Property linetti-jersey was added to host linetti.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
 User raymond was registered as host.
+
+> property entire place
+> raymond-house raymond
+> New York
+> 4 320 2 apartment
 Property raymond-house was added to host raymond.
+
+> property private room
+> cheddar-room raymond
+> St. Petersburg
+> 2 90
+> 2
+> garden
+> kitchen
 Property cheddar-room was added to host raymond.
+
+> book scully raymond-house 30-12-2021 03-01-2022 2
 Booking raymond-house-1 was requested.
+
+> book diaz raymond-house 30-09-2021 12-10-2021 2
 Booking raymond-house-2 was confirmed.
+
+> book hitchcock raymond-house 04-01-2021 12-01-2021 2
 Booking raymond-house-3 was confirmed.
+
+> pay raymond-house-3 hitchcock
 Booking raymond-house-3 was paid: 2560.00
+
+> pay raymond-house-2 diaz
 Booking raymond-house-2 was paid: 3840.00
+
+> confirm raymond-house-1 raymond
 Booking raymond-house-1 was confirmed.
+
+> pay raymond-house-1 scully
 Booking raymond-house-1 was paid: 1280.00
+
+> review raymond-house-3 hitchcock
+> Liked it.
+> average
 Review for raymond-house-3 was registered.
+
+> stays versailles-macron
 Property versailles-macron does not exist.
+
+> stays raymond-house
 Property raymond-house stays:
 raymond-house-3: 04-01-2021; 12-01-2021; hitchcock; usa; 2; 2560.00
 raymond-house-2: 30-09-2021; 12-10-2021; diaz; usa; 2; 3840.00
 raymond-house-1: 30-12-2021; 03-01-2022; scully; usa; 2; 1280.00
+
+> stays boyle-florida
 Property boyle-florida does not have any stays.
+
+> book peralta boyle-florida 27-05-2021 30-05-2021 2
 Booking boyle-florida-1 was requested.
+
+> confirm boyle-florida-1 boyle
 Booking boyle-florida-1 was confirmed.
+
+> pay boyle-florida-1 peralta
 Booking boyle-florida-1 was paid: 480.00
+
+> review boyle-florida-1 peralta
+> Excellent location!
+> good
 Review for boyle-florida-1 was registered.
+
+> book diaz boyle-florida 01-11-2021 09-11-2021 2
 Booking boyle-florida-2 was requested.
+
+> confirm boyle-florida-2 boyle
 Booking boyle-florida-2 was confirmed.
+
+> pay boyle-florida-2 diaz
 Booking boyle-florida-2 was paid: 1280.00
+
+> book scully boyle-florida 04-01-2022 06-01-2022 2
 Booking boyle-florida-3 was requested.
+
+> confirm boyle-florida-3 boyle
 Booking boyle-florida-3 was confirmed.
+
+> pay boyle-florida-3 scully
 Booking boyle-florida-3 was paid: 320.00
+
+> stays boyle-florida
 Property boyle-florida stays:
 boyle-florida-3: 04-01-2022; 06-01-2022; scully; usa; 2; 320.00
 boyle-florida-2: 01-11-2021; 09-11-2021; diaz; usa; 2; 1280.00
 boyle-florida-1: 27-05-2021; 30-05-2021; peralta; usa; 2; 480.00
+
+> book scully cheddar-room 30-08-2022 02-09-2022 2
 Booking cheddar-room-1 was requested.
+
+> book peralta cheddar-room 24-08-2022 27-08-2022 1
 Booking cheddar-room-2 was requested.
+
+> book scully cheddar-room 09-08-2022 11-08-2022 1
 Booking cheddar-room-3 was requested.
+
+> book diaz cheddar-room 10-08-2022 20-08-2022 2
 Booking cheddar-room-4 was requested.
+
+> confirm cheddar-room-2 raymond
 Booking cheddar-room-2 was confirmed.
+
+> confirm cheddar-room-4 raymond
 Booking cheddar-room-4 was confirmed.
 Booking cheddar-room-3 was rejected.
+
+> pay cheddar-room-4 diaz
 Booking cheddar-room-4 was paid: 900.00
+
+> pay cheddar-room-2 peralta
 Booking cheddar-room-2 was paid: 270.00
+
+> stays cheddar-room
 Property cheddar-room stays:
 cheddar-room-4: 10-08-2022; 20-08-2022; diaz; usa; 2; 900.00
 cheddar-room-2: 24-08-2022; 27-08-2022; peralta; usa; 1; 270.00
+
+> exit
 Bye!

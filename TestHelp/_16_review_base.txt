@@ -1,36 +1,155 @@
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
 User diaz was registered as guest.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
 User linetti was registered as host.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
 User peralta was registered as guest.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
 User boyle was registered as host.
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
 User hitchcock was registered as guest.
+
+> Register guest scully
+> Norm Scully
+> usa
+> scully@gmail.com
 User scully was registered as guest.
+
+> property private room
+> boyle-florida boyle
+> Miami
+> 2 160
+> 3
+> swimming pool
+> kitchen
+> living room
 Property boyle-florida was added to host boyle.
+
+> property entire place
+> linetti-jersey linetti
+> New Jersey
+> 4 230 2 apartment
 Property linetti-jersey was added to host linetti.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
 User raymond was registered as host.
+
+> property entire place
+> raymond-house raymond
+> New York
+> 4 320 2 apartment
 Property raymond-house was added to host raymond.
+
+> property private room
+> cheddar-room raymond
+> St. Petersburg
+> 2 90
+> 2
+> garden
+> kitchen
 Property cheddar-room was added to host raymond.
+
+> book scully raymond-house 30-12-2021 03-01-2022 2
 Booking raymond-house-1 was requested.
+
+> book diaz raymond-house 30-09-2021 12-10-2021 2
 Booking raymond-house-2 was confirmed.
+
+> book hitchcock raymond-house 04-01-2021 12-01-2021 2
 Booking raymond-house-3 was confirmed.
+
+> pay raymond-house-3 hitchcock
 Booking raymond-house-3 was paid: 2560.00
+
+> pay raymond-house-2 diaz
 Booking raymond-house-2 was paid: 3840.00
+
+> confirm raymond-house-1 raymond
 Booking raymond-house-1 was confirmed.
+
+> pay raymond-house-1 scully
 Booking raymond-house-1 was paid: 1280.00
+
+> review raymond-house-3 hitchcock
+> Liked it.
+> average
 Review for raymond-house-3 was registered.
+
+> review raymond-house-2 diaz
+> Hated it.
+> poor
 Review for raymond-house-2 was registered.
+
+> review raymond-house-1 scully
+> Liked it.
+> average
 Review for raymond-house-1 was registered.
+
+> book peralta boyle-florida 27-05-2021 30-05-2021 2
 Booking boyle-florida-1 was requested.
+
+> confirm boyle-florida-1 boyle
 Booking boyle-florida-1 was confirmed.
+
+> pay boyle-florida-1 peralta
 Booking boyle-florida-1 was paid: 480.00
+
+> review boyle-florida-1 peralta
+> Excellent location!
+> good
 Review for boyle-florida-1 was registered.
+
+> book diaz boyle-florida 01-11-2021 09-11-2021 2
 Booking boyle-florida-2 was requested.
+
+> confirm boyle-florida-2 boyle
 Booking boyle-florida-2 was confirmed.
+
+> pay boyle-florida-2 diaz
 Booking boyle-florida-2 was paid: 1280.00
+
+> review boyle-florida-2 diaz
+> Excellent location!
+> excellent
 Review for boyle-florida-2 was registered.
+
+> book scully boyle-florida 04-01-2022 10-11-2022 2
 Booking boyle-florida-3 was requested.
+
+> confirm boyle-florida-3 boyle
 Booking boyle-florida-3 was confirmed.
+
+> pay boyle-florida-3 scully
 Booking boyle-florida-3 was paid: 960.00
+
+> review boyle-florida-3 scully
+> Good restaurants nearby!
+> excellent
 Review for boyle-florida-3 was registered.
+
+> users
 All registered users:
 boyle: Charles Boyle from usa with email charles.boyle@gmail.com [host user has 1 properties]
 diaz: Rosa Diaz from usa with email diaz@gmail.com [guest user has 2 bookings]
@@ -39,4 +158,6 @@ linetti: Gina Linetti from usa with email glinetti@gmail.com [host user has 1 pr
 peralta: Jake Peralta from usa with email jake@gmail.com [guest user has 1 bookings]
 raymond: Raymond Holt from usa with email rholt@hotmail.com [host user has 2 properties]
 scully: Norm Scully from usa with email scully@gmail.com [guest user has 2 bookings]
+
+> exit
 Bye!

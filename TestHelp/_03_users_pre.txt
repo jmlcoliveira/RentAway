@@ -1,0 +1,47 @@
+> users
+No users registered.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
+User peralta was registered as guest.
+
+> register host peralta
+> Jake Peralta Jr
+> usa
+> jakejr@gmail.com
+User peralta already exists.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
+User linetti was registered as host.
+
+> Register guest linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
+User linetti already exists.
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
+User hitchcock was registered as guest.
+
+> register manager alice
+> alice smith
+> united kingdom
+> alice@gmail.com
+Unknown user type
+
+> users
+All registered users:
+hitchcock: Michael Hitchcock from usa with email hitchcock@gmail.com [guest user has 0 bookings]
+linetti: Gina Linetti from usa with email glinetti@gmail.com [host user has 0 properties]
+peralta: Jake Peralta from usa with email jake@gmail.com [guest user has 0 bookings]
+
+> exit
+Bye!

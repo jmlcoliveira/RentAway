@@ -1,0 +1,403 @@
+> best Paris
+No property was found in Paris.
+
+> Register host host1
+> Host1
+> pt
+> host1@gmail.com
+User host1 was registered as host.
+
+> Register host host2
+> Host2
+> pt
+> host2@gmail.com
+User host2 was registered as host.
+
+> Register host host3
+> Host3
+> pt
+> host3@gmail.com
+User host3 was registered as host.
+
+> Register host host4
+> Host4
+> pt
+> host4@gmail.com
+User host4 was registered as host.
+
+> Register host host5
+> Host5
+> pt
+> host5@gmail.com
+User host5 was registered as host.
+
+> Register host host10
+> Host10
+> pt
+> host10@gmail.com
+User host10 was registered as host.
+
+> property entire place
+> host10-lisboa-ep host10
+> Lisboa
+> 6 90 2 apartment
+Property host10-lisboa-ep was added to host host10.
+
+> property entire place
+> host5-lisboa-ep host5
+> Lisboa
+> 3 90 2 apartment
+Property host5-lisboa-ep was added to host host5.
+
+> property private room
+> host5-lisboa-pr host5
+> Lisboa
+> 3 50
+> 0
+Property host5-lisboa-pr was added to host host5.
+
+> property entire place
+> host4-lisboa-ep host4
+> Lisboa
+> 6 90 2 apartment
+Property host4-lisboa-ep was added to host host4.
+
+> property private room
+> host4-lisboa-pr host4
+> Lisboa
+> 1 50
+> 0
+Property host4-lisboa-pr was added to host host4.
+
+> property entire place
+> host3-lisboa-ep host3
+> Lisboa
+> 2 90 2 apartment
+Property host3-lisboa-ep was added to host host3.
+
+> property private room
+> host3-lisboa-pr host3
+> Lisboa
+> 2 50
+> 0
+Property host3-lisboa-pr was added to host host3.
+
+> property entire place
+> host2-lisboa-ep host2
+> Lisboa
+> 6 90 2 apartment
+Property host2-lisboa-ep was added to host host2.
+
+> property private room
+> host2-lisboa-pr host2
+> Lisboa
+> 1 50
+> 0
+Property host2-lisboa-pr was added to host host2.
+
+> property entire place
+> host1-lisboa-ep host1
+> Lisboa
+> 4 90 2 apartment
+Property host1-lisboa-ep was added to host host1.
+
+> property private room
+> host1-lisboa-pr host1
+> Lisboa
+> 3 50
+> 0
+Property host1-lisboa-pr was added to host host1.
+
+> property entire place
+> host1-caparica-ep host1
+> Caparica
+> 4 90 2 apartment
+Property host1-caparica-ep was added to host host1.
+
+> property private room
+> host1-caparica-pr host1
+> Caparica
+> 3 50
+> 0
+Property host1-caparica-pr was added to host host1.
+
+> property entire place
+> host2-caparica-ep host2
+> Caparica
+> 5 90 3 house
+Property host2-caparica-ep was added to host host2.
+
+> register guest guest1
+> Guest1
+> pt
+> guest1@gmail.com
+User guest1 was registered as guest.
+
+> register guest guest2
+> Guest2
+> pt
+> guest2@gmail.com
+User guest2 was registered as guest.
+
+> register guest guest3
+> Guest3
+> pt
+> guest3@gmail.com
+User guest3 was registered as guest.
+
+> register guest guest4
+> Guest4
+> pt
+> guest4@gmail.com
+User guest4 was registered as guest.
+
+> register guest guest5
+> Guest5
+> pt
+> guest5@gmail.com
+User guest5 was registered as guest.
+
+> book guest1 host1-lisboa-ep 01-06-2021 09-06-2021 2
+Booking host1-lisboa-ep-1 was confirmed.
+
+> pay host1-lisboa-ep-1 guest1
+Booking host1-lisboa-ep-1 was paid: 720.00
+
+> review host1-lisboa-ep-1 guest1
+> Was excellent.
+> excellent
+Review for host1-lisboa-ep-1 was registered.
+
+> book guest2 host2-lisboa-ep 01-06-2021 09-06-2021 2
+Booking host2-lisboa-ep-1 was confirmed.
+
+> pay host2-lisboa-ep-1 guest2
+Booking host2-lisboa-ep-1 was paid: 720.00
+
+> review host2-lisboa-ep-1 guest2
+> Was good.
+> good
+Review for host2-lisboa-ep-1 was registered.
+
+> book guest4 host2-caparica-ep 01-10-2021 09-10-2021 2
+Booking host2-caparica-ep-1 was confirmed.
+
+> pay host2-caparica-ep-1 guest4
+Booking host2-caparica-ep-1 was paid: 720.00
+
+> review host2-caparica-ep-1 guest4
+> Was average.
+> average
+Review for host2-caparica-ep-1 was registered.
+
+> book guest4 host1-caparica-ep 10-10-2021 19-10-2021 2
+Booking host1-caparica-ep-1 was confirmed.
+
+> pay host1-caparica-ep-1 guest4
+Booking host1-caparica-ep-1 was paid: 810.00
+
+> review host1-caparica-ep-1 guest4
+> Was good.
+> good
+Review for host1-caparica-ep-1 was registered.
+
+> book guest4 host1-caparica-pr 22-10-2021 24-10-2021 2
+Booking host1-caparica-pr-1 was requested.
+
+> confirm host1-caparica-pr-1 host1
+Booking host1-caparica-pr-1 was confirmed.
+
+> pay host1-caparica-pr-1 guest4
+Booking host1-caparica-pr-1 was paid: 100.00
+
+> review host1-caparica-pr-1 guest4
+> Was good.
+> good
+Review for host1-caparica-pr-1 was registered.
+
+> book guest3 host1-caparica-pr 27-10-2021 28-10-2021 2
+Booking host1-caparica-pr-2 was requested.
+
+> confirm host1-caparica-pr-2 host1
+Booking host1-caparica-pr-2 was confirmed.
+
+> pay host1-caparica-pr-2 guest3
+Booking host1-caparica-pr-2 was paid: 50.00
+
+> review host1-caparica-pr-2 guest3
+> Was poor.
+> poor
+Review for host1-caparica-pr-2 was registered.
+
+> book guest3 host3-lisboa-ep 01-11-2021 09-11-2021 2
+Booking host3-lisboa-ep-1 was confirmed.
+
+> pay host3-lisboa-ep-1 guest3
+Booking host3-lisboa-ep-1 was paid: 720.00
+
+> review host3-lisboa-ep-1 guest3
+> Was average.
+> average
+Review for host3-lisboa-ep-1 was registered.
+
+> book guest4 host4-lisboa-ep 01-11-2021 09-11-2021 2
+Booking host4-lisboa-ep-1 was confirmed.
+
+> pay host4-lisboa-ep-1 guest4
+Booking host4-lisboa-ep-1 was paid: 720.00
+
+> review host4-lisboa-ep-1 guest4
+> Was poor.
+> poor
+Review for host4-lisboa-ep-1 was registered.
+
+> book guest5 host5-lisboa-ep 01-11-2021 09-11-2021 2
+Booking host5-lisboa-ep-1 was confirmed.
+
+> pay host5-lisboa-ep-1 guest5
+Booking host5-lisboa-ep-1 was paid: 720.00
+
+> review host5-lisboa-ep-1 guest5
+> Was terrible.
+> terrible
+Review for host5-lisboa-ep-1 was registered.
+
+> book guest5 host1-lisboa-ep 10-11-2021 19-11-2021 2
+Booking host1-lisboa-ep-2 was confirmed.
+
+> pay host1-lisboa-ep-2 guest5
+Booking host1-lisboa-ep-2 was paid: 810.00
+
+> review host1-lisboa-ep-2 guest5
+> Was good.
+> good
+Review for host1-lisboa-ep-2 was registered.
+
+> best Lisboa
+The best properties in Lisboa:
+host1-lisboa-ep: 4.5; 4; 90.00; entire place
+host2-lisboa-ep: 4.0; 6; 90.00; entire place
+host3-lisboa-ep: 3.0; 2; 90.00; entire place
+host4-lisboa-ep: 2.0; 6; 90.00; entire place
+host5-lisboa-ep: 1.0; 3; 90.00; entire place
+host10-lisboa-ep: 0.0; 6; 90.00; entire place
+host1-lisboa-pr: 0.0; 3; 50.00; private room
+host5-lisboa-pr: 0.0; 3; 50.00; private room
+host3-lisboa-pr: 0.0; 2; 50.00; private room
+host2-lisboa-pr: 0.0; 1; 50.00; private room
+host4-lisboa-pr: 0.0; 1; 50.00; private room
+
+> book guest5 host1-lisboa-ep 20-11-2021 29-11-2021 2
+Booking host1-lisboa-ep-3 was confirmed.
+
+> pay host1-lisboa-ep-3 guest5
+Booking host1-lisboa-ep-3 was paid: 810.00
+
+> review host1-lisboa-ep-3 guest5
+> Was average.
+> average
+Review for host1-lisboa-ep-3 was registered.
+
+> best Lisboa
+The best properties in Lisboa:
+host2-lisboa-ep: 4.0; 6; 90.00; entire place
+host1-lisboa-ep: 4.0; 4; 90.00; entire place
+host3-lisboa-ep: 3.0; 2; 90.00; entire place
+host4-lisboa-ep: 2.0; 6; 90.00; entire place
+host5-lisboa-ep: 1.0; 3; 90.00; entire place
+host10-lisboa-ep: 0.0; 6; 90.00; entire place
+host1-lisboa-pr: 0.0; 3; 50.00; private room
+host5-lisboa-pr: 0.0; 3; 50.00; private room
+host3-lisboa-pr: 0.0; 2; 50.00; private room
+host2-lisboa-pr: 0.0; 1; 50.00; private room
+host4-lisboa-pr: 0.0; 1; 50.00; private room
+
+> book guest4 host10-lisboa-ep 10-11-2021 19-11-2021 2
+Booking host10-lisboa-ep-1 was confirmed.
+
+> pay host10-lisboa-ep-1 guest4
+Booking host10-lisboa-ep-1 was paid: 810.00
+
+> review host10-lisboa-ep-1 guest4
+> Was good.
+> good
+Review for host10-lisboa-ep-1 was registered.
+
+> best Lisboa
+The best properties in Lisboa:
+host10-lisboa-ep: 4.0; 6; 90.00; entire place
+host2-lisboa-ep: 4.0; 6; 90.00; entire place
+host1-lisboa-ep: 4.0; 4; 90.00; entire place
+host3-lisboa-ep: 3.0; 2; 90.00; entire place
+host4-lisboa-ep: 2.0; 6; 90.00; entire place
+host5-lisboa-ep: 1.0; 3; 90.00; entire place
+host1-lisboa-pr: 0.0; 3; 50.00; private room
+host5-lisboa-pr: 0.0; 3; 50.00; private room
+host3-lisboa-pr: 0.0; 2; 50.00; private room
+host2-lisboa-pr: 0.0; 1; 50.00; private room
+host4-lisboa-pr: 0.0; 1; 50.00; private room
+
+> book guest1 host5-lisboa-pr 01-11-2021 09-11-2021 2
+Booking host5-lisboa-pr-1 was requested.
+
+> confirm host5-lisboa-pr-1 host5
+Booking host5-lisboa-pr-1 was confirmed.
+
+> pay host5-lisboa-pr-1 guest1
+Booking host5-lisboa-pr-1 was paid: 400.00
+
+> review host5-lisboa-pr-1 guest1
+> Was average.
+> average
+Review for host5-lisboa-pr-1 was registered.
+
+> book guest2 host5-lisboa-pr 10-11-2021 19-11-2021 2
+Booking host5-lisboa-pr-2 was requested.
+
+> confirm host5-lisboa-pr-2 host5
+Booking host5-lisboa-pr-2 was confirmed.
+
+> pay host5-lisboa-pr-2 guest2
+Booking host5-lisboa-pr-2 was paid: 450.00
+
+> review host5-lisboa-pr-2 guest2
+> Was good.
+> good
+Review for host5-lisboa-pr-2 was registered.
+
+> book guest3 host5-lisboa-pr 01-12-2021 09-12-2021 2
+Booking host5-lisboa-pr-3 was requested.
+
+> confirm host5-lisboa-pr-3 host5
+Booking host5-lisboa-pr-3 was confirmed.
+
+> pay host5-lisboa-pr-3 guest3
+Booking host5-lisboa-pr-3 was paid: 400.00
+
+> review host5-lisboa-pr-3 guest3
+> Was excellent.
+> excellent
+Review for host5-lisboa-pr-3 was registered.
+
+> best Lisboa
+The best properties in Lisboa:
+host10-lisboa-ep: 4.0; 6; 90.00; entire place
+host2-lisboa-ep: 4.0; 6; 90.00; entire place
+host1-lisboa-ep: 4.0; 4; 90.00; entire place
+host5-lisboa-pr: 4.0; 3; 50.00; private room
+host3-lisboa-ep: 3.0; 2; 90.00; entire place
+host4-lisboa-ep: 2.0; 6; 90.00; entire place
+host5-lisboa-ep: 1.0; 3; 90.00; entire place
+host1-lisboa-pr: 0.0; 3; 50.00; private room
+host3-lisboa-pr: 0.0; 2; 50.00; private room
+host2-lisboa-pr: 0.0; 1; 50.00; private room
+host4-lisboa-pr: 0.0; 1; 50.00; private room
+
+> best Caparica
+The best properties in Caparica:
+host1-caparica-ep: 4.0; 4; 90.00; entire place
+host2-caparica-ep: 3.0; 5; 90.00; entire place
+host1-caparica-pr: 3.0; 3; 50.00; private room
+
+> exit
+Bye!

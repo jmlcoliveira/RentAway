@@ -1,70 +1,225 @@
+> guest diaz
 User diaz does not exist.
+
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
 User diaz was registered as guest.
+
+> guest diaz
 Guest diaz has no bookings.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
 User linetti was registered as host.
+
+> guest linetti
 User linetti is not a guest user.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
 User peralta was registered as guest.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
 User boyle was registered as host.
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
 User hitchcock was registered as guest.
+
+> Register guest scully
+> Norm Scully
+> usa
+> scully@gmail.com
 User scully was registered as guest.
+
+> property private room
+> boyle-florida boyle
+> Miami
+> 2 160
+> 3
+> swimming pool
+> kitchen
+> living room
 Property boyle-florida was added to host boyle.
+
+> property entire place
+> linetti-jersey linetti
+> New Jersey
+> 4 230 2 apartment
 Property linetti-jersey was added to host linetti.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
 User raymond was registered as host.
+
+> property entire place
+> raymond-house raymond
+> New York
+> 4 320 2 apartment
 Property raymond-house was added to host raymond.
+
+> property private room
+> cheddar-room raymond
+> St. Petersburg
+> 2 90
+> 2
+> garden
+> kitchen
 Property cheddar-room was added to host raymond.
+
+> book scully raymond-house 30-12-2021 03-01-2022 2
 Booking raymond-house-1 was requested.
+
+> book diaz raymond-house 30-09-2021 12-10-2021 2
 Booking raymond-house-2 was confirmed.
+
+> book hitchcock raymond-house 04-01-2021 12-01-2021 2
 Booking raymond-house-3 was confirmed.
+
+> pay raymond-house-3 hitchcock
 Booking raymond-house-3 was paid: 2560.00
+
+> pay raymond-house-2 diaz
 Booking raymond-house-2 was paid: 3840.00
+
+> confirm raymond-house-1 raymond
 Booking raymond-house-1 was confirmed.
+
+> pay raymond-house-1 scully
 Booking raymond-house-1 was paid: 1280.00
+
+> review raymond-house-3 hitchcock
+> Liked it.
+> average
 Review for raymond-house-3 was registered.
+
+> review raymond-house-2 diaz
+> Hated it.
+> poor
 Review for raymond-house-2 was registered.
+
+> review raymond-house-1 scully
+> Liked it.
+> average
 Review for raymond-house-1 was registered.
+
+> guest diaz
 Guest diaz bookings: paid 3840.00 euros
 raymond-house-2: raymond-house; entire place; New York; 30-09-2021; 12-10-2021; 2; reviewed; 3840.00
+
+> guest scully
 Guest scully bookings: paid 1280.00 euros
 raymond-house-1: raymond-house; entire place; New York; 30-12-2021; 03-01-2022; 2; reviewed; 1280.00
+
+> guest hitchcock
 Guest hitchcock bookings: paid 2560.00 euros
 raymond-house-3: raymond-house; entire place; New York; 04-01-2021; 12-01-2021; 2; reviewed; 2560.00
+
+> book peralta boyle-florida 27-05-2021 30-05-2021 2
 Booking boyle-florida-1 was requested.
+
+> confirm boyle-florida-1 boyle
 Booking boyle-florida-1 was confirmed.
+
+> pay boyle-florida-1 peralta
 Booking boyle-florida-1 was paid: 480.00
+
+> review boyle-florida-1 peralta
+> Excellent location!
+> good
 Review for boyle-florida-1 was registered.
+
+> book diaz boyle-florida 01-11-2021 09-11-2021 2
 Booking boyle-florida-2 was requested.
+
+> confirm boyle-florida-2 boyle
 Booking boyle-florida-2 was confirmed.
+
+> pay boyle-florida-2 diaz
 Booking boyle-florida-2 was paid: 1280.00
+
+> review boyle-florida-2 diaz
+> Excellent location!
+> excellent
 Review for boyle-florida-2 was registered.
+
+> book scully boyle-florida 04-01-2022 06-01-2022 2
 Booking boyle-florida-3 was requested.
+
+> confirm boyle-florida-3 boyle
 Booking boyle-florida-3 was confirmed.
+
+> pay boyle-florida-3 scully
 Booking boyle-florida-3 was paid: 320.00
+
+> review boyle-florida-3 scully
+> Good restaurants nearby!
+> excellent
 Review for boyle-florida-3 was registered.
+
+> guest scully
 Guest scully bookings: paid 1600.00 euros
 raymond-house-1: raymond-house; entire place; New York; 30-12-2021; 03-01-2022; 2; reviewed; 1280.00
 boyle-florida-3: boyle-florida; private room; Miami; 04-01-2022; 06-01-2022; 2; reviewed; 320.00
+
+> guest diaz
 Guest diaz bookings: paid 5120.00 euros
 raymond-house-2: raymond-house; entire place; New York; 30-09-2021; 12-10-2021; 2; reviewed; 3840.00
 boyle-florida-2: boyle-florida; private room; Miami; 01-11-2021; 09-11-2021; 2; reviewed; 1280.00
+
+> guest peralta
 Guest peralta bookings: paid 480.00 euros
 boyle-florida-1: boyle-florida; private room; Miami; 27-05-2021; 30-05-2021; 2; reviewed; 480.00
+
+> book scully cheddar-room 30-08-2022 02-09-2022 2
 Booking cheddar-room-1 was requested.
+
+> book peralta cheddar-room 24-08-2022 27-08-2022 1
 Booking cheddar-room-2 was requested.
+
+> book scully cheddar-room 09-08-2022 11-08-2022 1
 Booking cheddar-room-3 was requested.
+
+> book diaz cheddar-room 10-08-2022 20-08-2022 2
 Booking cheddar-room-4 was requested.
+
+> confirm cheddar-room-2 raymond
 Booking cheddar-room-2 was confirmed.
+
+> confirm cheddar-room-4 raymond
 Booking cheddar-room-4 was confirmed.
 Booking cheddar-room-3 was rejected.
+
+> guest scully
 Guest scully bookings: paid 1600.00 euros
 raymond-house-1: raymond-house; entire place; New York; 30-12-2021; 03-01-2022; 2; reviewed; 1280.00
 boyle-florida-3: boyle-florida; private room; Miami; 04-01-2022; 06-01-2022; 2; reviewed; 320.00
 cheddar-room-1: cheddar-room; private room; St. Petersburg; 30-08-2022; 02-09-2022; 2; requested; 0.00
 cheddar-room-3: cheddar-room; private room; St. Petersburg; 09-08-2022; 11-08-2022; 1; rejected; 0.00
+
+> guest diaz
 Guest diaz bookings: paid 5120.00 euros
 raymond-house-2: raymond-house; entire place; New York; 30-09-2021; 12-10-2021; 2; reviewed; 3840.00
 boyle-florida-2: boyle-florida; private room; Miami; 01-11-2021; 09-11-2021; 2; reviewed; 1280.00
 cheddar-room-4: cheddar-room; private room; St. Petersburg; 10-08-2022; 20-08-2022; 2; confirmed; 0.00
+
+> guest peralta
 Guest peralta bookings: paid 480.00 euros
 boyle-florida-1: boyle-florida; private room; Miami; 27-05-2021; 30-05-2021; 2; reviewed; 480.00
 cheddar-room-2: cheddar-room; private room; St. Petersburg; 24-08-2022; 27-08-2022; 1; confirmed; 0.00
+
+> exit
 Bye!

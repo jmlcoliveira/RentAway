@@ -1,32 +1,125 @@
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
 User diaz was registered as guest.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
 User linetti was registered as host.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
 User peralta was registered as guest.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
 User boyle was registered as host.
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
 User hitchcock was registered as guest.
+
+> Register guest scully
+> Norm Scully
+> usa
+> scully@gmail.com
 User scully was registered as guest.
+
+> property private room
+> boyle-florida boyle
+> Miami
+> 2 160
+> 3
+> swimming pool
+> kitchen
+> living room
 Property boyle-florida was added to host boyle.
+
+> property entire place
+> linetti-jersey linetti
+> New Jersey
+> 4 230 2 apartment
 Property linetti-jersey was added to host linetti.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
 User raymond was registered as host.
+
+> property entire place
+> raymond-house raymond
+> New York
+> 4 320 2 apartment
 Property raymond-house was added to host raymond.
+
+> property private room
+> cheddar-room raymond
+> St. Petersburg
+> 2 90
+> 2
+> garden
+> kitchen
 Property cheddar-room was added to host raymond.
+
+> book diaz raymond-house 30-09-2021 03-10-2021 2
 Booking raymond-house-1 was requested.
+
+> confirm raymond-house-1 raymond
 Booking raymond-house-1 was confirmed.
+
+> book diaz boyle-florida 29-08-2021 07-09-2021 2
 Booking boyle-florida-1 was requested.
+
+> book peralta boyle-florida 27-05-2021 30-05-2021 2
 Booking boyle-florida-2 was requested.
+
+> book diaz boyle-florida 01-07-2021 09-07-2021 2
 Booking boyle-florida-3 was requested.
+
+> book peralta boyle-florida 08-07-2021 13-07-2021 2
 Booking boyle-florida-4 was requested.
+
+> book diaz boyle-florida 07-07-2021 11-07-2021 2
 Booking boyle-florida-5 was requested.
+
+> confirm boyle-florida-1 boyle
 Booking boyle-florida-1 was confirmed.
+
+> confirm boyle-florida-4 boyle
 Booking boyle-florida-4 was confirmed.
 Booking boyle-florida-3 was rejected.
 Booking boyle-florida-5 was rejected.
+
+> book diaz linetti-jersey 27-05-2021 30-05-2021 4
 Booking linetti-jersey-1 was requested.
+
+> book peralta raymond-house 01-06-2021 09-06-2021 2
 Booking raymond-house-2 was confirmed.
+
+> book diaz linetti-jersey 01-06-2021 09-06-2021 2
 Booking linetti-jersey-2 was confirmed.
+
+> book diaz linetti-jersey 01-07-2021 03-07-2021 2
 Booking linetti-jersey-3 was requested.
+
+> book scully linetti-jersey 02-07-2021 10-07-2021 2
 Booking linetti-jersey-4 was requested.
+
+> confirm linetti-jersey-4 linetti
 Booking linetti-jersey-4 was confirmed.
 Booking linetti-jersey-3 was rejected.
+
+> users
 All registered users:
 boyle: Charles Boyle from usa with email charles.boyle@gmail.com [host user has 1 properties]
 diaz: Rosa Diaz from usa with email diaz@gmail.com [guest user has 7 bookings]
@@ -35,14 +128,26 @@ linetti: Gina Linetti from usa with email glinetti@gmail.com [host user has 1 pr
 peralta: Jake Peralta from usa with email jake@gmail.com [guest user has 3 bookings]
 raymond: Raymond Holt from usa with email rholt@hotmail.com [host user has 2 properties]
 scully: Norm Scully from usa with email scully@gmail.com [guest user has 1 bookings]
+
+> book peralta cheddar-room 24-07-2021 10-08-2021 1
 Booking cheddar-room-1 was requested.
+
+> book scully cheddar-room 09-08-2021 11-08-2021 1
 Booking cheddar-room-2 was requested.
+
+> book diaz cheddar-room 18-07-2021 25-07-2021 2
 Booking cheddar-room-3 was requested.
+
+> book hitchcock cheddar-room 30-07-2021 02-08-2021 2
 Booking cheddar-room-4 was requested.
+
+> confirm cheddar-room-1 raymond
 Booking cheddar-room-1 was confirmed.
 Booking cheddar-room-2 was rejected.
 Booking cheddar-room-3 was rejected.
 Booking cheddar-room-4 was rejected.
+
+> users
 All registered users:
 boyle: Charles Boyle from usa with email charles.boyle@gmail.com [host user has 1 properties]
 diaz: Rosa Diaz from usa with email diaz@gmail.com [guest user has 8 bookings]
@@ -51,4 +156,6 @@ linetti: Gina Linetti from usa with email glinetti@gmail.com [host user has 1 pr
 peralta: Jake Peralta from usa with email jake@gmail.com [guest user has 4 bookings]
 raymond: Raymond Holt from usa with email rholt@hotmail.com [host user has 2 properties]
 scully: Norm Scully from usa with email scully@gmail.com [guest user has 2 bookings]
+
+> exit
 Bye!

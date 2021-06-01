@@ -1,0 +1,122 @@
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
+User diaz was registered as guest.
+
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
+User linetti was registered as host.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
+User peralta was registered as guest.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
+User boyle was registered as host.
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
+User hitchcock was registered as guest.
+
+> Register guest scully
+> Norm Scully
+> usa
+> scully@gmail.com
+User scully was registered as guest.
+
+> property private room
+> boyle-florida boyle
+> Miami
+> 2 160
+> 3
+> swimming pool
+> kitchen
+> living room
+Property boyle-florida was added to host boyle.
+
+> property entire place
+> linetti-jersey linetti
+> New Jersey
+> 4 230 2 apartment
+Property linetti-jersey was added to host linetti.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
+User raymond was registered as host.
+
+> property entire place
+> raymond-house raymond
+> New York
+> 4 320 2 apartment
+Property raymond-house was added to host raymond.
+
+> property private room
+> cheddar-room raymond
+> St. Petersburg
+> 2 90
+> 2
+> garden
+> kitchen
+Property cheddar-room was added to host raymond.
+
+> book scully raymond-house 30-12-2021 03-01-2022 2
+Booking raymond-house-1 was requested.
+
+> book diaz raymond-house 30-09-2021 12-10-2021 2
+Booking raymond-house-2 was confirmed.
+
+> book hitchcock raymond-house 04-01-2021 12-01-2021 2
+Booking raymond-house-3 was confirmed.
+
+> pay raymond-house-3 hitchcock
+Booking raymond-house-3 was paid: 2560.00
+
+> review raymond-house-3 alice
+> Liked it.
+> average
+User alice does not exist.
+
+> review raymond-house-3 linetti
+> Liked it.
+> average
+User linetti is not a guest user.
+
+> review raymond-house-10 scully
+> Liked it.
+> average
+Booking raymond-house-10 does not exist.
+
+> review raymond-house-3 scully
+> Liked it.
+> average
+User scully is not the guest of booking raymond-house-3.
+
+> review raymond-house-3 hitchcock
+> Liked it.
+> average
+Review for raymond-house-3 was registered.
+
+> review raymond-house-2 diaz
+> Liked it.
+> average
+Cannot review booking raymond-house-2 that is in state confirmed.
+
+> review raymond-house-3 hitchcock
+> Liked it.
+> average
+Booking raymond-house-3 was already reviewed.
+
+> exit
+Bye!

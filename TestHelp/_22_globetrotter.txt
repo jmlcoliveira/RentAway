@@ -1,75 +1,270 @@
+> Register host linetti
+> Gina Linetti
+> usa
+> glinetti@gmail.com
 User linetti was registered as host.
+
+> register host boyle
+> Charles Boyle
+> usa
+> charles.boyle@gmail.com
 User boyle was registered as host.
+
+> Register host pimento
+> Adrian Pimento
+> usa
+> apimento@gmail.com
 User pimento was registered as host.
+
+> Register host santiago
+> Amy Santiago
+> usa
+> amy.santiago@gmail.com
 User santiago was registered as host.
+
+> Register host raymond
+> Raymond Holt
+> usa
+> rholt@hotmail.com
 User raymond was registered as host.
+
+> property entire place
+> boyle-miami boyle
+> Miami
+> 4 320 3 apartment
 Property boyle-miami was added to host boyle.
+
+> property entire place
+> boyle-boston boyle
+> Boston
+> 3 120 2 apartment
 Property boyle-boston was added to host boyle.
+
+> property entire place
+> boyle-alaska boyle
+> Alaska
+> 4 60 3 apartment
 Property boyle-alaska was added to host boyle.
+
+> property private room
+> linetti-paris linetti
+> Paris
+> 2 65
+> 0
 Property linetti-paris was added to host linetti.
+
+> property private room
+> santiago-madrid santiago
+> Madrid
+> 3 84
+> 1
+> kitchen
 Property santiago-madrid was added to host santiago.
+
+> property entire place
+> linetti-porto linetti
+> Porto
+> 3 70 2 apartment
 Property linetti-porto was added to host linetti.
+
+> property entire place
+> pimento-miami pimento
+> Miami
+> 2 270 3 apartment
 Property pimento-miami was added to host pimento.
+
+> property private room
+> raymond-new-york raymond
+> New York
+> 1 100
+> 0
 Property raymond-new-york was added to host raymond.
+
+> property entire place
+> linetti-la linetti
+> Los Angeles
+> 4 150 2 apartment
 Property linetti-la was added to host linetti.
+
+> property private room
+> santiago-florence santiago
+> Florence
+> 2 60
+> 1
+> garden
 Property santiago-florence was added to host santiago.
+
+> property entire place
+> linetti-algarve linetti
+> Albufeira
+> 4 130 2 cabin
 Property linetti-algarve was added to host linetti.
+
+> property private room
+> pimento-arlington pimento
+> Arlington
+> 2 100
+> 0
 Property pimento-arlington was added to host pimento.
+
+> globetrotter
 No globe trotter.
+
+> register guest peralta
+> Jake Peralta
+> usa
+> jake@gmail.com
 User peralta was registered as guest.
+
+> Register guest diaz
+> Rosa Diaz
+> usa
+> diaz@gmail.com
 User diaz was registered as guest.
+
+> Register guest hitchcock
+> Michael Hitchcock
+> usa
+> hitchcock@gmail.com
 User hitchcock was registered as guest.
+
+> Register guest scully
+> Norm Scully
+> usa
+> scully@gmail.com
 User scully was registered as guest.
+
+> book hitchcock linetti-porto 28-05-2021 05-06-2021 2
 Booking linetti-porto-1 was confirmed.
+
+> pay linetti-porto-1 hitchcock
 Booking linetti-porto-1 was paid: 560.00
+
+> globetrotter
 Globe trotter hitchcock has visited 1 locations.
+
+> book scully pimento-miami 06-06-2021 14-06-2021 2
 Booking pimento-miami-1 was confirmed.
+
+> pay pimento-miami-1 scully
 Booking pimento-miami-1 was paid: 2160.00
+
+> globetrotter
 Globe trotter scully has visited 1 locations.
+
+> book scully boyle-miami 17-06-2021 26-06-2021 2
 Booking boyle-miami-1 was confirmed.
+
+> pay boyle-miami-1 scully
 Booking boyle-miami-1 was paid: 2880.00
+
+> globetrotter
 Globe trotter scully has visited 1 locations.
+
+> book hitchcock boyle-boston 06-06-2021 14-06-2021 2
 Booking boyle-boston-1 was confirmed.
+
+> pay boyle-boston-1 hitchcock
 Booking boyle-boston-1 was paid: 960.00
+
+> globetrotter
 Globe trotter hitchcock has visited 2 locations.
+
+> book scully boyle-alaska 06-07-2021 14-07-2021 4
 Booking boyle-alaska-1 was confirmed.
+
+> pay boyle-alaska-1 scully
 Booking boyle-alaska-1 was paid: 480.00
+
+> globetrotter
 Globe trotter scully has visited 2 locations.
+
+> book peralta raymond-new-york 19-06-2021 27-06-2021 1
 Booking raymond-new-york-1 was requested.
+
+> confirm raymond-new-york-1 raymond
 Booking raymond-new-york-1 was confirmed.
+
+> pay raymond-new-york-1 peralta
 Booking raymond-new-york-1 was paid: 800.00
+
+> book peralta santiago-madrid 01-07-2021 04-07-2021 3
 Booking santiago-madrid-1 was requested.
+
+> confirm santiago-madrid-1 santiago
 Booking santiago-madrid-1 was confirmed.
+
+> pay santiago-madrid-1 peralta
 Booking santiago-madrid-1 was paid: 252.00
+
+> globetrotter
 Globe trotter scully has visited 2 locations.
+
+> book peralta raymond-new-york 13-07-2021 14-07-2021 1
 Booking raymond-new-york-2 was requested.
+
+> globetrotter
 Globe trotter scully has visited 2 locations.
+
+> book peralta raymond-new-york 23-07-2021 24-07-2021 1
 Booking raymond-new-york-3 was requested.
+
+> globetrotter
 Globe trotter peralta has visited 2 locations.
+
+> book diaz boyle-alaska 06-08-2021 14-08-2021 4
 Booking boyle-alaska-2 was confirmed.
+
+> pay boyle-alaska-2 diaz
 Booking boyle-alaska-2 was paid: 480.00
+
+> globetrotter
 Globe trotter peralta has visited 2 locations.
+
+> book diaz pimento-miami 18-08-2021 22-08-2021 2
 Booking pimento-miami-2 was requested.
+
+> confirm pimento-miami-2 pimento
 Booking pimento-miami-2 was confirmed.
+
+> pay pimento-miami-2 diaz
 Booking pimento-miami-2 was paid: 1080.00
+
+> book diaz santiago-madrid 25-08-2021 27-08-2021 2
 Booking santiago-madrid-2 was requested.
+
+> confirm santiago-madrid-2 santiago
 Booking santiago-madrid-2 was confirmed.
+
+> pay santiago-madrid-2 diaz
 Booking santiago-madrid-2 was paid: 168.00
+
+> globetrotter
 Globe trotter diaz has visited 3 locations.
+
+> guest diaz
 Guest diaz bookings: paid 1728.00 euros
 boyle-alaska-2: boyle-alaska; entire place; Alaska; 06-08-2021; 14-08-2021; 4; paid; 480.00
 pimento-miami-2: pimento-miami; entire place; Miami; 18-08-2021; 22-08-2021; 2; paid; 1080.00
 santiago-madrid-2: santiago-madrid; private room; Madrid; 25-08-2021; 27-08-2021; 2; paid; 168.00
+
+> guest peralta
 Guest peralta bookings: paid 1052.00 euros
 raymond-new-york-1: raymond-new-york; private room; New York; 19-06-2021; 27-06-2021; 1; paid; 800.00
 santiago-madrid-1: santiago-madrid; private room; Madrid; 01-07-2021; 04-07-2021; 3; paid; 252.00
 raymond-new-york-2: raymond-new-york; private room; New York; 13-07-2021; 14-07-2021; 1; requested; 0.00
 raymond-new-york-3: raymond-new-york; private room; New York; 23-07-2021; 24-07-2021; 1; requested; 0.00
+
+> guest scully
 Guest scully bookings: paid 5520.00 euros
 pimento-miami-1: pimento-miami; entire place; Miami; 06-06-2021; 14-06-2021; 2; paid; 2160.00
 boyle-miami-1: boyle-miami; entire place; Miami; 17-06-2021; 26-06-2021; 2; paid; 2880.00
 boyle-alaska-1: boyle-alaska; entire place; Alaska; 06-07-2021; 14-07-2021; 4; paid; 480.00
+
+> guest hitchcock
 Guest hitchcock bookings: paid 1520.00 euros
 linetti-porto-1: linetti-porto; entire place; Porto; 28-05-2021; 05-06-2021; 2; paid; 560.00
 boyle-boston-1: boyle-boston; entire place; Boston; 06-06-2021; 14-06-2021; 2; paid; 960.00
+
+> exit
 Bye!
