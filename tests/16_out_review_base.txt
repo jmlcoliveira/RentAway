@@ -29,7 +29,7 @@ Booking boyle-florida-2 was paid: 1280.00
 Review for boyle-florida-2 was registered.
 Booking boyle-florida-3 was requested.
 Booking boyle-florida-3 was confirmed.
-Booking boyle-florida-3 was paid: 960.00
+Booking boyle-florida-3 was paid: 49600.00
 Review for boyle-florida-3 was registered.
 All registered users:
 boyle: Charles Boyle from usa with email charles.boyle@gmail.com [host user has 1 properties]

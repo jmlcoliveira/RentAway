@@ -9,7 +9,7 @@ Unknown command. Type help to see available commands.
 Unknown command. Type help to see available commands.
 register - adds a new user
 users - list all the registered users
-property - adds a new a property
+property - adds a new property
 properties - lists all properties of a host
 book - guest adds a new booking
 confirm - host confirms a booking

@@ -6,7 +6,7 @@ package commands;
 public enum Command {
     REGISTER("register", "adds a new user"),
     USERS("users", "list all the registered users"),
-    PROPERTY("property", "adds a new a property"),
+    PROPERTY("property", "adds a new property"),
     PROPERTIES("properties", "lists all properties of a host"),
     BOOK("book", "guest adds a new booking"),
     CONFIRM("confirm", "host confirms a booking"),
