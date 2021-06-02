@@ -1,7 +1,7 @@
 package users;
 
 import booking.Booking;
-import booking.ComparatorByArrivalDate;
+import booking.ComparatorByNameDesc;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -19,7 +19,7 @@ public class GuestClass extends UserClassAbs implements Guest {
     public GuestClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
         unpaidBookings = new LinkedList<>();
-        paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
+        paidBookings = new TreeSet<>(new ComparatorByNameDesc());
         confirmedBookings = new ArrayList<>();
         allBookingsByInsertionOrder = new ArrayList<>();
         visitedLocations = new HashSet<>();
@@ -73,10 +73,10 @@ public class GuestClass extends UserClassAbs implements Guest {
     }
 
     public boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
-        for (Booking b : paidBookings) {
-            if (!arrival.isAfter(b.getDepartureDate()))
+        if (!paidBookings.isEmpty())
+            if (!arrival.isAfter(paidBookings.first().getDepartureDate()))
                 return true;
-        }
+
         for (Booking b : confirmedBookings) {
             if (b.dateOverlaps(arrival, departure))
                 return true;

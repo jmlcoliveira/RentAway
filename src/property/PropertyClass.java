@@ -2,7 +2,7 @@ package property;
 
 import booking.Booking;
 import booking.BookingState;
-import booking.ComparatorByArrivalDate;
+import booking.ComparatorByNameDesc;
 import booking.exceptions.CannotExecuteActionInBookingException;
 import review.Review;
 import users.Host;
@@ -29,7 +29,7 @@ public abstract class PropertyClass implements Property {
     protected PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price) {
         bookingList = new ArrayList<>();
         reviewList = new ArrayList<>();
-        paidBookings = new TreeSet<>(new ComparatorByArrivalDate());
+        paidBookings = new TreeSet<>(new ComparatorByNameDesc());
         confirmedBookings = new ArrayList<>();
         unpaidBookings = new LinkedList<>();
         this.identifier = identifier;
@@ -142,10 +142,10 @@ public abstract class PropertyClass implements Property {
     }
 
     public boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
-        for (Booking b : paidBookings) {
-            if (!arrival.isAfter(b.getDepartureDate()))
+        if (!paidBookings.isEmpty())
+            if (!arrival.isAfter(paidBookings.first().getDepartureDate()))
                 return true;
-        }
+
         for (Booking b : confirmedBookings) {
             if (b.dateOverlaps(arrival, departure))
                 return true;
