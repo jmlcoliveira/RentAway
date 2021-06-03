@@ -170,13 +170,18 @@ public interface Database {
     Iterator<Booking> iteratorRejections(String userID) throws UserHasNoBookingsException;
 
     /**
+     * Checks if the host has rejected bookings
+     *
      * @param userID ID of a user
-     * @return
+     * @return true if there is at least one rejected booking
      * @throws UserDoesNotExistException  if no user was found
      * @throws InvalidUserTypeException   if the user with that userID isn't a host
-     * @throws UserHasNoBookingsException
+     * @throws UserHasNoBookingsException   if the user has no bookings
      */
-    boolean hostHasRejectedBookings(String userID) throws UserDoesNotExistException, InvalidUserTypeException, UserHasNoBookingsException;
+    boolean hostHasRejectedBookings(String userID)
+            throws UserDoesNotExistException,
+            InvalidUserTypeException,
+            UserHasNoBookingsException;
 
     /**
      * Rejects a booking in the database
@@ -249,12 +254,16 @@ public interface Database {
     Guest getGuest(String guestID);
 
     /**
-     * @param guestID
-     * @return
+     * Checks if the guest has bookings
+     *
+     * @param guestID ID of that guest
+     * @return  true if the guest has at least one booking
      * @throws UserDoesNotExistException if no user was found
      * @throws InvalidUserTypeException  if the user isn't a guest
      */
-    boolean guestHasBookings(String guestID) throws UserDoesNotExistException, InvalidUserTypeException;
+    boolean guestHasBookings(String guestID)
+            throws UserDoesNotExistException,
+            InvalidUserTypeException;
 
     /**
      * Returns the Iterator of the stays at a property
@@ -265,7 +274,15 @@ public interface Database {
      */
     Iterator<Booking> iteratorStaysAtProperty(String propertyID);
 
-    boolean propertyHasStays(String propertyID) throws PropertyDoesNotExistException;
+    /**
+     * Checks if the property has at least one paid booking
+     *
+     * @param propertyID ID of the property
+     * @return  true if the property has at least one stay
+     * @throws PropertyDoesNotExistException    if no property was found
+     */
+    boolean propertyHasStays(String propertyID)
+            throws PropertyDoesNotExistException;
 
     /**
      * Returns the Iterator of the properties with a minimum capacity, in a given location
@@ -286,8 +303,21 @@ public interface Database {
      */
     Iterator<Property> iteratorPropertiesByAverage(String location);
 
+    /**
+     * Checks if the database has a property in the given location, with a minimum amount of capacity
+     *
+     * @param location the desired location
+     * @param numGuests the minimum capacity
+     * @return  true if there is at least one property that fits the criteria
+     */
     boolean hasProperty(String location, int numGuests);
 
+    /**
+     * Checks if the database has a property in the given location
+     *
+     * @param location the desired location
+     * @return  true if there is at least one property that fits the criteria
+     */
     boolean hasProperty(String location);
 
     /**
