@@ -10,23 +10,78 @@ import java.util.Iterator;
  */
 public interface Guest extends User {
 
+    /**
+     * Gets the number of bookings of the guest
+     *
+     * @return number of bookings of the guest
+     */
     int getBookingsCount();
 
+    /**
+     * Gets the total amount spent on bookings by the guest
+     *
+     * @return  the amount spent
+     */
     double getTotalAmountPaid();
 
+    /**
+     * Gets the number of visited locations by the guest
+     *
+     * @return the number of visited locations
+     */
     int getVisitedLocations();
 
+    //todo
+    /**
+     * Adds a paid booking to the guest
+     *
+     * @param booking the booking being paid
+     */
     void addPaidBooking(Booking booking);
 
+    /**
+     * Adds a confirmed booking to the guest
+     *
+     * @param booking  the booking being confirmed
+     */
     void addConfirmedBooking(Booking booking);
 
+    /**
+     * Adds a booking to the guest
+     *
+     * @param booking   the booking being added
+     */
     void addBooking(Booking booking);
 
+    /**
+     * Returns an Iterator of all the bookings of the guest
+     *
+     * @return  Iterator of the bookings of the guest
+     */
     Iterator<Booking> iteratorBookings();
 
+    /**
+     * Checks if the guest has a booking
+     *
+     * @param booking   the booking
+     * @return  true if the guest has that booking
+     */
     boolean hasBooking(Booking booking);
 
+    /**
+     * Pays a booking of the guest
+     *
+     * @param booking the booking being paid
+     * @return
+     */
     Iterator<Booking> pay(Booking booking);
 
+    /**
+     * Checks if the date of a booking is invalid
+     *
+     * @param arrival arrival date of the booking
+     * @param departure departure date of the booking
+     * @return  true if the date is valid
+     */
     boolean isDateInvalid(LocalDate arrival, LocalDate departure);
 }
