@@ -5,5 +5,10 @@ package property;
  */
 public interface PrivateRoom extends Property{
 
+    /**
+     * Adds an amenity to the private room
+     *
+     * @param amenity the amenity
+     */
     void addAmenity(String amenity);
 }
