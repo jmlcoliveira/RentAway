@@ -41,10 +41,6 @@ public class BookingClass implements Booking {
         return identifier;
     }
 
-    public String getPropertyID() {
-        return property.getIdentifier();
-    }
-
     public Guest getGuest() {
         return guest;
     }

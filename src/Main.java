@@ -315,7 +315,8 @@ public class Main {
                     booking.Booking b = it.next();
                     User guest = b.getGuest();
                     System.out.printf(Success.BOOKING_REJECTED_LISTED, b.getIdentifier(),
-                            b.getPropertyID(), guest.getIdentifier(), guest.getNationality(), b.getNumberOfGuests());
+                            b.getProperty().getIdentifier(), guest.getIdentifier(), guest.getNationality(),
+                            b.getNumberOfGuests());
                 }
             } else
                 System.out.printf(Error.NO_REJECTED_BOOKINGS, userID);
