@@ -127,8 +127,8 @@ public interface Database {
      * @return Iterator with the confirmed booking and the bookings that were rejected
      * @throws BookingDoesNotExistException          if no booking was found
      * @throws UserDoesNotExistException             if no user was found
-     * @throws InvalidUserTypeException              if the user with that userID isnt a host
-     * @throws InvalidUserTypeForBookingException    if the user isnt the host of the booking
+     * @throws InvalidUserTypeException              if the user with that userID isn't a host
+     * @throws InvalidUserTypeForBookingException    if the user isn't the host of the booking
      * @throws CannotExecuteActionInBookingException if the booking is not in requested state
      */
     Iterator<Booking> confirmBooking(String bookingID, String userID)
@@ -148,7 +148,7 @@ public interface Database {
      * @param numGuests  number of guests of booking
      * @return Booking that was added
      * @throws UserDoesNotExistException         if no user was found
-     * @throws InvalidUserTypeException          if the user with that userID isnt a guest
+     * @throws InvalidUserTypeException          if the user with that userID isn't a guest
      * @throws PropertyDoesNotExistException     if no property was found
      * @throws NumGuestsExceedsCapacityException if the numGuests exceeds the capacity of the property
      * @throws InvalidBookingDatesException      if the booking dates are invalid
@@ -192,9 +192,9 @@ public interface Database {
      * @param userID    ID of the user
      * @return the bookings that was rejected
      * @throws UserDoesNotExistException             if no user was found
-     * @throws InvalidUserTypeException              if the user isnt a guest
+     * @throws InvalidUserTypeException              if the user isn't a guest
      * @throws BookingDoesNotExistException          if no booking was found
-     * @throws InvalidUserTypeForBookingException    if the user isnt the host of the property with that booking
+     * @throws InvalidUserTypeForBookingException    if the user isn't the host of the property with that booking
      * @throws CannotExecuteActionInBookingException if the booking is not in requested state
      */
     Booking rejectBooking(String bookingID, String userID)
@@ -212,7 +212,7 @@ public interface Database {
      * @return Iterator with the payed booking, and all the rejected and cancelled bookings
      * @throws BookingDoesNotExistException          if no booking was found
      * @throws UserDoesNotExistException             if no user was found
-     * @throws InvalidUserTypeException              if the user isnt a guest
+     * @throws InvalidUserTypeException              if the user isn't a guest
      * @throws UserNotAllowedToPayBookingException   if the user is not the guest associated with the booking
      * @throws CannotExecuteActionInBookingException if the booking is not in confirmed state
      */
@@ -233,9 +233,9 @@ public interface Database {
      * @param classification rating of 1 to 5 stars
      * @throws BookingDoesNotExistException          if no booking was found
      * @throws UserDoesNotExistException             if no user was found
-     * @throws InvalidUserTypeException              if the user isnt a guest
-     * @throws InvalidUserTypeForBookingException    if the user isnt the guest of that booking
-     * @throws CannotExecuteActionInBookingException if the booking isnt in state paid
+     * @throws InvalidUserTypeException              if the user isn't a guest
+     * @throws InvalidUserTypeForBookingException    if the user isn't the guest of that booking
+     * @throws CannotExecuteActionInBookingException if the booking isn't in state paid
      * @throws BookingAlreadyReviewedException       if the booing already has a review
      */
     void addReview(String bookingID, String userID, String review, String classification)
