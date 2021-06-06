@@ -69,19 +69,19 @@ public interface Guest extends User {
     boolean hasBooking(Booking booking);
 
     /**
-     * Pays a booking of the guest
+     * Pays a booking of the guest and returns an iterator with the bookings which where affected by this action
      *
      * @param booking the booking being paid
-     * @return
+     * @return an iterator with the bookings which where affected by this action
      */
     Iterator<Booking> pay(Booking booking);
 
     /**
      * Checks if the date of a booking is invalid
      *
-     * @param arrival arrival date of the booking
+     * @param arrival   arrival date of the booking
      * @param departure departure date of the booking
-     * @return  true if the date is valid
+     * @return <code>true</code> if the date is invalid
      */
     boolean isDateInvalid(LocalDate arrival, LocalDate departure);
 }

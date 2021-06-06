@@ -39,10 +39,12 @@ public interface Database {
     Iterator<Property> iteratorPropertiesByHost(String id);
 
     /**
-     * @param userID
-     * @return
-     * @throws UserDoesNotExistException
-     * @throws InvalidUserTypeException
+     * Returns <code>true</code> if the host is valid and has properties, <code>false</code> otherwise
+     *
+     * @param userID id of an user
+     * @return <code>true</code> if the host is valid and has properties, <code>false</code> otherwise
+     * @throws UserDoesNotExistException if no user was found
+     * @throws InvalidUserTypeException  if the user with that userID is not a host
      */
     boolean hostHasProperties(String userID) throws UserDoesNotExistException, InvalidUserTypeException;
 
@@ -270,7 +272,6 @@ public interface Database {
      *
      * @param propertyID ID of a property
      * @return Iterator of the paid bookings of a property
-     * @throws PropertyDoesNotExistException if no property was found
      */
     Iterator<Booking> iteratorStaysAtProperty(String propertyID);
 
@@ -323,7 +324,7 @@ public interface Database {
     /**
      * Returns the guest with more locations visited
      *
-     * @return the guest with mmore paid bookings
+     * @return the guest with more paid bookings
      * @throws NoGlobeTrotterException if there is no GlobeTrotter
      */
     Guest getGlobeTrotter()

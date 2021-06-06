@@ -3,7 +3,7 @@ import booking.exceptions.*;
 import commands.Command;
 import database.Database;
 import database.DatabaseClass;
-import outputmessages.Error;
+import outputmessages.Empty;
 import outputmessages.Success;
 import property.Property;
 import property.PropertyType;
@@ -146,7 +146,7 @@ public class Main {
                         next.getType().getTypeValue());
             }
         } else
-            System.out.printf(Error.PROPERTY_NOT_FOUND, location);
+            System.out.printf(Empty.PROPERTY_NOT_FOUND, location);
     }
 
     /**
@@ -171,9 +171,9 @@ public class Main {
                             next.getType().getTypeValue());
                 }
             } else
-                System.out.printf(Error.PROPERTY_NOT_FOUND, location);
+                System.out.printf(Empty.PROPERTY_NOT_FOUND, location);
         } else
-            System.out.printf(Error.PROPERTY_NOT_FOUND, location);
+            System.out.printf(Empty.PROPERTY_NOT_FOUND, location);
     }
 
     /**
@@ -198,7 +198,7 @@ public class Main {
                             next.getNumberOfGuests(), next.getPaidAmount());
                 }
             } else {
-                System.out.printf(Error.PROPERTY_HAS_NO_STAYS, propertyID);
+                System.out.printf(Empty.PROPERTY_HAS_NO_STAYS, propertyID);
             }
 
         } catch (PropertyDoesNotExistException e) {
@@ -241,7 +241,7 @@ public class Main {
                     );
                 }
             } else
-                System.out.printf(Error.GUEST_HAS_NO_BOOKINGS, guestID);
+                System.out.printf(Empty.GUEST_HAS_NO_BOOKINGS, guestID);
         } catch (InvalidUserTypeException | UserDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
@@ -319,7 +319,7 @@ public class Main {
                             b.getNumberOfGuests());
                 }
             } else
-                System.out.printf(Error.NO_REJECTED_BOOKINGS, userID);
+                System.out.printf(Empty.NO_REJECTED_BOOKINGS, userID);
         } catch (UserHasNoBookingsException | InvalidUserTypeException | UserDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
@@ -419,7 +419,7 @@ public class Main {
                     );
                 }
             } else {
-                System.out.printf(Error.HOST_HAS_NO_PROPERTIES, hostID);
+                System.out.printf(Empty.HOST_HAS_NO_PROPERTIES, hostID);
             }
 
         } catch (UserDoesNotExistException | InvalidUserTypeException e) {
@@ -526,7 +526,7 @@ public class Main {
                             next.getNationality(), next.getEmail(), ((Host) next).numOfProperties());
             }
         } else
-            System.out.println(Error.NO_USERS_ERROR);
+            System.out.println(Empty.NO_USERS);
 
     }
 

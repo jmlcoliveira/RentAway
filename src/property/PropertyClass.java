@@ -39,81 +39,74 @@ public abstract class PropertyClass implements Property {
         this.price = price;
     }
 
-    public int getGuestsCapacity() {
+    public final int getGuestsCapacity() {
         return guestsCapacity;
     }
 
-    public String getIdentifier() {
+    public final String getIdentifier() {
         return identifier;
     }
 
-    public double getPrice() {
+    public final double getPrice() {
         return price * 1.0;
     }
 
-    public String getLocation() {
+    public final String getLocation() {
         return location;
     }
 
-    public int getBookingCount() {
+    public final int getBookingCount() {
         return bookingList.size();
     }
 
-    public int getReviewCount() {
+    public final int getReviewCount() {
         return reviewList.size();
     }
 
-    public boolean bookingOverlaps(Booking booking) {
+    public final boolean bookingOverlaps(Booking booking) {
         for (Booking b : bookingList)
             if (b.dateOverlaps(booking.getArrivalDate(), booking.getDepartureDate()))
                 return true;
         return false;
     }
 
-    public Booking getBooking(Booking b) {
+    public final Booking getBooking(Booking b) {
         int i = bookingList.indexOf(b);
         return i != -1 ? bookingList.get(i) : null;
     }
 
-    public void addReview(Review review) {
+    public final void addReview(Review review) {
         reviewList.add(review);
     }
 
-    public void addPaidBooking(Booking b) {
+    public final void addPaidBooking(Booking b) {
         paidBookings.add(b);
         unpaidBookings.remove(b);
         confirmedBookings.remove(b);
     }
 
-    public void addConfirmedBooking(Booking booking) {
+    public final void addConfirmedBooking(Booking booking) {
         confirmedBookings.add(booking);
     }
 
-    public void addBooking(Booking booking) {
+    public final void addBooking(Booking booking) {
         bookingList.add(booking);
         unpaidBookings.add(booking);
     }
 
-    public List<Booking> getBookings() {
+    public final List<Booking> getBookings() {
         return bookingList;
     }
 
-    public Iterator<Booking> iteratorPaidBookings() {
+    public final Iterator<Booking> iteratorPaidBookings() {
         return paidBookings.iterator();
     }
 
-    @Override
-    public Host getHost() {
+    public final Host getHost() {
         return host;
     }
 
-    @Override
-    public int getPaidBookingCount() {
-        return paidBookings.size();
-    }
-
-    @Override
-    public double getAverageRating() {
+    public final double getAverageRating() {
         double rating = 0.00;
         if (reviewList.size() == 0) return rating;
         for (Review r : reviewList)
@@ -121,13 +114,11 @@ public abstract class PropertyClass implements Property {
         return rating / reviewList.size();
     }
 
-    @Override
-    public int compareTo(Property p) {
+    public final int compareTo(Property p) {
         return getIdentifier().compareTo(p.getIdentifier());
     }
 
-    @Override
-    public Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
+    public final Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
         booking.pay();
         addPaidBooking(booking);
         booking.getGuest().addPaidBooking(booking);
@@ -141,7 +132,7 @@ public abstract class PropertyClass implements Property {
         return bookings.iterator();
     }
 
-    public boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
+    public final boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
         if (!paidBookings.isEmpty())
             if (!arrival.isAfter(paidBookings.first().getDepartureDate()))
                 return true;
@@ -153,11 +144,11 @@ public abstract class PropertyClass implements Property {
         return false;
     }
 
-    public boolean hasStays() {
+    public final boolean hasStays() {
         return paidBookings.size() > 0;
     }
 
-    public Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException {
+    public final Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException {
         booking.confirm();
         List<Booking> temp = new LinkedList<>();
         temp.add(booking);

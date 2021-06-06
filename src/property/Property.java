@@ -49,13 +49,6 @@ public interface Property extends Comparable<Property> {
     int getBookingCount();
 
     /**
-     * gets the number of paid bookings of the property
-     *
-     * @return number of paid bookings of the property
-     */
-    int getPaidBookingCount();
-
-    /**
      * Gets the number of reviews the property has
      *
      * @return number of reviews of the property

@@ -1,6 +1,8 @@
 package outputmessages;
 
 /**
+ * Class containing messages to be shown when a command is successfully executed
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public abstract class Success {
@@ -11,10 +13,8 @@ public abstract class Success {
     //Users
     public static final String USER_ADDED = "User %s was registered as %s.\n";
     public static final String USERS_LIST = "All registered users:";
-    public static final String USER_LISTED_HOST = "%s: %s from %s with email %s [host user has " +
-            "%d properties]\n";
-    public static final String USER_LISTED_GUEST ="%s: %s from %s with email %s [guest user has " +
-            "%d bookings]\n";
+    public static final String USER_LISTED_HOST = "%s: %s from %s with email %s [host user has %d properties]\n";
+    public static final String USER_LISTED_GUEST = "%s: %s from %s with email %s [guest user has %d bookings]\n";
 
     //Properties
     public static final String PROPERTY_ADDED = "Property %s was added to host %s.\n";
@@ -40,7 +40,7 @@ public abstract class Success {
     public static final String GUEST_BOOKING_LIST = "Guest %s bookings: paid %.2f euros\n";
     public static final String GUEST_BOOKINGS_LISTED = "%s: %s; %s; %s; %s; %s; %d; %s; %.2f\n";
 
-    //GlobalTrotter
+    //GlobeTrotter
     public static final String GLOBE_TROTTER_INFO = "Globe trotter %s has visited %d locations.\n";
 
     //Exit

@@ -1,6 +1,8 @@
 package commands;
 
 /**
+ * Enum with all available commands and their description
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public enum Command {
