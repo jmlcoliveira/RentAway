@@ -18,7 +18,7 @@ public class EntirePlaceClass extends PropertyClass implements EntirePlace {
         this.type = type;
     }
 
-    public PropertyType getType() {
+    public final PropertyType getType() {
         return propertyType;
     }
 }

@@ -22,7 +22,12 @@ public abstract class PropertyClass implements Property {
     private final int price;
     private final List<Booking> bookingList;
     private final List<Review> reviewList;
+
+    /**
+     * Bookings are sorted by inverse insertion order
+     */
     private final SortedSet<Booking> paidBookings;
+
     private final List<Booking> confirmedBookings;
     private final List<Booking> unpaidBookings;
 

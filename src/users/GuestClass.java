@@ -25,43 +25,43 @@ public class GuestClass extends UserClassAbs implements Guest {
         visitedLocations = new HashSet<>();
     }
 
-    public int getBookingsCount() {
+    public final int getBookingsCount() {
         return allBookingsByInsertionOrder.size();
     }
 
-    public double getTotalAmountPaid() {
+    public final double getTotalAmountPaid() {
         double amount = 0.0;
         for (Booking b : paidBookings)
             amount += b.getPaidAmount();
         return amount;
     }
 
-    public int getVisitedLocations() {
+    public final int getVisitedLocations() {
         return visitedLocations.size();
     }
 
-    public void addPaidBooking(Booking booking) {
+    public final void addPaidBooking(Booking booking) {
         paidBookings.add(booking);
         unpaidBookings.remove(booking);
         confirmedBookings.remove(booking);
         visitedLocations.add(booking.getProperty().getLocation());
     }
 
-    public void addConfirmedBooking(Booking booking) {
+    public final void addConfirmedBooking(Booking booking) {
         confirmedBookings.add(booking);
     }
 
-    public void addBooking(Booking booking) {
+    public final void addBooking(Booking booking) {
         unpaidBookings.add(booking);
         allBookingsByInsertionOrder.add(booking);
     }
 
-    public Iterator<Booking> iteratorBookings() {
+    public final Iterator<Booking> iteratorBookings() {
         return allBookingsByInsertionOrder.iterator();
     }
 
     @Override
-    public Iterator<Booking> pay(Booking booking) {
+    public final Iterator<Booking> pay(Booking booking) {
         ListIterator<Booking> it = unpaidBookings.listIterator();
         List<Booking> temp = new LinkedList<>();
         while (it.hasNext()) {
@@ -72,7 +72,7 @@ public class GuestClass extends UserClassAbs implements Guest {
         return temp.iterator();
     }
 
-    public boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
+    public final boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
         if (!paidBookings.isEmpty())
             if (!arrival.isAfter(paidBookings.first().getDepartureDate()))
                 return true;
@@ -86,6 +86,7 @@ public class GuestClass extends UserClassAbs implements Guest {
 
     @Override
     public boolean hasBooking(Booking booking) {
-        return unpaidBookings.contains(booking) || paidBookings.contains(booking);
+        if (paidBookings.contains(booking)) return true;
+        return unpaidBookings.contains(booking);
     }
 }

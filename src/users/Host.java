@@ -47,6 +47,7 @@ public interface Host extends User {
 
     /**
      * Adds a booking that was rejected by the host
+     * The insertion order of the booking is kept
      *
      * @param booking the booking being added
      */

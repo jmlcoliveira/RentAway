@@ -23,32 +23,31 @@ public class HostClass extends UserClassAbs implements Host {
         rejectedBookings = new ArrayList<>();
     }
 
-    public int numOfProperties() {
+    public final int numOfProperties() {
         return properties.size();
     }
 
-    @Override
-    public boolean hasProperties() {
+    public final boolean hasProperties() {
         return properties.size() > 0;
     }
 
-    public Iterator<Property> propertyIt() {
+    public final Iterator<Property> propertyIt() {
         return properties.iterator();
     }
 
-    public int getBookingsTotal() {
+    public final int getBookingsTotal() {
         return bookings.size();
     }
 
-    public int getRejectedBookings() {
+    public final int getRejectedBookings() {
         return rejectedBookings.size();
     }
 
-    public void addBooking(Booking booking) {
+    public final void addBooking(Booking booking) {
         bookings.add(booking);
     }
 
-    public void addRejectedBooking(Booking booking) {
+    public final void addRejectedBooking(Booking booking) {
         int i = bookings.indexOf(booking);
         for (Booking next : rejectedBookings) {
             if (i < bookings.indexOf(next)) {
@@ -59,11 +58,11 @@ public class HostClass extends UserClassAbs implements Host {
         rejectedBookings.add(booking);
     }
 
-    public void addProperty(Property property) {
+    public final void addProperty(Property property) {
         properties.add(property);
     }
 
-    public Iterator<Booking> iteratorRejectedBookings() {
+    public final Iterator<Booking> iteratorRejectedBookings() {
         return rejectedBookings.iterator();
     }
 }
