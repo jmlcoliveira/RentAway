@@ -86,9 +86,9 @@ public class BookingClass implements Booking {
     public void confirm() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.REQUESTED))
             throw new CannotExecuteActionInBookingException(
-                    Command.CONFIRM.getCommand(),
+                    Command.CONFIRM.name().toLowerCase(),
                     identifier,
-                    state.getStateValue());
+                    state.name().toLowerCase());
         this.state = BookingState.CONFIRMED;
     }
 
@@ -99,8 +99,8 @@ public class BookingClass implements Booking {
     @Override
     public void pay() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.CONFIRMED))
-            throw new CannotExecuteActionInBookingException(Command.PAY.getCommand(), identifier,
-                    state.getStateValue());
+            throw new CannotExecuteActionInBookingException(Command.PAY.name().toLowerCase(), identifier,
+                    state.name().toLowerCase());
         this.state = BookingState.PAID;
     }
 

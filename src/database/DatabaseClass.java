@@ -88,10 +88,9 @@ public class DatabaseClass implements Database {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
         if (!(user instanceof Host))
-            throw new InvalidUserTypeException(userID, UserType.HOST.getType());
+            throw new InvalidUserTypeException(userID, UserType.HOST.name().toLowerCase());
         return ((Host) user).hasProperties();
     }
-
 
     public void addGuest(String identifier, String name, String nationality, String email) throws UserAlreadyExistException {
         if (getUser(identifier) != null) throw new UserAlreadyExistException(identifier);
@@ -138,7 +137,7 @@ public class DatabaseClass implements Database {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
         if (!(user instanceof Host))
-            throw new InvalidUserTypeException(userID, UserType.HOST.getType());
+            throw new InvalidUserTypeException(userID, UserType.HOST.name().toLowerCase());
         if (properties.containsKey(propertyID)) throw new PropertyAlreadyExistException(propertyID);
         return (Host) user;
     }
@@ -175,13 +174,13 @@ public class DatabaseClass implements Database {
         if (user == null) throw new UserDoesNotExistException(userID);
 
         if (!(user instanceof Host))
-            throw new InvalidUserTypeException(userID, UserType.HOST.getType());
+            throw new InvalidUserTypeException(userID, UserType.HOST.name().toLowerCase());
 
         Booking booking = getBooking(bookingID);
         if (booking == null) throw new BookingDoesNotExistException(bookingID);
 
         if (!(booking.getHost().equals(user)))
-            throw new InvalidUserTypeForBookingException(userID, UserType.HOST.getType(), bookingID);
+            throw new InvalidUserTypeForBookingException(userID, UserType.HOST.name().toLowerCase(), bookingID);
 
         return booking;
     }
@@ -191,7 +190,7 @@ public class DatabaseClass implements Database {
 
         if (user == null) throw new UserDoesNotExistException(userID);
         if (!(user instanceof Guest))
-            throw new InvalidUserTypeException(userID, UserType.GUEST.getType());
+            throw new InvalidUserTypeException(userID, UserType.GUEST.name().toLowerCase());
 
         Guest guest = (Guest) user;
         Property property = getProperty(propertyID);
@@ -249,7 +248,7 @@ public class DatabaseClass implements Database {
         if (user == null) throw new UserDoesNotExistException(userID);
 
         if (!(user instanceof Host))
-            throw new InvalidUserTypeException(userID, UserType.HOST.getType());
+            throw new InvalidUserTypeException(userID, UserType.HOST.name().toLowerCase());
 
         Host host = (Host) user;
 
@@ -262,7 +261,7 @@ public class DatabaseClass implements Database {
         Booking b = validateHostAndBooking(bookingID, userID);
         BookingState bState = b.getState();
         if (bState != BookingState.REQUESTED)
-            throw new CannotExecuteActionInBookingException(Command.REJECT.getCommand(), bookingID, bState.getStateValue());
+            throw new CannotExecuteActionInBookingException(Command.REJECT.name().toLowerCase(), bookingID, bState.name().toLowerCase());
         b.reject();
         return b;
     }
@@ -273,7 +272,7 @@ public class DatabaseClass implements Database {
         Booking booking = getBooking(bookingID);
         if (booking == null) throw new BookingDoesNotExistException(bookingID);
         if (!(user instanceof Guest))
-            throw new InvalidUserTypeException(userID, UserType.GUEST.getType());
+            throw new InvalidUserTypeException(userID, UserType.GUEST.name().toLowerCase());
         Guest guest = (Guest) user;
         if (!(booking.getGuest().equals(guest)))
             throw new UserNotAllowedToPayBookingException(userID);
@@ -301,14 +300,14 @@ public class DatabaseClass implements Database {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
         if (!(user instanceof Guest))
-            throw new InvalidUserTypeException(userID, UserType.GUEST.getType());
+            throw new InvalidUserTypeException(userID, UserType.GUEST.name().toLowerCase());
         Booking booking = getBooking(bookingID);
         if (booking == null) throw new BookingDoesNotExistException(bookingID);
         Guest guest = (Guest) user;
         if (!guest.hasBooking(booking))
-            throw new InvalidUserTypeForBookingException(userID, UserType.GUEST.getType(), bookingID);
+            throw new InvalidUserTypeForBookingException(userID, UserType.GUEST.name().toLowerCase(), bookingID);
         if (!booking.isPaid())
-            throw new CannotExecuteActionInBookingException(Command.REVIEW.getCommand(), bookingID, booking.getState().getStateValue());
+            throw new CannotExecuteActionInBookingException(Command.REVIEW.name().toLowerCase(), bookingID, booking.getState().name().toLowerCase());
         if (booking.getState() == BookingState.REVIEWED)
             throw new BookingAlreadyReviewedException(bookingID);
 
@@ -326,7 +325,7 @@ public class DatabaseClass implements Database {
         User user = getUser(guestID);
         if (user == null) throw new UserDoesNotExistException(guestID);
         if (!(user instanceof Guest))
-            throw new InvalidUserTypeException(guestID, UserType.GUEST.getType());
+            throw new InvalidUserTypeException(guestID, UserType.GUEST.name().toLowerCase());
         Guest guest = (Guest) user;
         return guest.getBookingsCount() > 0;
     }
