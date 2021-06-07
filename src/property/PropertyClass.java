@@ -88,12 +88,6 @@ public abstract class PropertyClass implements Property {
         averageRating = (totalRatings + review.getRating()) / reviewList.size();
     }
 
-    public final void addPaidBooking(Booking b) {
-        paidBookings.add(b);
-        unpaidBookings.remove(b);
-        confirmedBookings.remove(b);
-    }
-
     public final void addConfirmedBooking(Booking booking) {
         confirmedBookings.add(booking);
     }
@@ -127,6 +121,17 @@ public abstract class PropertyClass implements Property {
                 bookings.add(b);
         }
         return bookings.iterator();
+    }
+
+    /**
+     * Adds the booking to the paidBookings list, and removes it from other lists
+     *
+     * @param b the booking that was paid
+     */
+    private final void addPaidBooking(Booking b) {
+        paidBookings.add(b);
+        unpaidBookings.remove(b);
+        confirmedBookings.remove(b);
     }
 
     public final boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
