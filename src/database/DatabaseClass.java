@@ -285,14 +285,14 @@ public class DatabaseClass implements Database {
 
         updateGlobeTrotter(guest);
 
-        List<Booking> bookings = new ArrayList<>();
+        List<Booking> temp = new ArrayList<>();
 
         while (propertyBookingIt.hasNext())
-            bookings.add(propertyBookingIt.next());
+            temp.add(propertyBookingIt.next());
         while (guestBookingIt.hasNext())
-            bookings.add(guestBookingIt.next());
+            temp.add(guestBookingIt.next());
 
-        return bookings.iterator();
+        return temp.iterator();
     }
 
 
