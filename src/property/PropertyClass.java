@@ -128,7 +128,7 @@ public abstract class PropertyClass implements Property {
      *
      * @param b the booking that was paid
      */
-    private final void addPaidBooking(Booking b) {
+    private void addPaidBooking(Booking b) {
         paidBookings.add(b);
         unpaidBookings.remove(b);
         confirmedBookings.remove(b);
