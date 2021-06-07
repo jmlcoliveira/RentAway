@@ -70,9 +70,10 @@ public interface Guest extends User {
 
     /**
      * Pays a booking of the guest and returns an iterator with the bookings which where affected by this action
+     * Returns an iterator with the bookings which where affected by this action
      *
      * @param booking the booking being paid
-     * @return an iterator with the bookings which where affected by this action
+     * @return iterator with the bookings which where affected by this action
      */
     Iterator<Booking> pay(Booking booking);
 

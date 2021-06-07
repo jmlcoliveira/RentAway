@@ -84,7 +84,7 @@ public interface Property extends Comparable<Property> {
     void addBooking(Booking booking);
 
     /**
-     * Checks if the a booking's dates overlap with another booking's dates
+     * Checks if the a booking dates overlaps with another booking dates
      *
      * @param booking the bookings being compared
      */
@@ -121,10 +121,11 @@ public interface Property extends Comparable<Property> {
 
     /**
      * Pays for a booking in the property, and cancels or rejects all others with overlapping dates
+     * Returns an Iterator with the paid booking and the cancelled or rejected bookings
      *
      * @param booking the booking being paid
-     * @return  Iterator with the paid booking and the cancelled or rejected bookings
-     * @throws CannotExecuteActionInBookingException    if the booking being paid isn't confirmed
+     * @return Iterator with the paid booking and the cancelled or rejected bookings
+     * @throws CannotExecuteActionInBookingException if the booking being paid isn't confirmed
      */
     Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException;
 

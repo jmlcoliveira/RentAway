@@ -3,6 +3,8 @@ package property;
 import java.util.Comparator;
 
 /**
+ * Comparator to sort properties by decreasing guest capacity
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class ComparatorCapacityDesc implements Comparator<Property> {

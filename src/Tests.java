@@ -140,27 +140,27 @@ public class Tests {
 
 	private static final File BASE = new File("tests");
 
-	private PrintStream consoleStream;
-	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private PrintStream consoleStream;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-	@Before
-	public void setup() {
-		consoleStream = System.out;
-		System.setOut(new PrintStream(outContent));
-	}
+    @Before
+    public void setup() {
+        consoleStream = System.out;
+        System.setOut(new PrintStream(outContent));
+    }
 
-	public void test(String intput, String output) {
-		test(new File(BASE, intput), new File(BASE, output));
-	}
+    public void test(String input, String output) {
+        test(new File(BASE, input), new File(BASE, output));
+    }
 
-	public void test(File input, File output) {
-		consoleStream.println("Testing!");
-		consoleStream.println("Input: " + input.getAbsolutePath());
-		consoleStream.println("Output: " + output.getAbsolutePath());
+    public void test(File input, File output) {
+        consoleStream.println("Testing!");
+        consoleStream.println("Input: " + input.getAbsolutePath());
+        consoleStream.println("Output: " + output.getAbsolutePath());
 
-		String fullInput = "", fullOutput = "";
-		try {
-			fullInput = new String(Files.readAllBytes(input.toPath()));
+        String fullInput = "", fullOutput = "";
+        try {
+            fullInput = new String(Files.readAllBytes(input.toPath()));
 			fullOutput = new String(Files.readAllBytes(output.toPath()));
 			consoleStream.println("INPUT ============");
 			consoleStream.println(fullInput);

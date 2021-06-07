@@ -37,51 +37,51 @@ public class BookingClass implements Booking {
         state = BookingState.REQUESTED;
     }
 
-    public String getIdentifier() {
+    public final String getIdentifier() {
         return identifier;
     }
 
-    public Guest getGuest() {
+    public final Guest getGuest() {
         return guest;
     }
 
-    public int getNumberOfGuests() {
+    public final int getNumberOfGuests() {
         return numberOfGuests;
     }
 
-    public double getPaidAmount() {
+    public final double getPaidAmount() {
         return isPaid() ? property.getPrice() * Duration.between(arrivalDate.atStartOfDay(),
                 departureDate.atStartOfDay()).toDays() : 0;
     }
 
-    public BookingState getState() {
+    public final BookingState getState() {
         return state;
     }
 
-    public Property getProperty() {
+    public final Property getProperty() {
         return property;
     }
 
-    public LocalDate getArrivalDate() {
+    public final LocalDate getArrivalDate() {
         return arrivalDate;
     }
 
-    public LocalDate getDepartureDate() {
+    public final LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public boolean isPaid() {
+    public final boolean isPaid() {
         return (state == BookingState.PAID || state == BookingState.REVIEWED);
     }
 
-    public void review(String comment, String classification) throws BookingAlreadyReviewedException {
+    public final void review(String comment, String classification) throws BookingAlreadyReviewedException {
         if (review != null) throw new BookingAlreadyReviewedException(this.identifier);
         review = new ReviewClass(comment, Rating.valueOf(classification.toUpperCase()));
         property.addReview(review);
         state = BookingState.REVIEWED;
     }
 
-    public void confirm() throws CannotExecuteActionInBookingException {
+    public final void confirm() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.REQUESTED))
             throw new CannotExecuteActionInBookingException(
                     Command.CONFIRM.name().toLowerCase(),
@@ -90,33 +90,27 @@ public class BookingClass implements Booking {
         this.state = BookingState.CONFIRMED;
     }
 
-    public void forceConfirm() {
+    public final void forceConfirm() {
         this.state = BookingState.CONFIRMED;
     }
 
-    public void pay() throws CannotExecuteActionInBookingException {
+    public final void pay() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.CONFIRMED))
             throw new CannotExecuteActionInBookingException(Command.PAY.name().toLowerCase(), identifier,
                     state.name().toLowerCase());
         this.state = BookingState.PAID;
     }
 
-    public void reject() {
+    public final void reject() {
         state = BookingState.REJECTED;
         property.getHost().addRejectedBooking(this);
     }
 
-    public boolean dateOverlaps(LocalDate arrival, LocalDate departure) {
+    public final boolean dateOverlaps(LocalDate arrival, LocalDate departure) {
         return !arrival.isAfter(this.departureDate) && !departure.isBefore(this.arrivalDate);
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Booking)) return false;
-        return ((Booking) o).getIdentifier().equals(getIdentifier());
-    }
-
-    public boolean rejectedOrCanceled(Booking b) {
+    public final boolean rejectedOrCanceled(Booking b) {
         if (this.departureDate.isBefore(b.getArrivalDate())) {
             if (this.state.equals(BookingState.REQUESTED)) {
                 this.state = BookingState.REJECTED;
@@ -131,8 +125,14 @@ public class BookingClass implements Booking {
         return false;
     }
 
-    @Override
-    public Host getHost() {
+    public final Host getHost() {
         return property.getHost();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Booking)) return false;
+        return ((Booking) o).getIdentifier().equals(getIdentifier());
     }
 }

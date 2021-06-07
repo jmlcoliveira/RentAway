@@ -3,6 +3,10 @@ package property;
 import java.util.Comparator;
 
 /**
+ * Comparator to sort the properties their average rating.
+ * In case of a draw, properties are sorted by decreasing capacity and
+ * lastly by alphabetical order of the property identifier.
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class ComparatorBest implements Comparator<Property> {

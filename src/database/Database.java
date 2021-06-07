@@ -175,10 +175,10 @@ public interface Database {
      * Checks if the host has rejected bookings
      *
      * @param userID ID of a user
-     * @return true if there is at least one rejected booking
+     * @return <code>true</code> if there is at least one rejected booking
      * @throws UserDoesNotExistException  if no user was found
      * @throws InvalidUserTypeException   if the user with that userID isn't a host
-     * @throws UserHasNoBookingsException   if the user has no bookings
+     * @throws UserHasNoBookingsException if the user has no bookings
      */
     boolean hostHasRejectedBookings(String userID)
             throws UserDoesNotExistException,
@@ -186,7 +186,7 @@ public interface Database {
             UserHasNoBookingsException;
 
     /**
-     * Rejects a booking in the database
+     * Rejects a booking
      *
      * @param bookingID ID of the booking
      * @param userID    ID of the user
@@ -205,7 +205,8 @@ public interface Database {
             CannotExecuteActionInBookingException;
 
     /**
-     * Pays for a booking and rejects or cancels all other bookings with overlapping dates
+     * Pays for a booking and returns an iterator with the payed booking,
+     * and all the bookings which had to be rejected or cancelled
      *
      * @param bookingID ID of the booking
      * @param userID    ID of the user
@@ -259,7 +260,7 @@ public interface Database {
      * Checks if the guest has bookings
      *
      * @param guestID ID of that guest
-     * @return  true if the guest has at least one booking
+     * @return true if the guest has at least one booking
      * @throws UserDoesNotExistException if no user was found
      * @throws InvalidUserTypeException  if the user isn't a guest
      */
@@ -279,8 +280,8 @@ public interface Database {
      * Checks if the property has at least one paid booking
      *
      * @param propertyID ID of the property
-     * @return  true if the property has at least one stay
-     * @throws PropertyDoesNotExistException    if no property was found
+     * @return true if the property has at least one stay
+     * @throws PropertyDoesNotExistException if no property was found
      */
     boolean propertyHasStays(String propertyID)
             throws PropertyDoesNotExistException;
