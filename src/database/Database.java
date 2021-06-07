@@ -307,9 +307,9 @@ public interface Database {
     /**
      * Checks if the database has a property in the given location, with a minimum amount of capacity
      *
-     * @param location the desired location
+     * @param location  the desired location
      * @param numGuests the minimum capacity
-     * @return  true if there is at least one property that fits the criteria
+     * @return <code>true</code> if there is at least one property that fits the criteria
      */
     boolean hasProperty(String location, int numGuests);
 
@@ -317,7 +317,7 @@ public interface Database {
      * Checks if the database has a property in the given location
      *
      * @param location the desired location
-     * @return  true if there is at least one property that fits the criteria
+     * @return <code>true</code> if there is at least one property that fits the criteria
      */
     boolean hasProperty(String location);
 

@@ -28,6 +28,9 @@ import java.util.*;
 public class DatabaseClass implements Database {
 
     private final int MAX_NUM_GUESTS = 15;
+    private final int DAYS_TO_AUTO_CONFIRM_BOOKING = 7;
+    private final String BOOKING_ID_FORMAT = "%s-%d";
+    private final String SEPARATOR = "-";
 
     /**
      * SortedMap containing all users sorted by id asc.
@@ -108,7 +111,6 @@ public class DatabaseClass implements Database {
         host.addProperty(p);
         if (!propertiesByLocation.containsKey(location))
             propertiesByLocation.put(location, new TreeSet<>(new ComparatorCapacityDesc()));
-
         propertiesByLocation.get(location).add(p);
     }
 
@@ -129,7 +131,7 @@ public class DatabaseClass implements Database {
      * @param propertyID ID of a property
      * @return an host object with the given userID
      * @throws UserDoesNotExistException     if no user was found
-     * @throws InvalidUserTypeException      if the userID does not belong to an Host
+     * @throws InvalidUserTypeException      if the userID does not belong to an Host user
      * @throws PropertyAlreadyExistException if a property with the propertyID already exist
      */
     private Host validateHostAndProperty(String userID, String propertyID) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
@@ -202,13 +204,13 @@ public class DatabaseClass implements Database {
         validateBookingDate(guest, property, arrival, departure);
 
         Booking b = new BookingClass(
-                String.format("%s-%d", propertyID, property.getBookingCount() + 1),
+                String.format(BOOKING_ID_FORMAT, propertyID, property.getBookingCount() + 1),
                 guest,
                 property,
                 numGuests, arrival,
                 departure);
         if (property.getType() == PropertyType.ENTIRE_PLACE && Duration.between(arrival.atStartOfDay(),
-                departure.atStartOfDay()).toDays() > 7 && !property.bookingOverlaps(b)) {
+                departure.atStartOfDay()).toDays() > DAYS_TO_AUTO_CONFIRM_BOOKING && !property.bookingOverlaps(b)) {
             b.forceConfirm();
             guest.addConfirmedBooking(b);
             property.addConfirmedBooking(b);
@@ -342,6 +344,8 @@ public class DatabaseClass implements Database {
     }
 
     public Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity) {
+        assert capacity <= MAX_NUM_GUESTS;
+        assert propertiesByLocation.containsKey(location);
         Iterator<Property> it = propertiesByLocation.get(location).iterator();
 
         List<Property> properties = new ArrayList<>();
@@ -358,13 +362,14 @@ public class DatabaseClass implements Database {
     }
 
     public Iterator<Property> iteratorPropertiesByAverage(String location) {
+        assert propertiesByLocation.containsKey(location);
         List<Property> properties = new ArrayList<>(propertiesByLocation.get(location));
         properties.sort(new ComparatorBest());
         return properties.iterator();
     }
 
-    public boolean hasProperty(String location, int numGuests) {
-        if (numGuests > MAX_NUM_GUESTS) return false;
+    public boolean hasProperty(String location, int capacity) {
+        if (capacity > MAX_NUM_GUESTS) return false;
         if (!propertiesByLocation.containsKey(location)) return false;
         return !propertiesByLocation.get(location).isEmpty();
     }
@@ -434,7 +439,7 @@ public class DatabaseClass implements Database {
      * @return a String with the ID of a property in the format: property-ID
      */
     private String getPropertyIDFromBookingID(String bookingID) {
-        int i = bookingID.lastIndexOf('-');
+        int i = bookingID.lastIndexOf(SEPARATOR);
         return bookingID.substring(0, i);
     }
 
@@ -443,8 +448,8 @@ public class DatabaseClass implements Database {
      * does not exist.
      *
      * @param bookingID ID of a booking
-     * @return a booking object if the bookingID exists or <code>null</code> if the bookingID
-     * does not exist.
+     * @return a booking object if the bookingID exists or <code>null</code> if the booking
+     * with the given bookingID does not exist.
      */
     private Booking getBooking(String bookingID) {
         String propertyID = getPropertyIDFromBookingID(bookingID);

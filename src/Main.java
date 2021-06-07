@@ -29,7 +29,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static final String DATE_PATTERN = "dd-MM-yyyy";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Main method where Scanner and Database are initialized
@@ -102,7 +102,7 @@ public class Main {
                     processHelpCommand(in);
                     break;
                 case UNKNOWN:
-                    processUnknown(in);
+                    processUnknown();
                     break;
             }
             command = getCommand(in);
@@ -111,10 +111,11 @@ public class Main {
     }
 
     /**
-     * 2.17
+     * Command 2.17
+     * Shows the guest that has visited more distinct locations.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processGlobeTrotter(Scanner in, Database db) {
         in.nextLine();
@@ -127,10 +128,12 @@ public class Main {
     }
 
     /**
-     * 2.16
+     * Command 2.16
+     * Lists all properties of a given location sorted by rating.
+     * Read from console the location and presents all the properties in that location sorted by their average rating.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processBest(Scanner in, Database db) {
         String location = in.next();
@@ -150,10 +153,13 @@ public class Main {
     }
 
     /**
-     * 2.15
+     * Command 2.15
+     * Lists all properties for a given location and number of guests.
+     * Reads from console the location and the number of guests, and presents all the properties in that location
+     * with capacity equal or higher than the number of guests.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processSearch(Scanner in, Database db) {
         String location = in.nextLine().trim();
@@ -177,10 +183,12 @@ public class Main {
     }
 
     /**
-     * 2.14
+     * Command 2.14
+     * Lists all stays at a property.
+     * Reads from console the property id and presents all the stays at that property.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processStays(Scanner in, Database db) {
         String propertyID = in.next().trim();
@@ -188,7 +196,6 @@ public class Main {
         try {
             if (db.propertyHasStays(propertyID)) {
                 Iterator<Booking> it = db.iteratorStaysAtProperty(propertyID);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
                 System.out.printf(Success.PROPERTY_LIST_STAY, propertyID);
                 while (it.hasNext()) {
                     Booking next = it.next();
@@ -208,10 +215,12 @@ public class Main {
 
 
     /**
-     * 2.13
+     * Command 2.13
+     * Presents information about the bookings of a given guest.
+     * Reads from console the guest user id and presents their detailed booking information.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processGuest(Scanner in, Database db) {
         String guestID = in.nextLine().trim();
@@ -224,7 +233,6 @@ public class Main {
                 );
 
                 Iterator<Booking> it = g.iteratorBookings();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
                 while (it.hasNext()) {
                     Booking b = it.next();
                     Property p = b.getProperty();
@@ -248,10 +256,13 @@ public class Main {
     }
 
     /**
-     * 2.12
+     * Command 2.12
+     * Adds a review to an already paid booking.
+     * Reads from console the booking id, the guest user id , the comment, and the classification.
+     * In case of success, the review is registered into the system.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processReview(Scanner in, Database db) {
         String bookingID = in.next().trim();
@@ -268,10 +279,13 @@ public class Main {
     }
 
     /**
-     * 2.11
+     * Command 2.11
+     * Guest pays for a booking.
+     * Reads from console the booking id, and the guest user id.
+     * In case of success, the booking paid is shown along with all the bookings which had to be rejected or canceled.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processPay(Scanner in, Database db) {
         String bookingID = in.next().trim();
@@ -298,10 +312,13 @@ public class Main {
     }
 
     /**
-     * 2.10
+     * Command 2.10
+     * Lists all rejected bookings of a host.
+     * Reads from console the host user id and  presents all the bookings rejected by the host,
+     * even bookings automatically rejected.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processRejections(Scanner in, Database db) {
         String userID = in.next().trim();
@@ -327,10 +344,13 @@ public class Main {
 
 
     /**
-     * 2.9
+     * Command 2.9
+     * Host rejects a guest booking.
+     * Reads from console the booking id, and the host user id.
+     * In case of success, the booking is rejected.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processReject(Scanner in, Database db) {
         String bookingID = in.next().trim();
@@ -346,10 +366,13 @@ public class Main {
     }
 
     /**
-     * 2.8
+     * Command 2.8
+     * Host confirms a guest booking.
+     * Reads from console the booking id, and the host user id.
+     * In case of success lists the confirmed booking and all bookings which had to be rejected.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processConfirm(Scanner in, Database db) {
         String bookingID = in.next().trim();
@@ -360,22 +383,24 @@ public class Main {
                 Booking b = it.next();
                 System.out.printf(Success.BOOKING_WAS, b.getIdentifier(), b.getState().getStateValue());
             }
-        } catch (CannotExecuteActionInBookingException | InvalidUserTypeException | UserDoesNotExistException | BookingDoesNotExistException | InvalidUserTypeForBookingException e) {
+        } catch (CannotExecuteActionInBookingException | InvalidUserTypeException | UserDoesNotExistException |
+                BookingDoesNotExistException | InvalidUserTypeForBookingException e) {
             System.out.println(e.getMessage());
         }
     }
 
     /**
-     * 2.7
+     * Command 2.7
+     * Adds a guest booking to the system.
+     * Reads from console the guest user id, the property id, the arrival and departure date, and number of guests.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processBook(Scanner in, Database db) {
         String userID = in.next().trim();
         String propertyID = in.next().trim();
         String arrival = in.next().trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         LocalDate arrivalDate = LocalDate.parse(arrival, formatter);
         String departure = in.next().trim();
         LocalDate departureDate = LocalDate.parse(departure, formatter);
@@ -385,7 +410,6 @@ public class Main {
         try {
             Booking book = db.addBooking(userID, propertyID, arrivalDate, departureDate, numGuests);
             System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState().getStateValue());
-
         } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyDoesNotExistException |
                 NumGuestsExceedsCapacityException | InvalidBookingDatesException e) {
             System.out.println(e.getMessage());
@@ -393,10 +417,12 @@ public class Main {
     }
 
     /**
-     * 2.6
+     * Command 2.6
+     * Lists all properties of a host.
+     * Reads from console the host user id and presents all their properties.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processProperties(Scanner in, Database db) {
         String hostID = in.next().trim();
@@ -428,55 +454,72 @@ public class Main {
     }
 
     /**
-     * 2.5
+     * Command 2.5
+     * Uploads a new rental property.
+     * Reads from console the rental property type and executes a method depending on the type
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processProperty(Scanner in, Database db) {
         PropertyType propertyType = getPropertyType(in);
         try {
+            String propertyID = in.next().trim();
+            String userID = in.next().trim();
+            in.nextLine();
+            String location = in.nextLine();
+            int capacity = in.nextInt();
+            int price = in.nextInt();
+
             switch (propertyType) {
                 case ENTIRE_PLACE:
-                    addEntirePlace(in, db);
+                    addEntirePlace(in, db, propertyID, userID, location, capacity, price);
                     break;
                 case PRIVATE_ROOM:
-                    addPrivateRoom(in, db);
+                    addPrivateRoom(in, db, propertyID, userID, location, capacity, price);
                     break;
                 case UNKNOWN:
                     throw new UnknownPropertyTypeException();
             }
         } catch (UnknownPropertyTypeException e) {
-            String a = in.nextLine();
-            a = in.nextLine();
-            a = in.nextLine();
+            in.nextLine();
             System.out.println(e.getMessage());
         } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyAlreadyExistException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static void addPrivateRoom(Scanner in, Database db) throws UserDoesNotExistException, InvalidUserTypeException {
-        String propertyID = in.next().trim();
-        String userID = in.next().trim();
+    /**
+     * Registers a private room in the database
+     * Receives as arguments the property id, the (host) owner user id, the location, capacity, and price per night
+     * Reads from console the number of amenities and reads their value
+     *
+     * @param in         input where the data will be read from
+     * @param db         Database where this action will be performed
+     * @param propertyID ID of a property
+     * @param userID     ID of a user
+     * @param location   name of a location
+     * @param capacity   max number of guests of a property
+     * @param price      cost of a property
+     * @throws UserDoesNotExistException if no user was found
+     * @throws InvalidUserTypeException  if the user with that userID is not a host
+     */
+    private static void addPrivateRoom(Scanner in, Database db, String propertyID, String userID, String location, int capacity, int price)
+            throws UserDoesNotExistException, InvalidUserTypeException {
         in.nextLine();
-        String location = in.nextLine();
-        int capacity = in.nextInt();
-        int price = in.nextInt();
-        in.nextLine();
-        int amenities = in.nextInt();
+        int amenitiesCount = in.nextInt();
         in.nextLine();
         int count = 0;
         try {
-            db.addPrivateRoom(propertyID, userID, location, capacity, price, amenities);
+            db.addPrivateRoom(propertyID, userID, location, capacity, price, amenitiesCount);
             System.out.printf(Success.PROPERTY_ADDED, propertyID, userID);
-            while (count < amenities) {
+            while (count < amenitiesCount) {
                 String amenity = in.nextLine();
                 db.addAmenity(propertyID, amenity);
                 count++;
             }
         } catch (PropertyAlreadyExistException e) {
-            while (count < amenities) {
+            while (count < amenitiesCount) {
                 in.nextLine();
                 count++;
             }
@@ -484,14 +527,25 @@ public class Main {
         }
     }
 
-    private static void addEntirePlace(Scanner in, Database db) throws UserDoesNotExistException,
+    /**
+     * Registers an entire place property in the database
+     * Receives as arguments the property id, the (host) owner user id, the location, capacity, and price per night
+     * Reads from console the number of rooms and the place type.
+     *
+     * @param in         input where the data will be read from
+     * @param db         Database where this action will be performed
+     * @param propertyID ID of a property
+     * @param userID     ID of a user
+     * @param location   name of a location
+     * @param capacity   max number of guests of a property
+     * @param price      cost of a property
+     * @throws UserDoesNotExistException     if no user was found
+     * @throws InvalidUserTypeException      if the user with that userID is not a host
+     * @throws PropertyAlreadyExistException if there is already a property with that propertyID
+     */
+    private static void addEntirePlace(Scanner in, Database db, String propertyID, String userID, String location, int capacity, int price)
+            throws UserDoesNotExistException,
             PropertyAlreadyExistException, InvalidUserTypeException {
-        String propertyID = in.next().trim();
-        String userID = in.next().trim();
-        in.nextLine();
-        String location = in.nextLine();
-        int capacity = in.nextInt();
-        int price = in.nextInt();
         int numberOfRooms = in.nextInt();
         String placeType = in.next().trim();
         in.nextLine();
@@ -501,10 +555,13 @@ public class Main {
     }
 
     /**
-     * 2.4
+     * Command 2.4
+     * Lists all registered users.
+     * If there are no registered users, outputs an empty message.
+     * Otherwise, it will print a header message in the first line and then print all users.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processUsers(Scanner in, Database db) {
         in.nextLine();
@@ -527,14 +584,16 @@ public class Main {
             }
         } else
             System.out.println(Empty.NO_USERS);
-
     }
 
     /**
-     * 2.3
+     * Command 2.3
+     * Registers a user in the system.
+     * The command receives as arguments the user type, which can be
+     * either host or guest, followed by the user identifier, their name, nationality and email.
      *
-     * @param in
-     * @param db
+     * @param in input where the data will be read from
+     * @param db Database where this action will be performed
      */
     private static void processRegister(Scanner in, Database db) {
         UserType userType = getUserType(in);
@@ -570,7 +629,7 @@ public class Main {
         in.nextLine();
         for (Command c : Command.values()) {
             if (!c.name().equals("UNKNOWN"))
-                System.out.printf(Success.HELP_IND, c.name().toLowerCase(), c.getDescription());
+                System.out.printf(Success.HELP_IND, c.getCommand(), c.getDescription());
         }
     }
 
@@ -582,7 +641,7 @@ public class Main {
         System.out.println(Success.EXIT);
     }
 
-    private static void processUnknown(Scanner in) {
+    private static void processUnknown() {
         System.out.println(Command.UNKNOWN.getDescription());
     }
 
