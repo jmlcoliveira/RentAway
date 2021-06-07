@@ -51,7 +51,7 @@ public class DatabaseClass implements Database {
      * The key is the location
      * The value is a SortedSet with the properties sorted by number of guests
      */
-    private final Map<String, SortedSet<Property>> propertiesByLocation;
+    private final Map<String, List<List<Property>>> propertiesByLocation;
 
     /**
      * Globe trotter is the guest that has visited more distinct locations
@@ -108,9 +108,13 @@ public class DatabaseClass implements Database {
         EntirePlace p = new EntirePlaceClass(propertyID, host, location, capacity, price, numberOfRooms, PlaceType.valueOf(placeType.toUpperCase()));
         properties.put(propertyID, p);
         host.addProperty(p);
-        if (!propertiesByLocation.containsKey(location))
-            propertiesByLocation.put(location, new TreeSet<>(new ComparatorCapacityDesc()));
-        propertiesByLocation.get(location).add(p);
+        if (!propertiesByLocation.containsKey(location)) {
+            propertiesByLocation.put(location, new ArrayList<>(MAX_NUM_GUESTS + 1));
+            for (int i = 0; i <= MAX_NUM_GUESTS; i++)
+                propertiesByLocation.get(location).add(new ArrayList<>());
+        }
+
+        propertiesByLocation.get(location).get(capacity).add(p);
     }
 
     public void addPrivateRoom(String propertyID, String userID, String location, int capacity, double price, int amenities) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
@@ -118,9 +122,12 @@ public class DatabaseClass implements Database {
         PrivateRoom p = new PrivateRoomClass(propertyID, host, location, capacity, price, amenities);
         properties.put(propertyID, p);
         host.addProperty(p);
-        if (!propertiesByLocation.containsKey(location))
-            propertiesByLocation.put(location, new TreeSet<>(new ComparatorCapacityDesc()));
-        propertiesByLocation.get(location).add(p);
+        if (!propertiesByLocation.containsKey(location)) {
+            propertiesByLocation.put(location, new ArrayList<>(MAX_NUM_GUESTS + 1));
+            for (int i = 0; i <= MAX_NUM_GUESTS; i++)
+                propertiesByLocation.get(location).add(new ArrayList<>());
+        }
+        propertiesByLocation.get(location).get(capacity).add(p);
     }
 
     /**
@@ -357,16 +364,10 @@ public class DatabaseClass implements Database {
     public Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity) {
         assert capacity <= MAX_NUM_GUESTS;
         assert propertiesByLocation.containsKey(location);
-        Iterator<Property> it = propertiesByLocation.get(location).iterator();
 
         List<Property> temp = new ArrayList<>();
-        while (it.hasNext()) {
-            Property next = it.next();
-            if (next.getGuestsCapacity() >= capacity)
-                temp.add(next);
-            else
-                break;
-        }
+        for (int i = MAX_NUM_GUESTS; i >= capacity; i--)
+            temp.addAll(propertiesByLocation.get(location).get(i));
 
         temp.sort(new ComparatorSearch());
         return temp.iterator();
@@ -374,7 +375,9 @@ public class DatabaseClass implements Database {
 
     public Iterator<Property> iteratorPropertiesByAverage(String location) {
         assert propertiesByLocation.containsKey(location);
-        List<Property> temp = new ArrayList<>(propertiesByLocation.get(location));
+        List<Property> temp = new ArrayList<>();
+        for (int i = 0; i <= MAX_NUM_GUESTS; i++)
+            temp.addAll(propertiesByLocation.get(location).get(i));
         temp.sort(new ComparatorBest());
         return temp.iterator();
     }
