@@ -63,13 +63,6 @@ public interface Property {
     double getAverageRating();
 
     /**
-     * Adds a paid booking to the property
-     *
-     * @param booking the paid booking being added
-     */
-    void addPaidBooking(Booking booking);
-
-    /**
      * Adds a confirmed booking to the property
      *
      * @param booking the confirmed booking being added

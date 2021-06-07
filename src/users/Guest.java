@@ -31,7 +31,6 @@ public interface Guest extends User {
      */
     int getVisitedLocations();
 
-    //todo
     /**
      * Adds a paid booking to the guest
      *
