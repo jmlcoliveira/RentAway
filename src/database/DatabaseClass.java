@@ -49,7 +49,7 @@ public class DatabaseClass implements Database {
     /**
      * Map containing properties from a location.
      * The key is the location
-     * The value is a SortedSet with the properties sorted by number of guests
+     * The value is a List with MAX_NUM_GUESTS+1 of size, containing a list with properties whose index is the capacity of the properties
      */
     private final Map<String, List<List<Property>>> propertiesByLocation;
 
