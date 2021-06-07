@@ -148,7 +148,7 @@ public interface Property extends Comparable<Property> {
     Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException;
 
     /**
-     * Adds a review to the property
+     * Adds a review to the property and updates ratings average
      *
      * @param review the review being added
      */

@@ -20,6 +20,7 @@ public abstract class PropertyClass implements Property {
     private final Host host;
     private final int guestsCapacity;
     private final int price;
+    private double averageRating;
     private final List<Booking> bookingList;
     private final List<Review> reviewList;
 
@@ -42,6 +43,7 @@ public abstract class PropertyClass implements Property {
         this.host = host;
         this.guestsCapacity = guestsCapacity;
         this.price = price;
+        averageRating = 0;
     }
 
     public final int getGuestsCapacity() {
@@ -81,7 +83,9 @@ public abstract class PropertyClass implements Property {
     }
 
     public final void addReview(Review review) {
+        double totalRatings = averageRating * reviewList.size();
         reviewList.add(review);
+        averageRating = (totalRatings + review.getRating()) / reviewList.size();
     }
 
     public final void addPaidBooking(Booking b) {
@@ -112,11 +116,7 @@ public abstract class PropertyClass implements Property {
     }
 
     public final double getAverageRating() {
-        double rating = 0.00;
-        if (reviewList.size() == 0) return rating;
-        for (Review r : reviewList)
-            rating += r.getRating();
-        return rating / reviewList.size();
+        return averageRating;
     }
 
     public final int compareTo(Property p) {
