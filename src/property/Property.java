@@ -11,7 +11,7 @@ import java.util.Iterator;
 /**
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
-public interface Property extends Comparable<Property> {
+public interface Property {
 
     /**
      * Gets the ID of the property

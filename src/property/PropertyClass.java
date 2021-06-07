@@ -103,10 +103,6 @@ public abstract class PropertyClass implements Property {
         unpaidBookings.add(booking);
     }
 
-    public final List<Booking> getBookings() {
-        return bookingList;
-    }
-
     public final Iterator<Booking> iteratorPaidBookings() {
         return paidBookings.iterator();
     }
@@ -117,10 +113,6 @@ public abstract class PropertyClass implements Property {
 
     public final double getAverageRating() {
         return averageRating;
-    }
-
-    public final int compareTo(Property p) {
-        return getIdentifier().compareTo(p.getIdentifier());
     }
 
     public final Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
