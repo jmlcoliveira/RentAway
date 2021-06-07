@@ -106,26 +106,30 @@ public class DatabaseClass implements Database {
     public void addEntirePlace(String propertyID, String userID, String location, int capacity, double price, int numberOfRooms, String placeType) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         Host host = validateHostAndProperty(userID, propertyID);
         EntirePlace p = new EntirePlaceClass(propertyID, host, location, capacity, price, numberOfRooms, PlaceType.valueOf(placeType.toUpperCase()));
-        properties.put(propertyID, p);
-        host.addProperty(p);
-        if (!propertiesByLocation.containsKey(location)) {
-            propertiesByLocation.put(location, new ArrayList<>(MAX_NUM_GUESTS + 1));
-            for (int i = 0; i <= MAX_NUM_GUESTS; i++)
-                propertiesByLocation.get(location).add(new ArrayList<>());
-        }
-
-        propertiesByLocation.get(location).get(capacity).add(p);
+        addProperty(p, host, location, capacity);
     }
 
     public void addPrivateRoom(String propertyID, String userID, String location, int capacity, double price, int amenities) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         Host host = validateHostAndProperty(userID, propertyID);
         PrivateRoom p = new PrivateRoomClass(propertyID, host, location, capacity, price, amenities);
-        properties.put(propertyID, p);
+        addProperty(p, host, location, capacity);
+    }
+
+    /**
+     * Registers a property in the database
+     *
+     * @param p        property to be registered
+     * @param host     host of the property
+     * @param location location of the property
+     * @param capacity capacity of the property
+     */
+    private void addProperty(Property p, Host host, String location, int capacity) {
+        properties.put(p.getIdentifier(), p);
         host.addProperty(p);
         if (!propertiesByLocation.containsKey(location)) {
             propertiesByLocation.put(location, new ArrayList<>(MAX_NUM_GUESTS + 1));
             for (int i = 0; i <= MAX_NUM_GUESTS; i++)
-                propertiesByLocation.get(location).add(new ArrayList<>());
+                propertiesByLocation.get(location).add(new ArrayList<>()); //initialize all arrays for this location
         }
         propertiesByLocation.get(location).get(capacity).add(p);
     }

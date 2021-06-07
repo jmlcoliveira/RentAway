@@ -15,6 +15,7 @@ public class GuestClass extends UserClassAbs implements Guest {
     private final List<Booking> confirmedBookings;
     private final List<Booking> allBookingsByInsertionOrder;
     private final Set<String> visitedLocations;
+    private double totalPaidAmount;
 
     public GuestClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
@@ -23,6 +24,7 @@ public class GuestClass extends UserClassAbs implements Guest {
         confirmedBookings = new ArrayList<>();
         allBookingsByInsertionOrder = new ArrayList<>();
         visitedLocations = new HashSet<>();
+        totalPaidAmount = 0;
     }
 
     public final int getBookingsCount() {
@@ -30,10 +32,7 @@ public class GuestClass extends UserClassAbs implements Guest {
     }
 
     public final double getTotalAmountPaid() {
-        double amount = 0.0;
-        for (Booking b : paidBookings)
-            amount += b.getPaidAmount();
-        return amount;
+        return totalPaidAmount;
     }
 
     public final int getVisitedLocations() {
@@ -45,6 +44,7 @@ public class GuestClass extends UserClassAbs implements Guest {
         unpaidBookings.remove(booking);
         confirmedBookings.remove(booking);
         visitedLocations.add(booking.getProperty().getLocation());
+        totalPaidAmount += booking.getPaidAmount();
     }
 
     public final void addConfirmedBooking(Booking booking) {
@@ -74,7 +74,7 @@ public class GuestClass extends UserClassAbs implements Guest {
 
     public final boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
         if (!paidBookings.isEmpty())
-            if (!arrival.isAfter(paidBookings.first().getDepartureDate()))
+            if (!arrival.isAfter(paidBookings.first().getDepartureDate())) //its only needed to check the first booking, because is the one with the recent departure date
                 return true;
 
         for (Booking b : confirmedBookings) {
