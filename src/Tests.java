@@ -1,9 +1,9 @@
 /**
  * @author Carla Ferreira
- *
  */
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,8 +12,8 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.util.Locale;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * A classe Tests especifica um conjunto de testes implementado recorrendo 'a ferramenta
@@ -163,9 +163,9 @@ public class Tests {
 			fullInput = new String(Files.readAllBytes(input.toPath()));
 			fullOutput = new String(Files.readAllBytes(output.toPath()));
 			consoleStream.println("INPUT ============");
-			consoleStream.println(new String(fullInput));
+			consoleStream.println(fullInput);
 			consoleStream.println("OUTPUT ESPERADO =============");
-			consoleStream.println(new String(fullOutput));
+			consoleStream.println(fullOutput);
 			consoleStream.println("OUTPUT =============");
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -181,11 +181,10 @@ public class Tests {
 			e.printStackTrace();
 			fail("Erro no programa");
 		} finally {
-			byte[] outPrintBytes = outContent.toByteArray();
-			consoleStream.println(new String(outPrintBytes));
+			consoleStream.println(outContent);
 			consoleStream.println(outContent);
 
-			assertEquals(removeCarriages(fullOutput), removeCarriages(new String(outContent.toByteArray())));
+			assertEquals(removeCarriages(fullOutput), removeCarriages(outContent.toString()));
 		}
 	}
 

@@ -155,7 +155,7 @@ public abstract class PropertyClass implements Property {
 
     public final Iterator<Booking> confirmBooking(Booking booking) throws CannotExecuteActionInBookingException {
         booking.confirm();
-        List<Booking> temp = new LinkedList<>();
+        List<Booking> temp = new ArrayList<>();
         temp.add(booking);
         for (Booking b : unpaidBookings) {
             if (b.dateOverlaps(booking.getArrivalDate(), booking.getDepartureDate()) && (b.getState().equals(BookingState.REQUESTED))) {
