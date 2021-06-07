@@ -469,7 +469,7 @@ public class Main {
             in.nextLine();
             String location = in.nextLine();
             int capacity = in.nextInt();
-            int price = in.nextInt();
+            double price = in.nextDouble();
 
             switch (propertyType) {
                 case ENTIRE_PLACE:
@@ -504,7 +504,7 @@ public class Main {
      * @throws UserDoesNotExistException if no user was found
      * @throws InvalidUserTypeException  if the user with that userID is not a host
      */
-    private static void addPrivateRoom(Scanner in, Database db, String propertyID, String userID, String location, int capacity, int price)
+    private static void addPrivateRoom(Scanner in, Database db, String propertyID, String userID, String location, int capacity, double price)
             throws UserDoesNotExistException, InvalidUserTypeException {
         in.nextLine();
         int amenitiesCount = in.nextInt();
@@ -543,7 +543,7 @@ public class Main {
      * @throws InvalidUserTypeException      if the user with that userID is not a host
      * @throws PropertyAlreadyExistException if there is already a property with that propertyID
      */
-    private static void addEntirePlace(Scanner in, Database db, String propertyID, String userID, String location, int capacity, int price)
+    private static void addEntirePlace(Scanner in, Database db, String propertyID, String userID, String location, int capacity, double price)
             throws UserDoesNotExistException,
             PropertyAlreadyExistException, InvalidUserTypeException {
         int numberOfRooms = in.nextInt();

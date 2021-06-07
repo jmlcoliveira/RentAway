@@ -66,7 +66,7 @@ public class GuestClass extends UserClassAbs implements Guest {
         List<Booking> temp = new LinkedList<>();
         while (it.hasNext()) {
             Booking b = it.next();
-            if (b.rejectOrCancel(booking))
+            if (b.rejectedOrCanceled(booking))
                 temp.add(b);
         }
         return temp.iterator();

@@ -19,7 +19,7 @@ public abstract class PropertyClass implements Property {
     private final String location;
     private final Host host;
     private final int guestsCapacity;
-    private final int price;
+    private final double price;
     private double averageRating;
     private final List<Booking> bookingList;
     private final List<Review> reviewList;
@@ -32,7 +32,7 @@ public abstract class PropertyClass implements Property {
     private final List<Booking> confirmedBookings;
     private final List<Booking> unpaidBookings;
 
-    protected PropertyClass(String identifier, String location, Host host, int guestsCapacity, int price) {
+    protected PropertyClass(String identifier, String location, Host host, int guestsCapacity, double price) {
         bookingList = new ArrayList<>();
         reviewList = new ArrayList<>();
         paidBookings = new TreeSet<>(new ComparatorByNameDesc());
@@ -55,7 +55,7 @@ public abstract class PropertyClass implements Property {
     }
 
     public final double getPrice() {
-        return price * 1.0;
+        return price;
     }
 
     public final String getLocation() {
@@ -77,8 +77,8 @@ public abstract class PropertyClass implements Property {
         return false;
     }
 
-    public final Booking getBooking(Booking b) {
-        int i = bookingList.indexOf(b);
+    public final Booking getBooking(Booking tempBooking) {
+        int i = bookingList.indexOf(tempBooking);
         return i != -1 ? bookingList.get(i) : null;
     }
 
@@ -131,7 +131,7 @@ public abstract class PropertyClass implements Property {
         bookings.add(booking);
 
         for (Booking b : unpaidBookings) {
-            if (b.rejectOrCancel(booking))
+            if (b.rejectedOrCanceled(booking))
                 bookings.add(b);
         }
         return bookings.iterator();
@@ -139,7 +139,7 @@ public abstract class PropertyClass implements Property {
 
     public final boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
         if (!paidBookings.isEmpty())
-            if (!arrival.isAfter(paidBookings.first().getDepartureDate()))
+            if (!arrival.isAfter(paidBookings.first().getDepartureDate())) //its only needed to check the first booking, because is the one with the recent departure date
                 return true;
 
         for (Booking b : confirmedBookings) {

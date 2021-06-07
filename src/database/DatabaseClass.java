@@ -103,7 +103,7 @@ public class DatabaseClass implements Database {
         users.put(identifier, new HostClass(identifier, name, nationality, email));
     }
 
-    public void addEntirePlace(String propertyID, String userID, String location, int capacity, int price, int numberOfRooms, String placeType) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
+    public void addEntirePlace(String propertyID, String userID, String location, int capacity, double price, int numberOfRooms, String placeType) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         Host host = validateHostAndProperty(userID, propertyID);
         EntirePlace p = new EntirePlaceClass(propertyID, host, location, capacity, price, numberOfRooms, PlaceType.valueOf(placeType.toUpperCase()));
         properties.put(propertyID, p);
@@ -113,7 +113,7 @@ public class DatabaseClass implements Database {
         propertiesByLocation.get(location).add(p);
     }
 
-    public void addPrivateRoom(String propertyID, String userID, String location, int capacity, int price, int amenities) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
+    public void addPrivateRoom(String propertyID, String userID, String location, int capacity, double price, int amenities) throws UserDoesNotExistException, InvalidUserTypeException, PropertyAlreadyExistException {
         Host host = validateHostAndProperty(userID, propertyID);
         PrivateRoom p = new PrivateRoomClass(propertyID, host, location, capacity, price, amenities);
         properties.put(propertyID, p);

@@ -98,13 +98,12 @@ public interface Property extends Comparable<Property> {
     PropertyType getType();
 
     /**
-     * Gets a booking from the property
+     * Returns a booking from the property or <code>null</code> if the property does not have that booking
      *
-     * @param b the booking
-     * @return the booking b
-     * @pre the property has the booking
+     * @param tempBooking a temporary booking object
+     * @return the booking from the property or <code>null</code> if the property does not have that booking
      */
-    Booking getBooking(Booking b);
+    Booking getBooking(Booking tempBooking);
 
     /**
      * Gets an Iterator with all the paid booking of the property
@@ -116,7 +115,7 @@ public interface Property extends Comparable<Property> {
     /**
      * Gets the host of the property
      *
-     * @return the host of the proprety
+     * @return the host of the property
      */
     Host getHost();
 

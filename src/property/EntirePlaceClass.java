@@ -12,7 +12,7 @@ public class EntirePlaceClass extends PropertyClass implements EntirePlace {
     private final PlaceType type;
 
     public EntirePlaceClass(String identifier, Host host, String location, int capacity,
-                            int price, int numOfRooms, PlaceType type) {
+                            double price, int numOfRooms, PlaceType type) {
         super(identifier, location, host, capacity, price);
         this.numOfRooms = numOfRooms;
         this.type = type;

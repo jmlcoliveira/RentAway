@@ -14,7 +14,7 @@ public class PrivateRoomClass extends PropertyClass implements PrivateRoom {
     private final List<String> amenities;
 
     public PrivateRoomClass(String identifier, Host host, String location, int capacity,
-                            int price, int amenities) {
+                            double price, int amenities) {
         super(identifier, location, host, capacity, price);
         this.amenities = new ArrayList<>(amenities);
     }

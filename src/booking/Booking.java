@@ -115,9 +115,9 @@ public interface Booking {
      * if booking b is in confirmed status, cancels it
      *
      * @param b the booking
-     * @return  true if it changed b's status
+     * @return true if it changed b's status
      */
-    boolean rejectOrCancel(Booking b);
+    boolean rejectedOrCanceled(Booking b);
 
     /**
      * Checks if the date of this booking overlaps with another booking's dates

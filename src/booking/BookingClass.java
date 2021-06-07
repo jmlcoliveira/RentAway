@@ -20,10 +20,10 @@ public class BookingClass implements Booking {
     private final String identifier;
     private final Guest guest;
     private final Property property;
-    private Review review;
     private final int numberOfGuests;
     private final LocalDate arrivalDate;
     private final LocalDate departureDate;
+    private Review review;
     private BookingState state;
 
     public BookingClass(String bookingID, Guest guest, Property property, int numberOfGuests,
@@ -51,7 +51,7 @@ public class BookingClass implements Booking {
 
     public double getPaidAmount() {
         return isPaid() ? property.getPrice() * Duration.between(arrivalDate.atStartOfDay(),
-                departureDate.atStartOfDay()).toDays() : 0.00;
+                departureDate.atStartOfDay()).toDays() : 0;
     }
 
     public BookingState getState() {
@@ -74,7 +74,6 @@ public class BookingClass implements Booking {
         return (state == BookingState.PAID || state == BookingState.REVIEWED);
     }
 
-    @Override
     public void review(String comment, String classification) throws BookingAlreadyReviewedException {
         if (review != null) throw new BookingAlreadyReviewedException(this.identifier);
         review = new ReviewClass(comment, Rating.valueOf(classification.toUpperCase()));
@@ -82,7 +81,6 @@ public class BookingClass implements Booking {
         state = BookingState.REVIEWED;
     }
 
-    @Override
     public void confirm() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.REQUESTED))
             throw new CannotExecuteActionInBookingException(
@@ -96,7 +94,6 @@ public class BookingClass implements Booking {
         this.state = BookingState.CONFIRMED;
     }
 
-    @Override
     public void pay() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.CONFIRMED))
             throw new CannotExecuteActionInBookingException(Command.PAY.name().toLowerCase(), identifier,
@@ -119,8 +116,7 @@ public class BookingClass implements Booking {
         return ((Booking) o).getIdentifier().equals(getIdentifier());
     }
 
-    @Override
-    public boolean rejectOrCancel(Booking b) {
+    public boolean rejectedOrCanceled(Booking b) {
         if (this.departureDate.isBefore(b.getArrivalDate())) {
             if (this.state.equals(BookingState.REQUESTED)) {
                 this.state = BookingState.REJECTED;
@@ -137,6 +133,6 @@ public class BookingClass implements Booking {
 
     @Override
     public Host getHost() {
-        return this.property.getHost();
+        return property.getHost();
     }
 }

@@ -87,7 +87,7 @@ public interface Database {
      * @throws PropertyAlreadyExistException if there is already a property with that propertyID
      */
     void addEntirePlace(String propertyID, String userID, String location, int capacity,
-                        int price, int numberOfRooms, String placeType)
+                        double price, int numberOfRooms, String placeType)
             throws UserDoesNotExistException,
             InvalidUserTypeException,
             PropertyAlreadyExistException;
@@ -106,7 +106,7 @@ public interface Database {
      * @throws PropertyAlreadyExistException if there is already a property with that propertyID
      */
     void addPrivateRoom(String propertyID, String userID, String location, int capacity,
-                        int price, int amenities)
+                        double price, int amenities)
             throws UserDoesNotExistException,
             InvalidUserTypeException,
             PropertyAlreadyExistException;
