@@ -208,12 +208,14 @@ public class DatabaseClass implements Database {
                 property,
                 numGuests, arrival,
                 departure);
-        if (property.getType() == PropertyType.ENTIRE_PLACE && Duration.between(arrival.atStartOfDay(),
-                departure.atStartOfDay()).toDays() > DAYS_TO_AUTO_CONFIRM_BOOKING && !property.bookingOverlaps(b)) {
+
+        long duration = Duration.between(arrival.atStartOfDay(), departure.atStartOfDay()).toDays();
+        if (property.getType() == PropertyType.ENTIRE_PLACE && duration > DAYS_TO_AUTO_CONFIRM_BOOKING && !property.bookingOverlaps(b)) {
             b.forceConfirm();
             guest.addConfirmedBooking(b);
             property.addConfirmedBooking(b);
         }
+
         property.addBooking(b);
         property.getHost().addBooking(b);
         guest.addBooking(b);
@@ -280,17 +282,27 @@ public class DatabaseClass implements Database {
         String propertyID = getPropertyIDFromBookingID(bookingID);
         Property property = getProperty(propertyID);
 
-        Iterator<Booking> propertyBookingIt = property.pay(booking);
-        Iterator<Booking> guestBookingIt = guest.pay(booking);
+        Iterator<Booking> it = joinIterators(property.pay(booking), guest.pay(booking));
 
         updateGlobeTrotter(guest);
 
+        return it;
+    }
+
+    /**
+     * Returns an iterator containing all bookings from it1 and it2
+     *
+     * @param it1 iterator 1
+     * @param it2 iterator 2
+     * @return an iterator containing all bookings from it1 and it2
+     */
+    private Iterator<Booking> joinIterators(Iterator<Booking> it1, Iterator<Booking> it2) {
         List<Booking> temp = new ArrayList<>();
 
-        while (propertyBookingIt.hasNext())
-            temp.add(propertyBookingIt.next());
-        while (guestBookingIt.hasNext())
-            temp.add(guestBookingIt.next());
+        while (it1.hasNext())
+            temp.add(it1.next());
+        while (it2.hasNext())
+            temp.add(it2.next());
 
         return temp.iterator();
     }
@@ -347,24 +359,24 @@ public class DatabaseClass implements Database {
         assert propertiesByLocation.containsKey(location);
         Iterator<Property> it = propertiesByLocation.get(location).iterator();
 
-        List<Property> properties = new ArrayList<>();
+        List<Property> temp = new ArrayList<>();
         while (it.hasNext()) {
             Property next = it.next();
             if (next.getGuestsCapacity() >= capacity)
-                properties.add(next);
+                temp.add(next);
             else
                 break;
         }
 
-        properties.sort(new ComparatorSearch());
-        return properties.iterator();
+        temp.sort(new ComparatorSearch());
+        return temp.iterator();
     }
 
     public Iterator<Property> iteratorPropertiesByAverage(String location) {
         assert propertiesByLocation.containsKey(location);
-        List<Property> properties = new ArrayList<>(propertiesByLocation.get(location));
-        properties.sort(new ComparatorBest());
-        return properties.iterator();
+        List<Property> temp = new ArrayList<>(propertiesByLocation.get(location));
+        temp.sort(new ComparatorBest());
+        return temp.iterator();
     }
 
     public boolean hasProperty(String location, int capacity) {
