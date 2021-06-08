@@ -15,7 +15,7 @@ public interface Host extends User {
      *
      * @return number of properties of the host
      */
-    int numOfProperties();
+    int getPropertiesCount();
 
     /**
      * Returns an Iterator with all the properties of the host

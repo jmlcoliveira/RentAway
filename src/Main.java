@@ -204,9 +204,8 @@ public class Main {
                             next.getGuest().getIdentifier(), next.getGuest().getNationality(),
                             next.getNumberOfGuests(), next.getPaidAmount());
                 }
-            } else {
+            } else
                 System.out.printf(Empty.PROPERTY_HAS_NO_STAYS, propertyID);
-            }
 
         } catch (PropertyDoesNotExistException e) {
             System.out.println(e.getMessage());
@@ -273,7 +272,8 @@ public class Main {
         try {
             db.addReview(bookingID, userID, review, classification);
             System.out.printf(Success.REVIEW_REGISTER, bookingID);
-        } catch (InvalidUserTypeForBookingException | BookingAlreadyReviewedException | CannotExecuteActionInBookingException | UserDoesNotExistException | BookingDoesNotExistException | InvalidUserTypeException e) {
+        } catch (InvalidUserTypeForBookingException | BookingAlreadyReviewedException | CannotExecuteActionInBookingException |
+                UserDoesNotExistException | BookingDoesNotExistException | InvalidUserTypeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -444,9 +444,8 @@ public class Main {
                             next.getReviewCount()
                     );
                 }
-            } else {
+            } else
                 System.out.printf(Empty.HOST_HAS_NO_PROPERTIES, hostID);
-            }
 
         } catch (UserDoesNotExistException | InvalidUserTypeException e) {
             System.out.println(e.getMessage());
@@ -580,7 +579,7 @@ public class Main {
                 if (next instanceof Host)
                     System.out.printf(Success.USER_LISTED_HOST, next.getIdentifier(),
                             next.getName(),
-                            next.getNationality(), next.getEmail(), ((Host) next).numOfProperties());
+                            next.getNationality(), next.getEmail(), ((Host) next).getPropertiesCount());
             }
         } else
             System.out.println(Empty.NO_USERS);
@@ -655,7 +654,7 @@ public class Main {
         try {
             String comm = in.next().toUpperCase();
             return Command.valueOf(comm);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             return Command.UNKNOWN;
         }
     }
@@ -670,7 +669,7 @@ public class Main {
         try {
             String userType = in.next().toUpperCase();
             return UserType.valueOf(userType);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             return UserType.UNKNOWN;
         }
     }

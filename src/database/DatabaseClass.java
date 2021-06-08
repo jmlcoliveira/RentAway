@@ -51,11 +51,11 @@ public class DatabaseClass implements Database {
      * The key is the location
      * The value is a List with MAX_NUM_GUESTS+1 of size, containing a list with properties whose index is the capacity of the properties
      */
-    private final Map<String, List<List<Property>>> propertiesByLocation;
+    private final Map<String, ArrayList<Property>[]> propertiesByLocation;
 
     /**
      * Globe trotter is the guest that has visited more distinct locations
-     * Globe Trotter which is updated when a guest pays for a booking or a new booking is added
+     * Is updated when a guest pays for a booking or a new booking is added
      */
     private Guest globeTrotter;
 
@@ -123,15 +123,16 @@ public class DatabaseClass implements Database {
      * @param location location of the property
      * @param capacity capacity of the property
      */
+    @SuppressWarnings("unchecked")
     private void addProperty(Property p, Host host, String location, int capacity) {
         properties.put(p.getIdentifier(), p);
         host.addProperty(p);
         if (!propertiesByLocation.containsKey(location)) {
-            propertiesByLocation.put(location, new ArrayList<>(MAX_NUM_GUESTS + 1));
+            propertiesByLocation.put(location, new ArrayList[MAX_NUM_GUESTS + 1]);
             for (int i = 0; i <= MAX_NUM_GUESTS; i++)
-                propertiesByLocation.get(location).add(new ArrayList<>()); //initialize all arrays for this location
+                propertiesByLocation.get(location)[i] = new ArrayList<>(); //initialize all arrays for this location
         }
-        propertiesByLocation.get(location).get(capacity).add(p);
+        propertiesByLocation.get(location)[capacity].add(p);
     }
 
     /**
@@ -371,7 +372,7 @@ public class DatabaseClass implements Database {
 
         List<Property> temp = new ArrayList<>();
         for (int i = MAX_NUM_GUESTS; i >= capacity; i--)
-            temp.addAll(propertiesByLocation.get(location).get(i));
+            temp.addAll(propertiesByLocation.get(location)[i]);
 
         temp.sort(new ComparatorSearch());
         return temp.iterator();
@@ -381,7 +382,7 @@ public class DatabaseClass implements Database {
         assert propertiesByLocation.containsKey(location);
         List<Property> temp = new ArrayList<>();
         for (int i = 0; i <= MAX_NUM_GUESTS; i++)
-            temp.addAll(propertiesByLocation.get(location).get(i));
+            temp.addAll(propertiesByLocation.get(location)[i]);
         temp.sort(new ComparatorBest());
         return temp.iterator();
     }
@@ -389,7 +390,7 @@ public class DatabaseClass implements Database {
     public boolean hasProperty(String location, int capacity) {
         if (capacity > MAX_NUM_GUESTS) return false;
         if (!propertiesByLocation.containsKey(location)) return false;
-        return !propertiesByLocation.get(location).isEmpty();
+        return propertiesByLocation.get(location).length != 0;
     }
 
     public boolean hasProperty(String location) {

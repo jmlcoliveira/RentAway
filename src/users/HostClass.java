@@ -23,7 +23,7 @@ public class HostClass extends UserClassAbs implements Host {
         rejectedBookings = new ArrayList<>();
     }
 
-    public final int numOfProperties() {
+    public final int getPropertiesCount() {
         return properties.size();
     }
 
