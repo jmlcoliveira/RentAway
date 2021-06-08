@@ -92,7 +92,7 @@ public abstract class PropertyClass implements Property {
         confirmedBookings.add(booking);
     }
 
-    public final void addBooking(Booking booking) {
+    public void addBooking(Booking booking) {
         bookingList.add(booking);
         unpaidBookings.add(booking);
         host.addBooking(booking);

@@ -15,7 +15,6 @@ import users.exceptions.NoGlobeTrotterException;
 import users.exceptions.UserAlreadyExistException;
 import users.exceptions.UserDoesNotExistException;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -28,7 +27,6 @@ import java.util.*;
 public class DatabaseClass implements Database {
 
     private final int MAX_NUM_GUESTS = 15;
-    private final int DAYS_TO_AUTO_CONFIRM_BOOKING = 7;
     private final String BOOKING_ID_FORMAT = "%s-%d";
     private final String SEPARATOR = "-";
 
@@ -233,13 +231,6 @@ public class DatabaseClass implements Database {
                 numGuests,
                 arrival,
                 departure);
-
-        long duration = Duration.between(arrival.atStartOfDay(), departure.atStartOfDay()).toDays();
-        if (property.getType() == PropertyType.ENTIRE_PLACE && duration > DAYS_TO_AUTO_CONFIRM_BOOKING && !property.bookingOverlaps(b)) {
-            b.forceConfirm();
-            guest.addConfirmedBooking(b);
-            property.addConfirmedBooking(b);
-        }
 
         property.addBooking(b);
         guest.addBooking(b);
