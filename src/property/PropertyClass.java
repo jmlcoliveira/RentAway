@@ -36,7 +36,7 @@ public abstract class PropertyClass implements Property {
         bookingList = new ArrayList<>();
         reviewList = new ArrayList<>();
         paidBookings = new TreeSet<>(new ComparatorByNameDesc());
-        confirmedBookings = new ArrayList<>();
+        confirmedBookings = new LinkedList<>();
         unpaidBookings = new LinkedList<>();
         this.identifier = identifier;
         this.location = location;
@@ -95,6 +95,7 @@ public abstract class PropertyClass implements Property {
     public final void addBooking(Booking booking) {
         bookingList.add(booking);
         unpaidBookings.add(booking);
+        host.addBooking(booking);
     }
 
     public final Iterator<Booking> iteratorPaidBookings() {
@@ -112,7 +113,6 @@ public abstract class PropertyClass implements Property {
     public final Iterator<Booking> pay(Booking booking) throws CannotExecuteActionInBookingException {
         booking.pay();
         addPaidBooking(booking);
-        booking.getGuest().addPaidBooking(booking);
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking);
 

@@ -51,7 +51,7 @@ public class DatabaseClass implements Database {
      * The key is the location
      * The value is a List with MAX_NUM_GUESTS+1 of size, containing a list with properties whose index is the capacity of the properties
      */
-    private final Map<String, ArrayList<Property>[]> propertiesByLocation;
+    private final Map<String, List<Property>[]> propertiesByLocation;
 
     /**
      * Globe trotter is the guest that has visited more distinct locations
@@ -218,7 +218,8 @@ public class DatabaseClass implements Database {
                 String.format(BOOKING_ID_FORMAT, propertyID, property.getBookingCount() + 1),
                 guest,
                 property,
-                numGuests, arrival,
+                numGuests,
+                arrival,
                 departure);
 
         long duration = Duration.between(arrival.atStartOfDay(), departure.atStartOfDay()).toDays();
@@ -229,7 +230,6 @@ public class DatabaseClass implements Database {
         }
 
         property.addBooking(b);
-        property.getHost().addBooking(b);
         guest.addBooking(b);
         updateGlobeTrotter(guest);
         return b;
@@ -381,7 +381,7 @@ public class DatabaseClass implements Database {
     public Iterator<Property> iteratorPropertiesByAverage(String location) {
         assert propertiesByLocation.containsKey(location);
         List<Property> temp = new ArrayList<>();
-        for (int i = 0; i <= MAX_NUM_GUESTS; i++)
+        for (int i = 1; i <= MAX_NUM_GUESTS; i++)
             temp.addAll(propertiesByLocation.get(location)[i]);
         temp.sort(new ComparatorBest());
         return temp.iterator();

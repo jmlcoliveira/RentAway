@@ -99,6 +99,7 @@ public class BookingClass implements Booking {
             throw new CannotExecuteActionInBookingException(Command.PAY.name().toLowerCase(), identifier,
                     state.name().toLowerCase());
         this.state = BookingState.PAID;
+        guest.addPaidBooking(this);
     }
 
     public final void reject() {
