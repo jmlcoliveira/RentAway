@@ -9,8 +9,6 @@ import users.Host;
 import java.time.LocalDate;
 
 /**
- * Booking made in a property by a guest
- *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public interface Booking {
