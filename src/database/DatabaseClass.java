@@ -47,11 +47,19 @@ public class DatabaseClass implements Database {
     private final Map<String, Property> properties;
 
     /**
-     * Map containing properties from a location.
+     * Map containing a Map of properties from a location with a certain capacity.
      * The key is the location
-     * The value is a List with MAX_NUM_GUESTS+1 of size, containing a list with properties whose index is the capacity of the properties
+     * The value is a Map which has the capacity of certain properties as key and a list of
+     * properties as value
      */
-    private final Map<String, List<Property>[]> propertiesByLocation;
+    private final Map<String, Map<Integer, List<Property>>> propertiesByLocationByCapacity;
+
+    /**
+     * Map containing a list of properties from a location
+     * The key is the location
+     * The value is a list of properties in that location
+     */
+    private final Map<String, List<Property>> propertiesByLocation;
 
     /**
      * Globe trotter is the guest that has visited more distinct locations
@@ -66,6 +74,7 @@ public class DatabaseClass implements Database {
         users = new TreeMap<>();
         properties = new HashMap<>();
         propertiesByLocation = new HashMap<>();
+        propertiesByLocationByCapacity = new HashMap<>();
     }
 
     public Iterator<User> iteratorUsers() {
@@ -123,16 +132,19 @@ public class DatabaseClass implements Database {
      * @param location location of the property
      * @param capacity capacity of the property
      */
-    @SuppressWarnings("unchecked")
     private void addProperty(Property p, Host host, String location, int capacity) {
         properties.put(p.getIdentifier(), p);
         host.addProperty(p);
         if (!propertiesByLocation.containsKey(location)) {
-            propertiesByLocation.put(location, new ArrayList[MAX_NUM_GUESTS + 1]);
-            for (int i = 0; i <= MAX_NUM_GUESTS; i++)
-                propertiesByLocation.get(location)[i] = new ArrayList<>(); //initialize all arrays for this location
+            propertiesByLocation.put(location, new ArrayList<>());
+            propertiesByLocationByCapacity.put(location, new HashMap<>(MAX_NUM_GUESTS + 1));
         }
-        propertiesByLocation.get(location)[capacity].add(p);
+        propertiesByLocation.get(location).add(p);
+
+        if (!propertiesByLocationByCapacity.get(location).containsKey(capacity))
+            propertiesByLocationByCapacity.get(location).put(capacity, new ArrayList<>());
+
+        propertiesByLocationByCapacity.get(location).get(capacity).add(p);
     }
 
     /**
@@ -368,11 +380,12 @@ public class DatabaseClass implements Database {
 
     public Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity) {
         assert capacity <= MAX_NUM_GUESTS;
-        assert propertiesByLocation.containsKey(location);
+        assert propertiesByLocationByCapacity.containsKey(location);
 
         List<Property> temp = new ArrayList<>();
-        for (int i = MAX_NUM_GUESTS; i >= capacity; i--)
-            temp.addAll(propertiesByLocation.get(location)[i]);
+        for (int i = capacity; i <= MAX_NUM_GUESTS; i++)
+            if (propertiesByLocationByCapacity.get(location).containsKey(i))
+                temp.addAll(propertiesByLocationByCapacity.get(location).get(i));
 
         temp.sort(new ComparatorSearch());
         return temp.iterator();
@@ -380,9 +393,7 @@ public class DatabaseClass implements Database {
 
     public Iterator<Property> iteratorPropertiesByAverage(String location) {
         assert propertiesByLocation.containsKey(location);
-        List<Property> temp = new ArrayList<>();
-        for (int i = 1; i <= MAX_NUM_GUESTS; i++)
-            temp.addAll(propertiesByLocation.get(location)[i]);
+        List<Property> temp = new ArrayList<>(propertiesByLocation.get(location));
         temp.sort(new ComparatorBest());
         return temp.iterator();
     }
@@ -390,7 +401,7 @@ public class DatabaseClass implements Database {
     public boolean hasProperty(String location, int capacity) {
         if (capacity > MAX_NUM_GUESTS) return false;
         if (!propertiesByLocation.containsKey(location)) return false;
-        return propertiesByLocation.get(location).length != 0;
+        return !propertiesByLocation.get(location).isEmpty();
     }
 
     public boolean hasProperty(String location) {
