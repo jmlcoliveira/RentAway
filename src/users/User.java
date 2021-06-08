@@ -1,6 +1,8 @@
 package users;
 
 /**
+ * User interface with the methods shared by every user type
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public interface User{

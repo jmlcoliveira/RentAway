@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
+ * Abstract class of the different types of property
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public abstract class PropertyClass implements Property {
