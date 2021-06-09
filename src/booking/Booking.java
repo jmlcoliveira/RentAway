@@ -16,11 +16,11 @@ public interface Booking {
     /**
      * Reviews a booking
      *
-     * @param comment a comment on the stay
-     * @param classification    a rating from 1 to 5
-     * @throws BookingAlreadyReviewedException  if the booking was already reviewed
+     * @param comment        a comment on the stay
+     * @param classification a rating from 1 to 5
+     * @throws BookingAlreadyReviewedException if the booking was already reviewed
      */
-    void review(String comment, String classification) throws BookingAlreadyReviewedException;
+    void review(String comment, String classification) throws BookingAlreadyReviewedException, CannotExecuteActionInBookingException;
 
     /**
      * Gets the ID of the booking
@@ -106,8 +106,10 @@ public interface Booking {
 
     /**
      * Rejects the booking
+     *
+     * @throws CannotExecuteActionInBookingException if the booking is not in requested state
      */
-    void reject();
+    void reject() throws CannotExecuteActionInBookingException;
 
     /**
      * If the departure date of this booking is before the arrival date of the booking b:
