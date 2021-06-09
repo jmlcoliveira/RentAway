@@ -10,7 +10,7 @@ import java.time.Duration;
  */
 public class EntirePlaceClass extends PropertyClass implements EntirePlace {
     private final PropertyType propertyType = PropertyType.ENTIRE_PLACE;
-    private final int DAYS_TO_AUTO_CONFIRM_BOOKING = 7;
+    private final int DAYS_TO_AUTO_CONFIRM_BOOKING = 8;
 
     private final int numOfRooms;
     private final PlaceType type;
@@ -34,7 +34,7 @@ public class EntirePlaceClass extends PropertyClass implements EntirePlace {
     @Override
     public final void addBooking(Booking booking) {
         long duration = Duration.between(booking.getArrivalDate().atStartOfDay(), booking.getDepartureDate().atStartOfDay()).toDays();
-        if (duration > DAYS_TO_AUTO_CONFIRM_BOOKING && !bookingOverlaps(booking)) {
+        if (duration >= DAYS_TO_AUTO_CONFIRM_BOOKING && !bookingOverlaps(booking)) {
             booking.forceConfirm();
             booking.getGuest().addConfirmedBooking(booking);
             addConfirmedBooking(booking);
