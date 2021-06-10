@@ -195,7 +195,7 @@ public interface Database {
      * @throws InvalidUserTypeException              if the user isn't a guest
      * @throws BookingDoesNotExistException          if no booking was found
      * @throws InvalidUserTypeForBookingException    if the user isn't the host of the property with that booking
-     * @throws CannotExecuteActionInBookingException if the booking is not in requested state
+     * @throws CannotExecuteActionInBookingException if the booking is not in state Requested
      */
     Booking rejectBooking(String bookingID, String userID)
             throws BookingDoesNotExistException,

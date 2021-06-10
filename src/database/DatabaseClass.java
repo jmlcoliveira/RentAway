@@ -277,9 +277,6 @@ public class DatabaseClass implements Database {
 
     public Booking rejectBooking(String bookingID, String userID) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException, CannotExecuteActionInBookingException {
         Booking b = validateHostAndBooking(bookingID, userID);
-        BookingState bState = b.getState();
-        if (bState != BookingState.REQUESTED)
-            throw new CannotExecuteActionInBookingException(Command.REJECT.name().toLowerCase(), bookingID, bState.name().toLowerCase());
         b.reject();
         return b;
     }
@@ -315,10 +312,6 @@ public class DatabaseClass implements Database {
         Guest guest = (Guest) user;
         if (!guest.hasBooking(booking))
             throw new InvalidUserTypeForBookingException(userID, UserType.GUEST.name().toLowerCase(), bookingID);
-        if (!booking.isPaid())
-            throw new CannotExecuteActionInBookingException(Command.REVIEW.name().toLowerCase(), bookingID, booking.getState().name().toLowerCase());
-        if (booking.getState() == BookingState.REVIEWED)
-            throw new BookingAlreadyReviewedException(bookingID);
 
         booking.review(review, classification);
     }
