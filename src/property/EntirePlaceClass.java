@@ -9,8 +9,8 @@ import java.time.Duration;
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class EntirePlaceClass extends PropertyClass implements EntirePlace {
-    private final PropertyType propertyType = PropertyType.ENTIRE_PLACE;
-    private final int DAYS_TO_AUTO_CONFIRM_BOOKING = 8;
+    private static final PropertyType propertyType = PropertyType.ENTIRE_PLACE;
+    private static final int DAYS_TO_AUTO_CONFIRM_BOOKING = 8;
 
     private final int numOfRooms;
     private final PlaceType type;
