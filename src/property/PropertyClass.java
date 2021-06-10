@@ -2,7 +2,7 @@ package property;
 
 import booking.Booking;
 import booking.BookingState;
-import booking.ComparatorByNameDesc;
+import booking.ComparatorByInsertion;
 import booking.exceptions.CannotExecuteActionInBookingException;
 import review.Review;
 import users.Host;
@@ -34,10 +34,12 @@ public abstract class PropertyClass implements Property {
     private final List<Booking> confirmedBookings;
     private final List<Booking> unpaidBookings;
 
+    private LocalDate currentDate;
+
     protected PropertyClass(String identifier, String location, Host host, int guestsCapacity, double price) {
         bookingList = new ArrayList<>();
         reviewList = new ArrayList<>();
-        paidBookings = new TreeSet<>(new ComparatorByNameDesc());
+        paidBookings = new TreeSet<>(new ComparatorByInsertion(true));
         confirmedBookings = new LinkedList<>();
         unpaidBookings = new LinkedList<>();
         this.identifier = identifier;
@@ -134,11 +136,12 @@ public abstract class PropertyClass implements Property {
         paidBookings.add(b);
         unpaidBookings.remove(b);
         confirmedBookings.remove(b);
+        currentDate = b.getDepartureDate();
     }
 
     public final boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
-        if (!paidBookings.isEmpty())
-            if (!arrival.isAfter(paidBookings.first().getDepartureDate())) //its only needed to check the first booking, because is the one with the recent departure date
+        if (currentDate != null)
+            if (!arrival.isAfter(currentDate))
                 return true;
 
         for (Booking b : confirmedBookings) {

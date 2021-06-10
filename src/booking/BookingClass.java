@@ -17,6 +17,8 @@ import java.time.LocalDate;
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class BookingClass implements Booking {
+    private static int BOOKING_COUNTER = 0;
+    private final int bookingNum;
     private final String identifier;
     private final Guest guest;
     private final Property property;
@@ -27,18 +29,26 @@ public class BookingClass implements Booking {
     private BookingState state;
 
     public BookingClass(String bookingID, Guest guest, Property property, int numberOfGuests,
-                        LocalDate arrivalDate, LocalDate departureDate) {
+                        LocalDate arrivalDate, LocalDate departureDate, boolean isTemp) {
         this.identifier = bookingID;
         this.guest = guest;
         this.property = property;
         this.numberOfGuests = numberOfGuests;
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
+        if (isTemp)
+            bookingNum = -1;
+        else
+            bookingNum = BOOKING_COUNTER++;
         state = BookingState.REQUESTED;
     }
 
     public final String getIdentifier() {
         return identifier;
+    }
+
+    public int getBookingNum() {
+        return bookingNum;
     }
 
     public final Guest getGuest() {

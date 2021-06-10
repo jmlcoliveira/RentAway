@@ -3,6 +3,7 @@ package database;
 import booking.Booking;
 import booking.BookingClass;
 import booking.BookingState;
+import booking.IteratorOfTwoIterators;
 import booking.exceptions.*;
 import commands.Command;
 import property.*;
@@ -137,11 +138,10 @@ public class DatabaseClass implements Database {
             propertiesByLocation.put(location, new ArrayList<>());
             propertiesByLocationByCapacity.put(location, new HashMap<>(MAX_NUM_GUESTS + 1));
         }
-        propertiesByLocation.get(location).add(p);
-
         if (!propertiesByLocationByCapacity.get(location).containsKey(capacity))
             propertiesByLocationByCapacity.get(location).put(capacity, new ArrayList<>());
 
+        propertiesByLocation.get(location).add(p);
         propertiesByLocationByCapacity.get(location).get(capacity).add(p);
     }
 
@@ -230,7 +230,8 @@ public class DatabaseClass implements Database {
                 property,
                 numGuests,
                 arrival,
-                departure);
+                departure,
+                false);
 
         property.addBooking(b);
         guest.addBooking(b);
@@ -297,31 +298,12 @@ public class DatabaseClass implements Database {
         String propertyID = getPropertyIDFromBookingID(bookingID);
         Property property = getProperty(propertyID);
 
-        Iterator<Booking> it = joinIterators(property.pay(booking), guest.pay(booking));
+        Iterator<Booking> it = new IteratorOfTwoIterators(property.pay(booking), guest.pay(booking));
 
         updateGlobeTrotter(guest);
 
         return it;
     }
-
-    /**
-     * Returns an iterator containing all bookings from it1 and it2
-     *
-     * @param it1 iterator 1
-     * @param it2 iterator 2
-     * @return an iterator containing all bookings from it1 and it2
-     */
-    private Iterator<Booking> joinIterators(Iterator<Booking> it1, Iterator<Booking> it2) {
-        List<Booking> temp = new ArrayList<>();
-
-        while (it1.hasNext())
-            temp.add(it1.next());
-        while (it2.hasNext())
-            temp.add(it2.next());
-
-        return temp.iterator();
-    }
-
 
     public void addReview(String bookingID, String userID, String review, String classification) throws BookingDoesNotExistException, UserDoesNotExistException, InvalidUserTypeException, InvalidUserTypeForBookingException, CannotExecuteActionInBookingException, BookingAlreadyReviewedException {
         User user = getUser(userID);
@@ -476,7 +458,7 @@ public class DatabaseClass implements Database {
         String propertyID = getPropertyIDFromBookingID(bookingID);
         Property p = properties.get(propertyID);
         Guest tempUser = new GuestClass(null, null, null, null);
-        Booking temp = new BookingClass(bookingID, tempUser, p, 0, null, null);
+        Booking temp = new BookingClass(bookingID, tempUser, p, 0, null, null, true);
 
         return p.getBooking(temp);
     }

@@ -16,9 +16,9 @@ public interface Booking {
     /**
      * Reviews a booking
      *
-     * @param comment a comment on the stay
-     * @param classification    a rating from 1 to 5
-     * @throws BookingAlreadyReviewedException  if the booking was already reviewed
+     * @param comment        a comment on the stay
+     * @param classification a rating from 1 to 5
+     * @throws BookingAlreadyReviewedException if the booking was already reviewed
      */
     void review(String comment, String classification) throws BookingAlreadyReviewedException;
 
@@ -28,6 +28,13 @@ public interface Booking {
      * @return ID of the booking
      */
     String getIdentifier();
+
+    /**
+     * Returns the number of the booking
+     *
+     * @return number of the booking
+     */
+    int getBookingNum();
 
     /**
      * Gets the guest that made the booking
@@ -67,21 +74,21 @@ public interface Booking {
     /**
      * Gets the arrival date of the booking
      *
-     * @return  date the guest arrives at property
+     * @return date the guest arrives at property
      */
     LocalDate getArrivalDate();
 
     /**
      * Gets the departure date of the booking
      *
-     * @return  date the guest leaves the property
+     * @return date the guest leaves the property
      */
     LocalDate getDepartureDate();
 
     /**
      * Checks if the booking is paid
      *
-     * @return  true if the booking is paid
+     * @return true if the booking is paid
      */
     boolean isPaid();
 
@@ -122,16 +129,16 @@ public interface Booking {
     /**
      * Checks if the date of this booking overlaps with another booking's dates
      *
-     * @param arrival date of arrival
+     * @param arrival   date of arrival
      * @param departure date of departure
-     * @return  true if they overlap
+     * @return true if they overlap
      */
     boolean dateOverlaps(LocalDate arrival, LocalDate departure);
 
     /**
      * Gets the host of the property of the booking
      *
-     * @return  Host of the property of the booking
+     * @return Host of the property of the booking
      */
     Host getHost();
 }

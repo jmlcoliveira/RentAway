@@ -1,7 +1,6 @@
 package users;
 
 import booking.Booking;
-import booking.ComparatorByNameDesc;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -10,17 +9,32 @@ import java.util.*;
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class GuestClass extends UserClassAbs implements Guest {
+
+    /**
+     * List containing all bookings which are not paid or reviewed
+     */
     private final List<Booking> unpaidBookings;
-    private final SortedSet<Booking> paidBookings;
+
+    /**
+     *
+     */
     private final List<Booking> confirmedBookings;
+
+    /**
+     *
+     */
     private final List<Booking> allBookingsByInsertionOrder;
+
+    /**
+     *
+     */
     private final Set<String> visitedLocations;
     private double totalPaidAmount;
+    private LocalDate currentDate;
 
     public GuestClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
         unpaidBookings = new LinkedList<>();
-        paidBookings = new TreeSet<>(new ComparatorByNameDesc());
         confirmedBookings = new ArrayList<>();
         allBookingsByInsertionOrder = new ArrayList<>();
         visitedLocations = new HashSet<>();
@@ -40,11 +54,11 @@ public class GuestClass extends UserClassAbs implements Guest {
     }
 
     public final void addPaidBooking(Booking booking) {
-        paidBookings.add(booking);
         unpaidBookings.remove(booking);
         confirmedBookings.remove(booking);
         visitedLocations.add(booking.getProperty().getLocation());
         totalPaidAmount += booking.getPaidAmount();
+        currentDate = booking.getDepartureDate();
     }
 
     public final void addConfirmedBooking(Booking booking) {
@@ -62,8 +76,8 @@ public class GuestClass extends UserClassAbs implements Guest {
 
     @Override
     public final Iterator<Booking> pay(Booking booking) {
-        ListIterator<Booking> it = unpaidBookings.listIterator();
-        List<Booking> temp = new LinkedList<>();
+        Iterator<Booking> it = unpaidBookings.iterator();
+        List<Booking> temp = new ArrayList<>(unpaidBookings.size());
         while (it.hasNext()) {
             Booking b = it.next();
             if (b.rejectedOrCanceled(booking))
@@ -73,8 +87,8 @@ public class GuestClass extends UserClassAbs implements Guest {
     }
 
     public final boolean isDateInvalid(LocalDate arrival, LocalDate departure) {
-        if (!paidBookings.isEmpty())
-            if (!arrival.isAfter(paidBookings.first().getDepartureDate())) //its only needed to check the first booking, because is the one with the recent departure date
+        if (currentDate != null)
+            if (!arrival.isAfter(currentDate))
                 return true;
 
         for (Booking b : confirmedBookings) {
@@ -86,7 +100,6 @@ public class GuestClass extends UserClassAbs implements Guest {
 
     @Override
     public boolean hasBooking(Booking booking) {
-        if (paidBookings.contains(booking)) return true;
-        return unpaidBookings.contains(booking);
+        return allBookingsByInsertionOrder.contains(booking);
     }
 }
