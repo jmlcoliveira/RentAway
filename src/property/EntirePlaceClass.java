@@ -3,7 +3,7 @@ package property;
 import booking.Booking;
 import users.Host;
 
-import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
@@ -33,7 +33,7 @@ public class EntirePlaceClass extends PropertyClass implements EntirePlace {
      */
     @Override
     public final void addBooking(Booking booking) {
-        long duration = Duration.between(booking.getArrivalDate().atStartOfDay(), booking.getDepartureDate().atStartOfDay()).toDays();
+        long duration = ChronoUnit.DAYS.between(booking.getArrivalDate(), booking.getDepartureDate());
         if (duration >= DAYS_TO_AUTO_CONFIRM_BOOKING && !bookingOverlaps(booking)) {
             booking.forceConfirm();
             booking.getGuest().addConfirmedBooking(booking);
