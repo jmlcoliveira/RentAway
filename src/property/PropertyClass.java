@@ -23,15 +23,25 @@ public abstract class PropertyClass implements Property {
     private final int guestsCapacity;
     private final double price;
     private double averageRating;
-    private final List<Booking> bookingList;
-    private final List<Review> reviewList;
-
     /**
-     * Bookings are sorted by inverse insertion order
+     * List which contains every booking that was made at the property
+     */
+    private final List<Booking> bookingList;
+    /**
+     * List wich contains every review that was made about the property
+     */
+    private final List<Review> reviewList;
+    /**
+     * Set which contains every paid booking, sorted by inverse insertion order
      */
     private final SortedSet<Booking> paidBookings;
-
+    /**
+     * List which contains every confirmed booking made at the property
+     */
     private final List<Booking> confirmedBookings;
+    /**
+     * List which contains every unpaid booking made at the property
+     */
     private final List<Booking> unpaidBookings;
 
     private LocalDate currentDate;

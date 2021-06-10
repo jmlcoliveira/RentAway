@@ -12,7 +12,6 @@ public class ReviewClass implements Review {
         this.rating = rating;
     }
 
-
     public int getRating() {
         return rating.getRating();
     }

@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.Iterator;
 
 /**
+ * Type of user that can rent properties
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public interface Guest extends User {

@@ -3,7 +3,8 @@ package property;
 import java.util.Comparator;
 
 /**
- * Comparator to sort the properties by increasing price. In case of a draw, properties are sorted by decreasing capacity
+ * Comparator to sort the properties by increasing price.
+ * In case of a draw, properties are sorted by decreasing capacity
  * and lastly by alphabetical order of the property identifier.
  *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052

@@ -2,6 +2,11 @@ package booking;
 
 import java.util.Iterator;
 
+/**
+ * Iterator that links two other iterators
+ *
+ * @author Guilherme Pocas 60236, Joao Oliveira 61052
+ */
 public class IteratorOfTwoIterators implements Iterator<Booking> {
 
     private final Iterator<Booking> it1;
