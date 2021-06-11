@@ -30,6 +30,9 @@ public class GuestClass extends UserClassAbs implements Guest {
      */
     private final Set<String> visitedLocations;
     private double totalPaidAmount;
+    /**
+     * Date of departure of the last paid booking
+     */
     private LocalDate currentDate;
 
     public GuestClass(String identifier, String name, String nationality, String email) {
@@ -39,6 +42,7 @@ public class GuestClass extends UserClassAbs implements Guest {
         allBookingsByInsertionOrder = new ArrayList<>();
         visitedLocations = new HashSet<>();
         totalPaidAmount = 0;
+        currentDate = null;
     }
 
     public final int getBookingsCount() {
