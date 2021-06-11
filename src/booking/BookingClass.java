@@ -10,8 +10,8 @@ import review.ReviewClass;
 import users.Guest;
 import users.Host;
 
+import java.time.Duration;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 /**
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
@@ -60,7 +60,7 @@ public class BookingClass implements Booking {
     }
 
     public final double getPaidAmount() {
-        return isPaid() ? property.getPrice() * ChronoUnit.DAYS.between(arrivalDate, departureDate) : 0;
+        return isPaid() ? property.getPrice() * Duration.between(arrivalDate.atStartOfDay(), departureDate.atStartOfDay()).toDays() : 0;
     }
 
     public final BookingState getState() {
