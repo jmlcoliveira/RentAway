@@ -16,17 +16,17 @@ public class GuestClass extends UserClassAbs implements Guest {
     private final List<Booking> unpaidBookings;
 
     /**
-     *
+     * List containing all bookings which are confirmed
      */
     private final List<Booking> confirmedBookings;
 
     /**
-     *
+     * List containing all bookings, by the order the guest made them
      */
     private final List<Booking> allBookingsByInsertionOrder;
 
     /**
-     *
+     * Set with every location the guest visited
      */
     private final Set<String> visitedLocations;
     private double totalPaidAmount;

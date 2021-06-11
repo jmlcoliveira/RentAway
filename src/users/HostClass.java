@@ -11,8 +11,17 @@ import java.util.*;
  */
 public class HostClass extends UserClassAbs implements Host {
 
+    /**
+     * List which contains every property owned by the host
+     */
     private final List<Property> properties;
+    /**
+     * List wich contains every booking made in a property owned by the host
+     */
     private final List<Booking> bookings;
+    /**
+     * List which contains every rejected booking made in a property owned bu the host
+     */
     private final SortedSet<Booking> rejectedBookings;
 
     public HostClass(String identifier, String name, String nationality, String email) {

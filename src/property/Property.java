@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.Iterator;
 
 /**
+ * Property interface with the methods shared by every property type
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public interface Property {
