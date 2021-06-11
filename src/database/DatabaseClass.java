@@ -72,6 +72,7 @@ public class DatabaseClass implements Database {
         properties = new HashMap<>();
         propertiesByLocation = new HashMap<>();
         propertiesByLocationByCapacity = new HashMap<>();
+        globeTrotter = null;
     }
 
     public Iterator<User> iteratorUsers() {

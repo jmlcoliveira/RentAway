@@ -28,7 +28,7 @@ public abstract class PropertyClass implements Property {
      */
     private final List<Booking> bookingList;
     /**
-     * List wich contains every review that was made about the property
+     * List which contains every review that was made about the property
      */
     private final List<Review> reviewList;
     /**
