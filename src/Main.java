@@ -139,7 +139,7 @@ public class Main {
         String location = in.next();
 
         if (db.hasProperty(location)) {
-            Iterator<Property> it = db.iteratorPropertiesByAverage(location);
+            Iterator<Property> it = db.iteratorPropertiesByLocation(location);
 
             System.out.printf(Success.PROPERTY_BEST_IN_LOCATION_LIST, location);
             while (it.hasNext()) {
@@ -166,7 +166,7 @@ public class Main {
         int numGuests = in.nextInt();
 
         if (db.hasProperty(location, numGuests)) {
-            Iterator<Property> it = db.iteratorPropertiesByCapacity(location, numGuests);
+            Iterator<Property> it = db.iteratorPropertiesByLocationByCapacity(location, numGuests);
             if (it.hasNext()) {
                 System.out.printf(Success.PROPERTY_IN_LOCATION_LIST, location);
 

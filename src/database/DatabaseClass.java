@@ -2,10 +2,8 @@ package database;
 
 import booking.Booking;
 import booking.BookingClass;
-import booking.BookingState;
 import booking.IteratorOfTwoIterators;
 import booking.exceptions.*;
-import commands.Command;
 import property.*;
 import property.exceptions.NumGuestsExceedsCapacityException;
 import property.exceptions.PropertyAlreadyExistException;
@@ -344,7 +342,7 @@ public class DatabaseClass implements Database {
         return p.hasStays();
     }
 
-    public Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity) {
+    public Iterator<Property> iteratorPropertiesByLocationByCapacity(String location, int capacity) {
         assert capacity <= MAX_NUM_GUESTS;
         assert propertiesByLocationByCapacity.containsKey(location);
 
@@ -357,11 +355,10 @@ public class DatabaseClass implements Database {
         return temp.iterator();
     }
 
-    public Iterator<Property> iteratorPropertiesByAverage(String location) {
+    public Iterator<Property> iteratorPropertiesByLocation(String location) {
         assert propertiesByLocation.containsKey(location);
-        List<Property> temp = new ArrayList<>(propertiesByLocation.get(location));
-        temp.sort(new ComparatorBest());
-        return temp.iterator();
+        propertiesByLocation.get(location).sort(new ComparatorBest());
+        return propertiesByLocation.get(location).iterator();
     }
 
     public boolean hasProperty(String location, int capacity) {

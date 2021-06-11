@@ -294,7 +294,7 @@ public interface Database {
      * @return Iterator of the properties that meet the requirements
      * @pre hasProperty(location, capacity)
      */
-    Iterator<Property> iteratorPropertiesByCapacity(String location, int capacity);
+    Iterator<Property> iteratorPropertiesByLocationByCapacity(String location, int capacity);
 
     /**
      * Returns the Iterator of the properties in a given location, ordered by rating
@@ -303,7 +303,7 @@ public interface Database {
      * @return Iterator of the properties that meet the requirements
      * @pre hasProperty(location)
      */
-    Iterator<Property> iteratorPropertiesByAverage(String location);
+    Iterator<Property> iteratorPropertiesByLocation(String location);
 
     /**
      * Checks if the database has a property in the given location, with a minimum amount of capacity
