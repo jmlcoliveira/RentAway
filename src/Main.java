@@ -212,7 +212,6 @@ public class Main {
         }
     }
 
-
     /**
      * Command 2.13
      * Presents information about the bookings of a given guest.
@@ -612,7 +611,7 @@ public class Main {
                 case UNKNOWN:
                     throw new UnknownUserTypeException();
             }
-            System.out.printf(Success.USER_ADDED, identifier, userType.toString().toLowerCase());
+            System.out.printf(Success.USER_ADDED, identifier, userType);
         } catch (UnknownUserTypeException | UserAlreadyExistException e) {
             System.out.println(e.getMessage());
         }
