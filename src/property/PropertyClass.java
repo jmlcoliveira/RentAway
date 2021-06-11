@@ -17,12 +17,36 @@ import java.util.*;
  */
 public abstract class PropertyClass implements Property {
 
+    /**
+     * Property ID
+     */
     private final String identifier;
+
+    /**
+     * Property Location
+     */
     private final String location;
+
+    /**
+     * Host of the property
+     */
     private final Host host;
+
+    /**
+     * Capacity of the property
+     */
     private final int guestsCapacity;
+
+    /**
+     * Price per night of the property
+     */
     private final double price;
+
+    /**
+     * Average Rating
+     */
     private double averageRating;
+
     /**
      * List which contains every booking that was made at the property
      */

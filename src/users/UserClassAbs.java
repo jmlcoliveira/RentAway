@@ -1,19 +1,35 @@
 package users;
 
-import java.util.Objects;
-
 /**
+ * User class with the methods shared by every user type
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
-public abstract class UserClassAbs implements User{
+public abstract class UserClassAbs implements User {
+
+    /**
+     * ID of the user
+     */
     private final String identifier;
+
+    /**
+     * Name of the user
+     */
     private final String name;
+
+    /**
+     * Nationality of the user
+     */
     private final String nationality;
+
+    /**
+     * Email of the user
+     */
     private final String email;
 
-    protected UserClassAbs(String identifier, String name, String nationality, String email){
+    protected UserClassAbs(String identifier, String name, String nationality, String email) {
         this.identifier = identifier;
-        this.name=name;
+        this.name = name;
         this.nationality = nationality;
         this.email = email;
     }
@@ -32,13 +48,5 @@ public abstract class UserClassAbs implements User{
 
     public final String getEmail() {
         return email;
-    }
-
-    @Override
-    public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserClassAbs that = (UserClassAbs) o;
-        return Objects.equals(identifier, that.identifier);
     }
 }

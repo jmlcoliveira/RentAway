@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
+ * Type of user that can rent properties
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class GuestClass extends UserClassAbs implements Guest {
@@ -29,7 +31,12 @@ public class GuestClass extends UserClassAbs implements Guest {
      * Set with every location the guest visited
      */
     private final Set<String> visitedLocations;
+
+    /**
+     * Total money spent by this guest
+     */
     private double totalPaidAmount;
+
     /**
      * Date of departure of the last paid booking
      */
@@ -78,7 +85,6 @@ public class GuestClass extends UserClassAbs implements Guest {
         return allBookingsByInsertionOrder.iterator();
     }
 
-    @Override
     public final Iterator<Booking> pay(Booking booking) {
         Iterator<Booking> it = unpaidBookings.iterator();
         List<Booking> temp = new ArrayList<>(unpaidBookings.size());
@@ -102,7 +108,6 @@ public class GuestClass extends UserClassAbs implements Guest {
         return false;
     }
 
-    @Override
     public boolean hasBooking(Booking booking) {
         return allBookingsByInsertionOrder.contains(booking);
     }

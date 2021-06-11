@@ -243,7 +243,7 @@ public class Main {
                             b.getArrivalDate().format(formatter),
                             b.getDepartureDate().format(formatter),
                             b.getNumberOfGuests(),
-                            b.getState().name().toLowerCase(),
+                            b.getState(),
                             b.getPaidAmount()
                     );
                 }
@@ -302,7 +302,7 @@ public class Main {
             while (it.hasNext()) {
                 Booking next = it.next();
                 System.out.printf(Success.BOOKING_WAS, next.getIdentifier(),
-                        next.getState().name().toLowerCase());
+                        next.getState());
             }
         } catch (BookingDoesNotExistException | InvalidUserTypeException | UserDoesNotExistException | UserNotAllowedToPayBookingException
                 | CannotExecuteActionInBookingException e) {
@@ -358,7 +358,7 @@ public class Main {
 
         try {
             Booking book = db.rejectBooking(bookingID, userID);
-            System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState().name().toLowerCase());
+            System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState());
         } catch (BookingDoesNotExistException | UserDoesNotExistException |
                 InvalidUserTypeException | InvalidUserTypeForBookingException | CannotExecuteActionInBookingException e) {
             System.out.println(e.getMessage());
@@ -381,7 +381,7 @@ public class Main {
             Iterator<Booking> it = db.confirmBooking(bookingID, userID);
             while (it.hasNext()) {
                 Booking b = it.next();
-                System.out.printf(Success.BOOKING_WAS, b.getIdentifier(), b.getState().name().toLowerCase());
+                System.out.printf(Success.BOOKING_WAS, b.getIdentifier(), b.getState());
             }
         } catch (CannotExecuteActionInBookingException | InvalidUserTypeException | UserDoesNotExistException |
                 BookingDoesNotExistException | InvalidUserTypeForBookingException e) {
@@ -409,7 +409,7 @@ public class Main {
 
         try {
             Booking book = db.addBooking(userID, propertyID, arrivalDate, departureDate, numGuests);
-            System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState().name().toLowerCase());
+            System.out.printf(Success.BOOKING_WAS, book.getIdentifier(), book.getState());
         } catch (UserDoesNotExistException | InvalidUserTypeException | PropertyDoesNotExistException |
                 NumGuestsExceedsCapacityException | InvalidBookingDatesException e) {
             System.out.println(e.getMessage());

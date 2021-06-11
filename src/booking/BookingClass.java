@@ -14,18 +14,60 @@ import java.time.Duration;
 import java.time.LocalDate;
 
 /**
+ * Booking made in a property by a guest
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class BookingClass implements Booking {
-    private static int BOOKING_COUNTER = 0;
+
+    /**
+     * Static variable containing the number of books created
+     */
+    private static int bookingCounter = 0;
+
+    /**
+     * Number of this booking
+     */
     private final int bookingNum;
+
+    /**
+     * Booking ID
+     */
     private final String identifier;
+
+    /**
+     * Guest of this booking
+     */
     private final Guest guest;
+
+    /**
+     * Property of this booking
+     */
     private final Property property;
+
+    /**
+     * Number of guests
+     */
     private final int numberOfGuests;
+
+    /**
+     * Arrival Date of the booking
+     */
     private final LocalDate arrivalDate;
+
+    /**
+     * Departure Date of the booking
+     */
     private final LocalDate departureDate;
+
+    /**
+     * Review of the booking
+     */
     private Review review;
+
+    /**
+     * Current state of the booking
+     */
     private BookingState state;
 
     public BookingClass(String bookingID, Guest guest, Property property, int numberOfGuests,
@@ -36,10 +78,10 @@ public class BookingClass implements Booking {
         this.numberOfGuests = numberOfGuests;
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
-        if (isTemp)
+        if (isTemp) // validate if is a temporary booking only used for comparisons
             bookingNum = -1;
         else
-            bookingNum = BOOKING_COUNTER++;
+            bookingNum = bookingCounter++;
         state = BookingState.REQUESTED;
     }
 
@@ -94,23 +136,23 @@ public class BookingClass implements Booking {
     }
 
     public final void confirm() throws CannotExecuteActionInBookingException {
-        if (!this.state.equals(BookingState.REQUESTED))
+        if (!state.equals(BookingState.REQUESTED))
             throw new CannotExecuteActionInBookingException(
                     Command.CONFIRM.toString(),
                     identifier,
                     state.name().toLowerCase());
-        this.state = BookingState.CONFIRMED;
+        state = BookingState.CONFIRMED;
     }
 
     public final void forceConfirm() {
-        this.state = BookingState.CONFIRMED;
+        state = BookingState.CONFIRMED;
     }
 
     public final void pay() throws CannotExecuteActionInBookingException {
-        if (!this.state.equals(BookingState.CONFIRMED))
+        if (!state.equals(BookingState.CONFIRMED))
             throw new CannotExecuteActionInBookingException(Command.PAY.toString(), identifier,
                     state.name().toLowerCase());
-        this.state = BookingState.PAID;
+        state = BookingState.PAID;
         guest.addPaidBooking(this);
     }
 
@@ -122,18 +164,18 @@ public class BookingClass implements Booking {
     }
 
     public final boolean dateOverlaps(LocalDate arrival, LocalDate departure) {
-        return !arrival.isAfter(this.departureDate) && !departure.isBefore(this.arrivalDate);
+        return !arrival.isAfter(departureDate) && !departure.isBefore(arrivalDate);
     }
 
     public final boolean rejectedOrCanceled(Booking b) {
-        if (this.departureDate.isBefore(b.getArrivalDate())) {
-            if (this.state.equals(BookingState.REQUESTED)) {
-                this.state = BookingState.REJECTED;
+        if (departureDate.isBefore(b.getArrivalDate())) {
+            if (state.equals(BookingState.REQUESTED)) {
+                state = BookingState.REJECTED;
                 property.getHost().addRejectedBooking(this);
                 return true;
             }
-            if (this.state.equals(BookingState.CONFIRMED)) {
-                this.state = BookingState.CANCELLED;
+            if (state.equals(BookingState.CONFIRMED)) {
+                state = BookingState.CANCELLED;
                 return true;
             }
         }

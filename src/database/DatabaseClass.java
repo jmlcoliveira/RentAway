@@ -25,8 +25,19 @@ import java.util.*;
  */
 public class DatabaseClass implements Database {
 
+    /**
+     * Maximum number of guests per property
+     */
     private final int MAX_NUM_GUESTS = 15;
+
+    /**
+     * Format of a booking ID
+     */
     private final String BOOKING_ID_FORMAT = "%s-%d";
+
+    /**
+     * Separator of a booking ID
+     */
     private final String SEPARATOR = "-";
 
     /**

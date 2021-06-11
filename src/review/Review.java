@@ -1,7 +1,7 @@
 package review;
 
 /**
- * A review a guest makes on a property with a comment and a rating
+ * A review a guest makes of a property with a comment and a rating
  *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */

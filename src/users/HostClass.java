@@ -7,6 +7,8 @@ import property.Property;
 import java.util.*;
 
 /**
+ * Type of user that owns properties and rents them to guests
+ *
  * @author Guilherme Pocas 60236, Joao Oliveira 61052
  */
 public class HostClass extends UserClassAbs implements Host {
