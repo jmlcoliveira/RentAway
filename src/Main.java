@@ -146,7 +146,7 @@ public class Main {
                 Property next = it.next();
                 System.out.printf(Success.PROPERTY_BEST_IN_LOCATION_LISTED, next.getIdentifier(),
                         next.getAverageRating(), next.getGuestsCapacity(), next.getPrice(),
-                        next.getType().getTypeValue());
+                        next.getType());
             }
         } else
             System.out.printf(Empty.PROPERTY_NOT_FOUND, location);
@@ -174,7 +174,7 @@ public class Main {
                     Property next = it.next();
                     System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
                             next.getAverageRating(), next.getPrice(), next.getGuestsCapacity(),
-                            next.getType().getTypeValue());
+                            next.getType());
                 }
             } else
                 System.out.printf(Empty.PROPERTY_NOT_FOUND, location);
@@ -238,7 +238,7 @@ public class Main {
                     System.out.printf(Success.GUEST_BOOKINGS_LISTED,
                             b.getIdentifier(),
                             p.getIdentifier(),
-                            p.getType().getTypeValue(),
+                            p.getType(),
                             p.getLocation(),
                             b.getArrivalDate().format(formatter),
                             b.getDepartureDate().format(formatter),
@@ -439,7 +439,7 @@ public class Main {
                             next.getLocation(),
                             next.getGuestsCapacity(),
                             next.getPrice(),
-                            next.getType().getTypeValue(),
+                            next.getType(),
                             next.getBookingCount(),
                             next.getReviewCount()
                     );
@@ -628,7 +628,7 @@ public class Main {
         in.nextLine();
         for (Command c : Command.values()) {
             if (c != Command.UNKNOWN)
-                System.out.printf(Success.HELP_IND, c.name().toLowerCase(), c.getDescription());
+                System.out.printf(Success.HELP_IND, c, c.getDescription());
         }
     }
 
@@ -681,10 +681,11 @@ public class Main {
      * @return PropertyType which corresponds to the property given by the user
      */
     private static PropertyType getPropertyType(Scanner in) {
-        String propertyType = in.nextLine().trim();
-        for (PropertyType p : PropertyType.values())
-            if (p.getTypeValue().equalsIgnoreCase(propertyType))
-                return p;
-        return PropertyType.UNKNOWN;
+        try {
+            String propertyType = in.nextLine().trim().replace(" ", "_").toUpperCase();
+            return PropertyType.valueOf(propertyType);
+        } catch (IllegalArgumentException e) {
+            return PropertyType.UNKNOWN;
+        }
     }
 }

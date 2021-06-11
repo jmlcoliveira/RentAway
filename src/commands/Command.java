@@ -1,5 +1,7 @@
 package commands;
 
+import java.util.Locale;
+
 /**
  * Enum with all available commands and their description
  *
@@ -35,5 +37,8 @@ public enum Command {
         return description;
     }
 
-
+    @Override
+    public String toString() {
+        return this.name().toLowerCase(Locale.ROOT);
+    }
 }

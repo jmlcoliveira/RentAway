@@ -1,5 +1,7 @@
 package booking;
 
+import java.util.Locale;
+
 /**
  * Enum with the possible booking states
  *
@@ -11,5 +13,10 @@ public enum BookingState {
     REJECTED,
     PAID,
     REVIEWED,
-    CANCELLED
+    CANCELLED;
+
+    @Override
+    public String toString() {
+        return this.name().toLowerCase(Locale.ROOT);
+    }
 }

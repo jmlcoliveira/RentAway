@@ -1,5 +1,7 @@
 package users;
 
+import java.util.Locale;
+
 /**
  * Enum with every type of user
  *
@@ -8,5 +10,10 @@ package users;
 public enum UserType {
     GUEST,
     HOST,
-    UNKNOWN
+    UNKNOWN;
+
+    @Override
+    public String toString() {
+        return this.name().toLowerCase(Locale.ROOT);
+    }
 }

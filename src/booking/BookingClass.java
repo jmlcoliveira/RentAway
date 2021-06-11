@@ -85,7 +85,7 @@ public class BookingClass implements Booking {
 
     public final void review(String comment, String classification) throws BookingAlreadyReviewedException, CannotExecuteActionInBookingException {
         if (!isPaid())
-            throw new CannotExecuteActionInBookingException(Command.REVIEW.name().toLowerCase(), identifier, state.name().toLowerCase());
+            throw new CannotExecuteActionInBookingException(Command.REVIEW.toString(), identifier, state.name().toLowerCase());
         if (state == BookingState.REVIEWED) throw new BookingAlreadyReviewedException(identifier);
 
         review = new ReviewClass(comment, Rating.valueOf(classification.toUpperCase()));
@@ -96,7 +96,7 @@ public class BookingClass implements Booking {
     public final void confirm() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.REQUESTED))
             throw new CannotExecuteActionInBookingException(
-                    Command.CONFIRM.name().toLowerCase(),
+                    Command.CONFIRM.toString(),
                     identifier,
                     state.name().toLowerCase());
         this.state = BookingState.CONFIRMED;
@@ -108,7 +108,7 @@ public class BookingClass implements Booking {
 
     public final void pay() throws CannotExecuteActionInBookingException {
         if (!this.state.equals(BookingState.CONFIRMED))
-            throw new CannotExecuteActionInBookingException(Command.PAY.name().toLowerCase(), identifier,
+            throw new CannotExecuteActionInBookingException(Command.PAY.toString(), identifier,
                     state.name().toLowerCase());
         this.state = BookingState.PAID;
         guest.addPaidBooking(this);
@@ -116,7 +116,7 @@ public class BookingClass implements Booking {
 
     public final void reject() throws CannotExecuteActionInBookingException {
         if (state != BookingState.REQUESTED)
-            throw new CannotExecuteActionInBookingException(Command.REJECT.name().toLowerCase(), identifier, state.name().toLowerCase());
+            throw new CannotExecuteActionInBookingException(Command.REJECT.toString(), identifier, state.name().toLowerCase());
         state = BookingState.REJECTED;
         property.getHost().addRejectedBooking(this);
     }
