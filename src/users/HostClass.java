@@ -16,7 +16,7 @@ public class HostClass extends UserClassAbs implements Host {
      */
     private final List<Property> properties;
     /**
-     * List wich contains every booking made in a property owned by the host
+     * List which contains every booking made in a property owned by the host
      */
     private final List<Booking> bookings;
     /**
