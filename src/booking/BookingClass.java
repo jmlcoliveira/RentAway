@@ -141,7 +141,7 @@ public class BookingClass implements Booking {
             throw new CannotExecuteActionInBookingException(Command.REVIEW.toString(), identifier, state.name().toLowerCase());
         if (state == BookingState.REVIEWED) throw new BookingAlreadyReviewedException(identifier);
 
-        review = new ReviewClass(comment, Rating.valueOf(classification.toUpperCase()));
+        review = new ReviewClass(comment, Rating.valueOf(classification.toUpperCase()), this);
         property.addReview(review);
         state = BookingState.REVIEWED;
     }
