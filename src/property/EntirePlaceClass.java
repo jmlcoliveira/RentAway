@@ -63,7 +63,7 @@ public class EntirePlaceClass extends PropertyClass implements EntirePlace {
     public final void addBooking(Booking booking) {
         long duration = Duration.between(booking.getArrivalDate().atStartOfDay(), booking.getDepartureDate().atStartOfDay()).toDays();
         if (duration >= DAYS_TO_AUTO_CONFIRM_BOOKING && !bookingOverlaps(booking)) {
-            booking.forceConfirm();
+            booking.confirm();
             booking.getGuest().addConfirmedBooking(booking);
             addConfirmedBooking(booking);
         }

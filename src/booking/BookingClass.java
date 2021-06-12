@@ -148,14 +148,8 @@ public class BookingClass implements Booking {
 
     public final void confirm() throws CannotExecuteActionInBookingException {
         if (!state.equals(BookingState.REQUESTED))
-            throw new CannotExecuteActionInBookingException(
-                    Command.CONFIRM.toString(),
-                    identifier,
-                    state.name().toLowerCase());
-        state = BookingState.CONFIRMED;
-    }
+            throw new CannotExecuteActionInBookingException(Command.CONFIRM.toString(), identifier, state.name().toLowerCase());
 
-    public final void forceConfirm() {
         state = BookingState.CONFIRMED;
     }
 

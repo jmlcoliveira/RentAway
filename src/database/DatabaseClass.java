@@ -143,15 +143,23 @@ public class DatabaseClass implements Database {
     private void addProperty(Property p, Host host, String location, int capacity) {
         properties.put(p.getIdentifier(), p);
         host.addProperty(p);
-        if (!propertiesByLocation.containsKey(location)) {
-            propertiesByLocation.put(location, new ArrayList<>());
-            propertiesByLocationByCapacity.put(location, new HashMap<>(MAX_NUM_GUESTS + 1));
-        }
+        if (!propertiesByLocation.containsKey(location))
+            initializeMapAtLocation(location);
         if (!propertiesByLocationByCapacity.get(location).containsKey(capacity))
             propertiesByLocationByCapacity.get(location).put(capacity, new ArrayList<>());
 
         propertiesByLocation.get(location).add(p);
         propertiesByLocationByCapacity.get(location).get(capacity).add(p);
+    }
+
+    /**
+     * Initializes properties maps with the key "location"
+     *
+     * @param location Location of a property
+     */
+    private void initializeMapAtLocation(String location) {
+        propertiesByLocation.put(location, new ArrayList<>());
+        propertiesByLocationByCapacity.put(location, new HashMap<>(MAX_NUM_GUESTS + 1));
     }
 
     /**
@@ -203,7 +211,6 @@ public class DatabaseClass implements Database {
     private Booking validateHostAndBooking(String bookingID, String userID) throws UserDoesNotExistException, InvalidUserTypeException, BookingDoesNotExistException, InvalidUserTypeForBookingException {
         User user = getUser(userID);
         if (user == null) throw new UserDoesNotExistException(userID);
-
         if (!(user instanceof Host))
             throw new InvalidUserTypeException(userID, UserType.HOST.toString());
 
@@ -316,8 +323,10 @@ public class DatabaseClass implements Database {
         if (user == null) throw new UserDoesNotExistException(userID);
         if (!(user instanceof Guest))
             throw new InvalidUserTypeException(userID, UserType.GUEST.toString());
+
         Booking booking = getBooking(bookingID);
         if (booking == null) throw new BookingDoesNotExistException(bookingID);
+
         Guest guest = (Guest) user;
         if (!guest.hasBooking(booking))
             throw new InvalidUserTypeForBookingException(userID, UserType.GUEST.toString(), bookingID);
@@ -439,10 +448,10 @@ public class DatabaseClass implements Database {
     }
 
     /**
-     * Returns a String with the ID of a property in the format: property-ID
+     * Returns a String with the ID of a property in the format: propertyID
      *
-     * @param bookingID ID of a booking in the format: property-ID-bookingID
-     * @return a String with the ID of a property in the format: property-ID
+     * @param bookingID ID of a booking in the format: propertyID-bookingID
+     * @return a String with the ID of a property in the format: propertyID
      */
     private String getPropertyIDFromBookingID(String bookingID) {
         int i = bookingID.lastIndexOf(SEPARATOR);

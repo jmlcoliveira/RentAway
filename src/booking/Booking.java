@@ -102,11 +102,6 @@ public interface Booking {
     void confirm() throws CannotExecuteActionInBookingException;
 
     /**
-     * Always confirms the booking
-     */
-    void forceConfirm();
-
-    /**
      * Pays for the booking
      *
      * @throws CannotExecuteActionInBookingException if the booking isn't in state confirmed

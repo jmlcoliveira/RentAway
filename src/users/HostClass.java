@@ -22,7 +22,7 @@ public class HostClass extends UserClassAbs implements Host {
      */
     private final List<Booking> bookings;
     /**
-     * List which contains every rejected booking made in a property owned bu the host
+     * Set which contains every rejected booking made in a property owned by the host sorted by insertion order
      */
     private final SortedSet<Booking> rejectedBookings;
 
