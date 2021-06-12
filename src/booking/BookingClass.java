@@ -155,8 +155,8 @@ public class BookingClass implements Booking {
 
     public final void pay() throws CannotExecuteActionInBookingException {
         if (!state.equals(BookingState.CONFIRMED))
-            throw new CannotExecuteActionInBookingException(Command.PAY.toString(), identifier,
-                    state.name().toLowerCase());
+            throw new CannotExecuteActionInBookingException(Command.PAY.toString(), identifier, state.name().toLowerCase());
+
         state = BookingState.PAID;
         guest.addPaidBooking(this);
     }
