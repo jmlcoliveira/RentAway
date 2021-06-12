@@ -9,7 +9,6 @@ import property.exceptions.PropertyDoesNotExistException;
 import users.Guest;
 import users.User;
 import users.exceptions.InvalidUserTypeException;
-import users.exceptions.NoGlobeTrotterException;
 import users.exceptions.UserAlreadyExistException;
 import users.exceptions.UserDoesNotExistException;
 
@@ -326,8 +325,8 @@ public interface Database {
      * Returns the guest with more locations visited
      *
      * @return the guest with more paid bookings
-     * @throws NoGlobeTrotterException if there is no GlobeTrotter
      */
-    Guest getGlobeTrotter()
-            throws NoGlobeTrotterException;
+    Guest getGlobeTrotter();
+
+    boolean hasGlobeTrotter();
 }

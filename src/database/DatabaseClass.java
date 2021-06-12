@@ -10,7 +10,6 @@ import property.exceptions.PropertyAlreadyExistException;
 import property.exceptions.PropertyDoesNotExistException;
 import users.*;
 import users.exceptions.InvalidUserTypeException;
-import users.exceptions.NoGlobeTrotterException;
 import users.exceptions.UserAlreadyExistException;
 import users.exceptions.UserDoesNotExistException;
 
@@ -355,7 +354,6 @@ public class DatabaseClass implements Database {
     }
 
     public Iterator<Property> iteratorPropertiesByLocationByCapacity(String location, int capacity) {
-        assert capacity <= MAX_NUM_GUESTS;
         assert propertiesByLocationByCapacity.containsKey(location);
 
         List<Property> temp = new ArrayList<>();
@@ -383,9 +381,12 @@ public class DatabaseClass implements Database {
         return hasProperty(location, 0);
     }
 
-    public Guest getGlobeTrotter() throws NoGlobeTrotterException {
-        if (globeTrotter == null) throw new NoGlobeTrotterException();
+    public Guest getGlobeTrotter() {
         return globeTrotter;
+    }
+
+    public boolean hasGlobeTrotter() {
+        return globeTrotter != null;
     }
 
     /**

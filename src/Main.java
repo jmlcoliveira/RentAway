@@ -15,7 +15,10 @@ import users.Guest;
 import users.Host;
 import users.User;
 import users.UserType;
-import users.exceptions.*;
+import users.exceptions.InvalidUserTypeException;
+import users.exceptions.UnknownUserTypeException;
+import users.exceptions.UserAlreadyExistException;
+import users.exceptions.UserDoesNotExistException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -119,12 +122,12 @@ public class Main {
      */
     private static void processGlobeTrotter(Scanner in, Database db) {
         in.nextLine();
-        try {
+
+        if (db.hasGlobeTrotter()) {
             Guest guest = db.getGlobeTrotter();
             System.out.printf(Success.GLOBE_TROTTER_INFO, guest.getIdentifier(), guest.getVisitedLocations());
-        } catch (NoGlobeTrotterException e) {
-            System.out.println(e.getMessage());
-        }
+        } else
+            System.out.println(Empty.NO_GLOBE_TROTTER);
     }
 
     /**

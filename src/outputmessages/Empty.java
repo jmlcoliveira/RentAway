@@ -18,4 +18,6 @@ public abstract class Empty {
     public static final String PROPERTY_NOT_FOUND = "No property was found in %s.\n";
 
     public static final String PROPERTY_HAS_NO_STAYS = "Property %s does not have any stays.\n";
+
+    public static final String NO_GLOBE_TROTTER = "No globe trotter.";
 }
