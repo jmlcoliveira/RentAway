@@ -27,6 +27,14 @@ public abstract class UserClassAbs implements User {
      */
     private final String email;
 
+    /**
+     * Constructor method
+     *
+     * @param identifier  ID of the guest
+     * @param name        Name of the guest
+     * @param nationality Nationality of the guest
+     * @param email       Email of the guest
+     */
     protected UserClassAbs(String identifier, String name, String nationality, String email) {
         this.identifier = identifier;
         this.name = name;

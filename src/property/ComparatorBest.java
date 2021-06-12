@@ -17,11 +17,11 @@ public class ComparatorBest implements Comparator<Property> {
         }
         if (o1.getAverageRating() <= o2.getAverageRating()) {
             if (o1.getAverageRating() == o2.getAverageRating()) {
-                if (o1.getGuestsCapacity() > o2.getGuestsCapacity()) {
+                if (o1.getCapacity() > o2.getCapacity()) {
                     return -1;
                 }
-                if (o1.getGuestsCapacity() <= o2.getGuestsCapacity()) {
-                    if (o1.getGuestsCapacity() == o2.getGuestsCapacity()) {
+                if (o1.getCapacity() <= o2.getCapacity()) {
+                    if (o1.getCapacity() == o2.getCapacity()) {
                         return o1.getIdentifier().compareTo(o2.getIdentifier());
                     }
                     return 1;

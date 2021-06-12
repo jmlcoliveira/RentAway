@@ -9,7 +9,14 @@ import java.util.Iterator;
  */
 public class IteratorOfTwoIterators implements Iterator<Booking> {
 
+    /**
+     * First iterator
+     */
     private final Iterator<Booking> it1;
+
+    /**
+     * Second iterator
+     */
     private final Iterator<Booking> it2;
 
     public IteratorOfTwoIterators(Iterator<Booking> it1, Iterator<Booking> it2) {

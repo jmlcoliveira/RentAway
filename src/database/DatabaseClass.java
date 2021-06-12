@@ -227,7 +227,7 @@ public class DatabaseClass implements Database {
         Property property = getProperty(propertyID);
 
         if (property == null) throw new PropertyDoesNotExistException(propertyID);
-        int guestsCapacity = property.getGuestsCapacity();
+        int guestsCapacity = property.getCapacity();
         if (guestsCapacity < numGuests)
             throw new NumGuestsExceedsCapacityException(propertyID, guestsCapacity);
 

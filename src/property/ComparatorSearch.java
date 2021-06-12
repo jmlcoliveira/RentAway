@@ -17,11 +17,11 @@ public class ComparatorSearch implements Comparator<Property> {
         }
         if (o1.getPrice() >= o2.getPrice()) {
             if (o1.getPrice() == o2.getPrice()) {
-                if (o1.getGuestsCapacity() > o2.getGuestsCapacity()) {
+                if (o1.getCapacity() > o2.getCapacity()) {
                     return -1;
                 }
-                if (o1.getGuestsCapacity() <= o2.getGuestsCapacity()) {
-                    if (o1.getGuestsCapacity() == o2.getGuestsCapacity()) {
+                if (o1.getCapacity() <= o2.getCapacity()) {
+                    if (o1.getCapacity() == o2.getCapacity()) {
                         return o1.getIdentifier().compareTo(o2.getIdentifier());
                     }
                     return 1;

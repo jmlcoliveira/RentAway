@@ -34,7 +34,7 @@ public interface Property {
      *
      * @return capacity of the property
      */
-    int getGuestsCapacity();
+    int getCapacity();
 
     /**
      * Gets the price of the property

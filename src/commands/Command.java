@@ -27,16 +27,29 @@ public enum Command {
     EXIT("terminates the execution of the program"),
     UNKNOWN("Unknown command. Type help to see available commands.");
 
+    /**
+     * Description of the command
+     */
     private final String description;
 
     Command(String description) {
         this.description = description;
     }
 
+    /**
+     * Returns the description of the command
+     *
+     * @return the description of the command
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Returns the enum value in lower case
+     *
+     * @return the enum value in lower case
+     */
     @Override
     public String toString() {
         return this.name().toLowerCase(Locale.ROOT);

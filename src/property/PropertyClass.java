@@ -35,7 +35,7 @@ public abstract class PropertyClass implements Property {
     /**
      * Capacity of the property
      */
-    private final int guestsCapacity;
+    private final int capacity;
 
     /**
      * Price per night of the property
@@ -70,7 +70,16 @@ public abstract class PropertyClass implements Property {
 
     private LocalDate currentDate;
 
-    protected PropertyClass(String identifier, String location, Host host, int guestsCapacity, double price) {
+    /**
+     * Constructor method
+     *
+     * @param identifier ID of the property
+     * @param host       Host of the property
+     * @param location   Location of the property
+     * @param capacity   Capacity of the property
+     * @param price      Price of the property
+     */
+    protected PropertyClass(String identifier, String location, Host host, int capacity, double price) {
         bookingList = new ArrayList<>();
         reviewList = new ArrayList<>();
         paidBookings = new TreeSet<>(new ComparatorByInsertion(true));
@@ -79,13 +88,13 @@ public abstract class PropertyClass implements Property {
         this.identifier = identifier;
         this.location = location;
         this.host = host;
-        this.guestsCapacity = guestsCapacity;
+        this.capacity = capacity;
         this.price = price;
         averageRating = 0;
     }
 
-    public final int getGuestsCapacity() {
-        return guestsCapacity;
+    public final int getCapacity() {
+        return capacity;
     }
 
     public final String getIdentifier() {

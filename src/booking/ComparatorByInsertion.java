@@ -9,6 +9,9 @@ import java.util.Comparator;
  */
 public class ComparatorByInsertion implements Comparator<Booking> {
 
+    /**
+     * Indicates if booking should be order by inverse insertion order
+     */
     private final boolean inverseInsertionOrder;
 
     public ComparatorByInsertion(boolean inverseInsertionOrder) {

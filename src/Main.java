@@ -148,7 +148,7 @@ public class Main {
             while (it.hasNext()) {
                 Property next = it.next();
                 System.out.printf(Success.PROPERTY_BEST_IN_LOCATION_LISTED, next.getIdentifier(),
-                        next.getAverageRating(), next.getGuestsCapacity(), next.getPrice(),
+                        next.getAverageRating(), next.getCapacity(), next.getPrice(),
                         next.getType());
             }
         } else
@@ -176,7 +176,7 @@ public class Main {
                 while (it.hasNext()) {
                     Property next = it.next();
                     System.out.printf(Success.PROPERTY_IN_LOCATION_LISTED, next.getIdentifier(),
-                            next.getAverageRating(), next.getPrice(), next.getGuestsCapacity(),
+                            next.getAverageRating(), next.getPrice(), next.getCapacity(),
                             next.getType());
                 }
             } else
@@ -439,7 +439,7 @@ public class Main {
                     System.out.printf(Success.PROPERTY_HOST_LISTED,
                             next.getIdentifier(),
                             next.getLocation(),
-                            next.getGuestsCapacity(),
+                            next.getCapacity(),
                             next.getPrice(),
                             next.getType(),
                             next.getBookingCount(),

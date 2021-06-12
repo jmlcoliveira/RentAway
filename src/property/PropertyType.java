@@ -10,6 +10,11 @@ import java.util.Locale;
 public enum PropertyType {
     ENTIRE_PLACE, PRIVATE_ROOM, UNKNOWN;
 
+    /**
+     * Returns the enum value in lower case, in a user friendly format with the underscore replaced with empty space
+     *
+     * @return the enum value in lower case, in a user friendly format with the underscore replaced with empty space
+     */
     @Override
     public String toString() {
         return this.name().replace("_", " ").toLowerCase(Locale.ROOT);

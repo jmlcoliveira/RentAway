@@ -70,6 +70,17 @@ public class BookingClass implements Booking {
      */
     private BookingState state;
 
+    /**
+     * Constructor method
+     *
+     * @param bookingID      ID of the booking
+     * @param guest          Guest of the booking
+     * @param property       Property of the booking
+     * @param numberOfGuests Number of
+     * @param arrivalDate    Arrival date of the booking
+     * @param departureDate  Departure date of the booking
+     * @param isTemp         Indicates if is a temporary booking (to be used only in the equals method)
+     */
     public BookingClass(String bookingID, Guest guest, Property property, int numberOfGuests,
                         LocalDate arrivalDate, LocalDate departureDate, boolean isTemp) {
         this.identifier = bookingID;
@@ -78,7 +89,7 @@ public class BookingClass implements Booking {
         this.numberOfGuests = numberOfGuests;
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
-        if (isTemp) // validate if is a temporary booking only used for comparisons
+        if (isTemp)
             bookingNum = -1;
         else
             bookingNum = bookingCounter++;

@@ -12,6 +12,11 @@ public enum UserType {
     HOST,
     UNKNOWN;
 
+    /**
+     * Returns the enum value in lower case
+     *
+     * @return the enum value in lower case
+     */
     @Override
     public String toString() {
         return this.name().toLowerCase(Locale.ROOT);

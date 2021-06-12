@@ -17,6 +17,12 @@ public class ReviewClass implements Review {
      */
     private final Rating rating;
 
+    /**
+     * Constructor method
+     *
+     * @param comment Comment given
+     * @param rating  Rating given
+     */
     public ReviewClass(String comment, Rating rating) {
         this.comment = comment;
         this.rating = rating;

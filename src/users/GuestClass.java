@@ -42,6 +42,14 @@ public class GuestClass extends UserClassAbs implements Guest {
      */
     private LocalDate currentDate;
 
+    /**
+     * Constructor method
+     *
+     * @param identifier  ID of the guest
+     * @param name        Name of the guest
+     * @param nationality Nationality of the guest
+     * @param email       Email of the guest
+     */
     public GuestClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
         unpaidBookings = new LinkedList<>();

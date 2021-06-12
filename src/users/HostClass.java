@@ -26,6 +26,14 @@ public class HostClass extends UserClassAbs implements Host {
      */
     private final SortedSet<Booking> rejectedBookings;
 
+    /**
+     * Constructor method
+     *
+     * @param identifier  ID of the host
+     * @param name        Name of the host
+     * @param nationality Nationality of the host
+     * @param email       Email of the host
+     */
     public HostClass(String identifier, String name, String nationality, String email) {
         super(identifier, name, nationality, email);
         properties = new ArrayList<>();

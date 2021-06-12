@@ -12,12 +12,20 @@ public enum Rating {
     GOOD(4),
     EXCELLENT(5);
 
+    /**
+     * Value of each rating
+     */
     private final int rating;
 
-    Rating(int rating){
+    Rating(int rating) {
         this.rating = rating;
     }
 
+    /**
+     * Returns the value of each rating
+     *
+     * @return the value of each rating
+     */
     public int getRating() {
         return rating;
     }
